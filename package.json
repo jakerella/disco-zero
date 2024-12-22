@@ -1,0 +1,32 @@
+{
+    "name": "disco-zero",
+    "version": "1.0.0",
+    "private": "true",
+    "description": "A game",
+    "engines": {
+        "node": "22.x"
+    },
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node .",
+        "watch": "./node_modules/nodemon/bin/nodemon.js -e js,pug,json ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jakerella/disco-zero.git"
+    },
+    "author": "Jordan Kasper",
+    "license": "MIT",
+    "dependencies": {
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "pg": "^8.13.1",
+        "pug": "^3.0.3",
+        "sequelize": "^6.37.5",
+        "uuid": "^11.0.3",
+        "winston": "^3.17.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.9"
+    }
+}
