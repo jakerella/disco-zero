@@ -21,7 +21,8 @@ app.set('view engine', 'pug')
 app.use(express.urlencoded({ extended: false }))
 
 app.use((req, res, next) => {
-    req.user = { name: 'Jordan' }
+    // TODO: replace with actual user pulled form DB
+    req.user = { handle: 'Jordan' }
     next()
 })
 

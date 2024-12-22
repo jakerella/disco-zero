@@ -11,12 +11,17 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/cmd', async (req, res) => {
-    let out = 'command not found'
-    let cmd = req.query.c.split(' ')
-    if (commands[cmd[0]]) {
-        out = commands[cmd[0]](...cmd.slice(1))
-        if (Array.isArray(out)) {
-            out = out.join('<br>')
+    let out = 'Sorry, I don\'t understand.'
+    let tokens = req.query.c.trim().toLowerCase().replaceAll(/[^a-z0-9\s]/g, '').split(' ')
+
+    let cmd = []
+    for (let i=0; i<tokens.length; ++i) {
+        cmd.push(tokens[i])
+        if (commands[cmd.join(' ')]) {
+            out = commands[cmd.join(' ')](req.user || null, ...tokens.slice(i+1))
+            if (Array.isArray(out)) {
+                out = out.join('<br>')
+            }
         }
     }
     res.end(out)
