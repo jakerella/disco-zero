@@ -20,9 +20,12 @@ app.use(express.static('static'))
 app.set('view engine', 'pug')
 app.use(express.urlencoded({ extended: false }))
 
+// REMOVE once we have DB lookup
+const user = { handle: 'Jordan', energy: 100, location: 'yours truly hotel', items: [] }
+
 app.use((req, res, next) => {
     // TODO: replace with actual user pulled form DB
-    req.user = { handle: 'Jordan' }
+    req.user = user
     next()
 })
 

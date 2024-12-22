@@ -1,3 +1,38 @@
 {
-    
+    "yours truly hotel": {
+        "arrival": "You arrive at the Yours Truly hotel, site of the first ever DistrictCon!",
+        "items": {
+            "badge": "your attendee badge"
+        },
+        "people": {}
+    },
+    "white house": {
+        "arrival": "You arrive at the north side of the gates of the White House, near Lafayette park.",
+        "items": {
+            "pamphlet": "a pamphlet about the dangers of poor cybersecurity"
+        },
+        "people": {
+            "secret service agent": {
+                "greeting": "hello",
+                "responses": { "let me in": "no" },
+                "items": []
+            },
+            "tourist": {
+                "greeting": "hi!",
+                "responses": { "take my picture": "sure" },
+                "items": [{ "picture": "a pic of you near the white house" }]
+            }
+        }
+    },
+    "metro station": {
+        "arrival": "You are at a metro station, lucky for you, it's a free-ride weekend!",
+        "items": {},
+        "people": {
+            "station manager": {
+                "greeting": "hello",
+                "responses": { "suspicious activity": "someone was inserting something electronic into the fare machine" },
+                "items": []
+            }
+        }
+    }
 }
