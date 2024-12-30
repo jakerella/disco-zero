@@ -8,15 +8,14 @@ const levels = {
     error: 0,
     warn: 1,
     info: 2,
-    log: 3,
-    debug: 4
+    debug: 3
 }
 
 let logger = null
 
-module.exports = function getLogger() {
+module.exports = function getLogger(level) {
     if (!logger) {
-        logger = createAppLogger(DEFAULT_LEVEL)
+        logger = createAppLogger(level || DEFAULT_LEVEL)
     }
     return logger
 }

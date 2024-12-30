@@ -1,30 +1,57 @@
 {
-    "yours truly hotel": {
-        "arrival": "You arrive at the Yours Truly hotel, site of the first ever DistrictCon!",
-        "items": {
-            "badge": "your attendee badge"
-        },
-        "people": {}
+    "0193feed-2940-71ba-9fc5-64122b4b79ff": {
+        "id": "0193feed-2940-71ba-9fc5-64122b4b79ff",
+        "name": "yours truly hotel lobby",
+        "arrival": "You arrive at the Yours Truly hotel, site of the first ever District Con!",
+        "description": "You look around the lobby. The decor is pretty cool, and there's a district Con sign and registration table to your right. A *volunteer* stands behind it. To your left is the *cafe* and in front of you is the elevator to the *conference center*. Behind you is the door out onto New Hamphrire Ave NW and all of Washington, DC!",
+        "people": [
+            {
+                "name": "Jenny",
+                "type": "volunteer",
+                "greeting": "Welcome to District Con! Are you here to register?",
+                "interactions": [
+                    {
+                        "triggers": ["yes", "yep", "yeah", "yea", "indeed", "i am", "affirmative"],
+                        "checks": [{ "condition": "missing", "type": "item", "id": "badge" }],
+                        "met": {
+                            "response": "Great! You're all set. Here's your badge!",
+                            "item": "019408f7-772f-70ee-9a69-2d8289644a12"
+                        },
+                        "notmet": {
+                            "response": "Oh, it looks like you already have your badge. Enjoy the con!"
+                        }
+                    },
+                    {
+                        "trigger": ["no", "nope", "nah", "not yet", "i don't think so", "already did", "im already registered", "already done", "i already did"],
+                        "met": {
+                            "response": "Okay, well you can ask me anything! Of course, I might not know the answer, but I'll try."
+                        }
+                    }
+                ]
+            }
+        ]
     },
-    "white house": {
+    "0193feed-5326-7672-b1fd-c08658c45ac6": {
+        "id": "0193feed-5326-7672-b1fd-c08658c45ac6",
+        "name": "white house",
         "arrival": "You arrive at the north side of the gates of the White House, near Lafayette park.",
         "items": {
             "pamphlet": "a pamphlet about the dangers of poor cybersecurity"
         },
-        "people": {
-            "secret service agent": {
-                "greeting": "hello",
-                "responses": { "let me in": "no" },
-                "items": []
-            },
-            "tourist": {
-                "greeting": "hi!",
-                "responses": { "take my picture": "sure" },
-                "items": [{ "picture": "a pic of you near the white house" }]
+        "people": [
+            {
+                "name": "Bob",
+                "type": "tourist",
+                "greeting": "Hey there! Cool place, huh?",
+                "interactions": [
+                    { "trigger": "take my picture", "item": "a pic of you near the white house" }
+                ]
             }
-        }
+        ]
     },
-    "metro station": {
+    "0193feee-0b82-704a-aeba-ce40029e7b7e": {
+        "id": "0193feee-0b82-704a-aeba-ce40029e7b7e",
+        "name": "metro station",
         "arrival": "You are at a metro station, lucky for you, it's a free-ride weekend!",
         "items": {},
         "people": {

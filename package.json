@@ -9,7 +9,7 @@
     "main": "src/index.js",
     "scripts": {
         "start": "node .",
-        "watch": "./node_modules/nodemon/bin/nodemon.js -e js,pug,json ."
+        "watch": "./node_modules/nodemon/bin/nodemon.js -e js,pug ."
     },
     "repository": {
         "type": "git",

@@ -11,6 +11,9 @@ html,body,input {background:#000;color:#eee;}
 .terminal .out {
     color: #ccc;
 }
+.terminal .error {
+    color: #fcc;
+}
 .terminal label {
     float: left;
     width: 1rem;
