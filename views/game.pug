@@ -3,7 +3,10 @@ extends partials/layout.pug
 block content
     article.terminal
         section.output
-            p welcome to the game
-        form
+            p.out You are #{user.handle}.
+            p.out You are at the #{location}.
+        form.game
             label > 
-            input.prompt(autofocus="true")
+            input.prompt(autofocus='true')
+    
+    script(src='/game.js')

@@ -100,10 +100,12 @@ take.alt = ['pickup', 'pick up', 'retrieve', 'get', 'grab']
 const commands = {
     help, whoami, whereami, goto, take, inspect
 }
+const count = Object.keys(commands).length
 for (fn in commands) {
     if (commands[fn].alt) {
         commands[fn].alt.forEach((phrase) => { commands[phrase] = commands[fn] })
     }
 }
+logger.debug(`Registered ${count} main commands and ${Object.keys(commands).length} phrases`)
 
 module.exports = commands

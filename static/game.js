@@ -32,7 +32,9 @@
         })
         const content = await resp.text()
         let error = ''
-        if (resp.status > 399) {
+        if (resp.status === 400) {
+            error = ' user-error'
+        } else if (resp.status > 400) {
             error = ' error'
         }
         

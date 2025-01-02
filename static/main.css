@@ -12,7 +12,10 @@ html,body,input {background:#000;color:#eee;}
     color: #ccc;
 }
 .terminal .error {
-    color: #fcc;
+    color: #ecc;
+}
+.terminal .user-error {
+    color: #aab;
 }
 .terminal label {
     float: left;

@@ -1,0 +1,12 @@
+extends partials/layout.pug
+
+block content
+    article.terminal
+        section.output
+            p.out What's your handle?
+        form.register(method='post')
+            label > 
+            input.prompt(name='handle', autofocus='true')
+            input.user_id(type='hidden', value=user_id)
+    
+    script(src='/register.js')

@@ -21,19 +21,20 @@ app.use((req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-    if (!err.status || err.status > 499) {
+    let status = err.status || 500
+    if (status > 499) {
         logger.error(err)
     }
     
-    res.status(err.status || 500)
+    res.status(status)
     
     if (req.headers.accept === 'text/plain') {
-        res.end((err.status > 499) ? 'Sorry, there was a problem. Try again later.' : err.message)
+        res.end((status > 499) ? 'Sorry, there was a problem. Try again later.' : err.message)
     } else {
         res.render('error', {
             page: 'error',
             title: 'DisCo - Error',
-            message: (err.status === 500) ? 'Sorry, we ran into a problem.' : err.message
+            message: (status === 500) ? 'Sorry, we ran into a problem.' : err.message
         })
     }
 })
