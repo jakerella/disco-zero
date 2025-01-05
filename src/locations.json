@@ -7,25 +7,58 @@
         "people": [
             {
                 "name": "Jenny",
-                "type": "volunteer",
+                "triggers": ["volunteer", "registration person", "registration volunteer"],
                 "greeting": "Welcome to District Con! Are you here to register?",
-                "interactions": [
+                "conversation": [
                     {
-                        "triggers": ["yes", "yep", "yeah", "yea", "indeed", "i am", "affirmative"],
-                        "checks": [{ "condition": "missing", "type": "item", "id": "badge" }],
-                        "met": {
-                            "response": "Great! You're all set. Here's your badge!",
-                            "item": "019408f7-772f-70ee-9a69-2d8289644a12"
-                        },
-                        "notmet": {
-                            "response": "Oh, it looks like you already have your badge. Enjoy the con!"
-                        }
+                        "phrase": "Welcome to District Con! Are you here to register?",
+                        "responses": [
+                            {
+                                "triggers": ["yes"],
+                                "conditions": [{ "check": "has", "type": "item", "id": "019408f7-772f-70ee-9a69-2d8289644a12" }],
+                                "met": 2,
+                                "not": 1
+                            },
+                            {
+                                "triggers": ["no", "already did", "i am already registered", "already done", "i already did"],
+                                "conditions": [{ "check": "has", "type": "item", "id": "019408f7-772f-70ee-9a69-2d8289644a12" }],
+                                "met": 3,
+                                "not": 5
+                            }
+                        ]
                     },
                     {
-                        "trigger": ["no", "nope", "nah", "not yet", "i don't think so", "already did", "im already registered", "already done", "i already did"],
-                        "met": {
-                            "response": "Okay, well you can ask me anything! Of course, I might not know the answer, but I'll try."
-                        }
+                        "phrase": "Great! You're all set. Here's your badge!",
+                        "item": "019408f7-772f-70ee-9a69-2d8289644a12",
+                        "end": true
+                    },
+                    {
+                        "phrase": "Oh, it looks like you already have one. Enjoy the con!",
+                        "end": true
+                    },
+                    {
+                        "phrase": "Okay, did you need a map of the venue?",
+                        "responses": [
+                            {
+                                "triggers": ["yes"],
+                                "conditions": [{ "check": "has", "type": "item", "id": "01942807-cdf2-74d7-8ad2-aa3c271ddee5" }],
+                                "met": 2,
+                                "not": 4
+                            },
+                            {
+                                "triggers": ["no"],
+                                "met": 2
+                            }
+                        ]
+                    },
+                    {
+                        "phrase": "No problem, here you go!",
+                        "item": "01942807-cdf2-74d7-8ad2-aa3c271ddee5",
+                        "end": true
+                    },
+                    {
+                        "phrase": "Okay, bye!",
+                        "end": true
                     }
                 ]
             }

@@ -14,23 +14,28 @@
         }
 
         if (!handle) {
-            handle = input.trim().replaceAll(/[^a-z0-9\-\.\'\s]/g, '').split(' ')[0]
             out.innerHTML += `<p class='cmd'>${p} ${input}</p>`
-            out.innerHTML += `<p class='out'>Okay, your handle will be ${handle} ... Is that right?</p>`
+            handle = input.trim().replaceAll(/[^a-z0-9\-\.\'\s]/ig, '').replaceAll(/\s/g, '-').substring(0, 30)
+            if (handle) {
+                out.innerHTML += `<p class='out'>Okay, your handle will be "${handle}". Is that right?</p>`
+            } else {
+                out.innerHTML += `<p class='out user-error'>Sorry, but you need to enter a valid handle.</p>`
+            }
             prompt.value = ''
             return
         }
         
         if (['yes', 'y', 'yep', 'yeah', 'yea', 'correct', 'right', 'indeed'].includes(input)) {
-            const id = document.querySelector('.user_id').value.trim()
-            console.debug('registering handle:', handle, id)
+            const code = document.querySelector('.code').value.trim()
+            console.debug('registering handle:', handle, code)
 
-            const resp = await fetch(`/r/${id}/${handle}`, {
+            const resp = await fetch(`/r/${code}/${handle}`, {
                 headers: {
                     'accept': 'text/plain'
                 }
             })
             if (resp.status < 300) {
+                // document.cookie = `${code}|${handle}`
                 return window.location.replace('/')
             } else {
                 const content = await resp.text()
@@ -39,8 +44,9 @@
                     errorClass = 'error'
                 }
                 out.innerHTML += `<p class='cmd'>${p} ${input}</p>`
-                prompt.value = ''
                 out.innerHTML += `<p class='out ${errorClass}'>${content}</p>`
+                prompt.value = ''
+                handle = null
             }
 
         } else if (['no', 'n', 'nah', 'nope', 'incorrect', 'wrong', 'cancel'].includes(input)) {

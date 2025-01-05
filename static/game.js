@@ -1,14 +1,21 @@
 ;(() => {
+    let ck = 'ct'
+    const out = document.querySelector('.output')
+    const form = document.querySelector('.terminal form')
+    const wh = 'which'
+    const [code, handle] = document.cookie
+    if (!code || !handle) {
+        out.innerHTML = `<p class='out error'>Sorry, but you need to register first. Maybe check out your badge?</p>`
+        form.parentNode.removeChild(form)
+        return
+    }
+
     const history=[]
     let p = '>'
-    let ck = 'ct'
     const ey = 'ey'
-    const wh = 'which'
     let kc = 'k'
     let historyEntry = 0
     const prompt = document.querySelector('.prompt')
-    const out = document.querySelector('.output')
-    const form = document.querySelector('.terminal form')
     ck += 'rlK'
     form.addEventListener('submit', async (e) => {
         e.preventDefault()
@@ -26,9 +33,7 @@
         }
         
         const resp = await fetch(`/cmd?c=${input}`, {
-            headers: {
-                'accept': 'text/plain'
-            }
+            headers: { 'accept': 'text/plain' }
         })
         const content = await resp.text()
         let error = ''

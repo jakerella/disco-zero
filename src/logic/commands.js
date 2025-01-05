@@ -3,7 +3,7 @@ const logger = require('../util/logger')(process.env.LOG_LEVEL)
 const locations = require('../locations.json')
 const items = require('../items.json')
 
-// TODO: talk to people, use items
+// TODO: talk to people (convo mechanism), use items
 
 function help() {
     return [
@@ -85,6 +85,15 @@ async function goto(user, ...tokens) {
 }
 goto.alt = ['go to', 'travel to', 'take me to', 'head to', 'walk to', 'go']
 
+function engage(user, ...tokens) {
+    const person = tokens.join(' ').trim().replace(/^(the) /, '')
+    
+    // TODO: do all the work
+
+    return `You are talking to ${person}`
+}
+engage.alt = ['talk to', 'chat with', 'interact with', 'approach']
+
 function take(user, ...tokens) {
     const item = tokens.join(' ').trim().replace(/^(the|a|an) /, '')
     if (!item) {
@@ -98,7 +107,7 @@ take.alt = ['pickup', 'pick up', 'retrieve', 'get', 'grab']
 
 
 const commands = {
-    help, whoami, whereami, goto, take, inspect
+    help, whoami, whereami, goto, take, inspect, engage
 }
 const count = Object.keys(commands).length
 for (fn in commands) {
