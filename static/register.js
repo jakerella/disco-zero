@@ -3,62 +3,53 @@
     let handle = null
     const out = document.querySelector('.output')
     const prompt = document.querySelector('.prompt')
+    const handleInput = document.querySelector('[name="handle"]')
     document.querySelector('.terminal form').addEventListener('submit', async (e) => {
-        e.preventDefault()
-        
-        const input = prompt.value.trim()
-        if (!input) {
+        if (!prompt.value) {
             out.innerHTML += `<p class='cmd'>${p} </p>`
             window.scrollTo(0, document.body.scrollHeight)
-            return
+            e.preventDefault()
+            return false
         }
 
+        out.innerHTML += `<p class='cmd'>${p} ${prompt.value}</p>`
+
         if (!handle) {
-            out.innerHTML += `<p class='cmd'>${p} ${input}</p>`
-            handle = input.trim().replaceAll(/[^a-z0-9\-\.\'\s]/ig, '').replaceAll(/\s/g, '-').substring(0, 30)
+            handle = prompt.value.trim().replaceAll(/[^a-z0-9\-\.\'\s]/ig, '').replaceAll(/\s/g, '-').substring(0, 30)
             if (handle) {
                 out.innerHTML += `<p class='out'>Okay, your handle will be "${handle}". Is that right?</p>`
             } else {
                 out.innerHTML += `<p class='out user-error'>Sorry, but you need to enter a valid handle.</p>`
             }
             prompt.value = ''
-            return
+            e.preventDefault()
+            return false
         }
         
-        if (['yes', 'y', 'yep', 'yeah', 'yea', 'correct', 'right', 'indeed'].includes(input)) {
-            const code = document.querySelector('.code').value.trim()
-            console.debug('registering handle:', handle, code)
+        if (!handleInput.value) {
+            if (['yes', 'y', 'yep', 'yup', 'yeah', 'yea', 'correct', 'right', 'indeed'].includes(prompt.value)) {
+                handleInput.value = handle
+                out.innerHTML += `<p class='out'>Please enter a person identification number (PIN) for your user account. (Digits only please.)</p>`
 
-            const resp = await fetch(`/r/${code}/${handle}`, {
-                headers: {
-                    'accept': 'text/plain'
-                }
-            })
-            if (resp.status < 300) {
-                // document.cookie = `${code}|${handle}`
-                return window.location.replace('/')
-            } else {
-                const content = await resp.text()
-                let errorClass = 'user-error'
-                if (resp.status != 400) {
-                    errorClass = 'error'
-                }
-                out.innerHTML += `<p class='cmd'>${p} ${input}</p>`
-                out.innerHTML += `<p class='out ${errorClass}'>${content}</p>`
-                prompt.value = ''
+            } else if (['no', 'n', 'nah', 'nope', 'incorrect', 'wrong', 'cancel'].includes(prompt.value)) {
                 handle = null
+                handleInput.value = ''
+                out.innerHTML += `<p class='out'>What would you like your handle to be?</p>`
+            } else {
+                out.innerHTML += `<p class='out user-error'>Sorry, I don't understand. Do you want ${handle} to be your handle?</p>`
             }
-
-        } else if (['no', 'n', 'nah', 'nope', 'incorrect', 'wrong', 'cancel'].includes(input)) {
-            handle = null
-            out.innerHTML += `<p class='cmd'>${p} ${input}</p>`
-            out.innerHTML += `<p class='out'>What's your handle?</p>`
             prompt.value = ''
-        } else {
-            out.innerHTML += `<p class='cmd'>${p} ${input}</p>`
-            out.innerHTML += `<p class='out user-error'>Sorry, I don't understand. Do you want ${handle} to be your handle?</p>`
-            prompt.value = ''
+            e.preventDefault()
+            return false
         }
+        
+        if (!/^[0-9]+$/.test(prompt.value)) {
+            out.innerHTML += `<p class='out user-error'>Sorry, but you need to enter a valid pin (digits only).</p>`
+            prompt.value = ''
+            e.preventDefault()
+            return false
+        }
+        // Form will now submit...
     })
 
     document.addEventListener('click', (e) => {

@@ -1,20 +1,55 @@
 require('dotenv').config({ override: true })
 
 const express = require('express')
+const session = require('express-session')
+const { RedisStore } = require('connect-redis')
+const redis = require('redis')
 const fs = require('fs')
 const logger = require('./util/logger')(process.env.LOG_LEVEL)
 const game = require('./logic/game')
+const contact = require('./logic/contact')
 const register = require('./logic/register')
+const login = require('./logic/login')
 
-// env vars and other config
 const PORT = process.env.PORT || 80
 
+/* ********** basic express app creation ********** */
 const app = express()
 app.use(express.static('static'))
 app.set('view engine', 'pug')
 app.use(express.urlencoded({ extended: false }))
 
-app.use('/r', register)
+
+/* ********** session handling ********** */
+const redisSessionClient = redis.createClient({ url: process.env.REDIS_URL })
+redisSessionClient.on('error', (err) => {
+    if (/ECONNREFUSED/.test(err.message || err)) {
+        logger.error(`Unable to establish redis connection for session store on startup, stopping Node process:\n${err.message || err}`)
+        process.exit(1)
+    } else {
+        logger.warn(`Error from Redis session client: ${err.message || err}`)
+    }
+})
+redisSessionClient.connect()
+const sessionOptions = {
+    secret: process.env.SESS_SECRET,
+    store: new RedisStore({ client: redisSessionClient }),
+    resave: false,
+    cookie: { maxAge: 86400000 * 3 }, // 3 days
+    name: 'disco-session',
+    saveUninitialized: false
+}
+if (process.env.NODE_ENV !== 'development') {
+    app.set('trust proxy', 1)
+    sessionOptions.cookie.secure = true
+}
+app.use(session(sessionOptions))
+
+
+/* ********** routes and middleware ********** */
+app.use('/contact', contact)
+app.use('/register', register)
+app.use('/login', login)
 app.use('/', game)
 
 app.use((req, res, next) => {
@@ -42,6 +77,8 @@ app.use((err, req, res, next) => {
     }
 })
 
+
+/* ********** app startup ********** */
 let server = app
 
 if (process.env.NODE_ENV === 'development' && fs.existsSync('./localcert/localhost.crt')) {

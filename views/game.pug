@@ -3,8 +3,7 @@ extends partials/layout.pug
 block content
     article.terminal
         section.output
-            p.out You are #{user.handle}.
-            p.out You are at the #{location}.
+            p.out #{message}
         form.game
             label > 
             input.prompt(autofocus='true')

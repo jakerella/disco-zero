@@ -3,10 +3,13 @@ extends partials/layout.pug
 block content
     article.terminal
         section.output
-            p.out What's your handle?
-        form.register(method='post')
+            if message
+                p.out #{message}
+            p.out Welcome to the game. What would you like your handle to be?
+        form.register(method='post', action='/register')
             label > 
-            input.prompt(name='handle' maxlength='30', autofocus='true')
-            input.code(type='hidden', value=code)
+            input.prompt(name='pin', autofocus='true')
+            input.handle(name='handle', type='hidden')
+            input.code(name='code', type='hidden', value=code)
     
     script(src='/register.js')

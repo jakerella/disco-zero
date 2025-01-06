@@ -3,7 +3,7 @@ const logger = require('../util/logger')(process.env.LOG_LEVEL)
 const locations = require('../locations.json')
 const items = require('../items.json')
 
-// TODO: talk to people (convo mechanism), use items
+// TODO: talk to people (convo mechanism), use items, logout
 
 function help() {
     return [

@@ -18,8 +18,10 @@
     "author": "Jordan Kasper",
     "license": "MIT",
     "dependencies": {
+        "connect-redis": "^8.0.1",
         "dotenv": "^16.4.7",
         "express": "^4.21.2",
+        "express-session": "^1.18.1",
         "pug": "^3.0.3",
         "redis": "^4.7.0",
         "uuid": "^11.0.3",

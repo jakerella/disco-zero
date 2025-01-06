@@ -1,0 +1,15 @@
+extends partials/layout.pug
+
+block content
+    article.terminal
+        section.output
+            if message
+                p.out #{message}
+            else 
+                p.out Welcome! If you've already started a game, please type in your handle and PIN, for example: mary 1234
+                p.out If you haven't registered in the game yet, you might need to ask someone how you can start.
+        form.login(method='post', action='/login')
+            label > 
+            input.prompt(name='input', autofocus='true')
+    
+    script(src='/login.js')

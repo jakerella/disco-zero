@@ -1,6 +1,7 @@
 
 const logger = require('../util/logger')(process.env.LOG_LEVEL)
 const redis = require('redis')
+const crypto = require('crypto')
 const AppError = require('../util/AppError')
 
 let _client = null
@@ -9,21 +10,47 @@ function cleanHandle(handle) {
     return handle.trim().replaceAll(/[^a-z0-9\-\.\'\s]/ig, '').replaceAll(/\s/g, '-').substring(0, 30)
 }
 
+function hashPin(pin) {
+    // Yes... md5... terrible, ain't it? Wonder what someone could do with this...
+    return crypto.createHash('md5').update(`${pin}-${process.env.SALT}`).digest('hex')
+}
+
+async function login(handle, pin) {
+    handle = cleanHandle(handle)
+    if (!handle || !pin) { return null }
+
+    const cache = await getCacheClient()
+    if (!cache) { throw new AppError('No redis client available to perform user login.', 500) }
+
+    const user = JSON.parse((await cache.get(`disco_user_${handle}`)) || '{}')
+    if (user.pin === hashPin(pin)) {
+        return user
+    }
+    return null
+}
+
 async function handleExists(handle) {
     handle = cleanHandle(handle)
     if (!handle) { throw new AppError('No handle provided to check.', 400) }
-    const cache = await cacheClient()
+    const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to get data.', 500) }
 
     const count = Number(await cache.exists(`disco_user_${handle}`))
-    logger.debug(`${count} keys exist matching ${handle}`)
     return count > 0
+}
+
+async function handleByCode(code) {
+    code  = code.replaceAll(/[^a-f0-9\-]/g, '')
+    if (!code) { throw new AppError('No code provided to check.', 400) }
+    const cache = await getCacheClient()
+    if (!cache) { throw new AppError('No redis client available to get data.', 500) }
+    return await cache.get(`disco_code_${code}`)
 }
 
 async function get(handle, code) {
     handle = cleanHandle(handle)
     if (!handle || !code) { throw new AppError('No handle or code provided to retrieve user.', 400) }
-    const cache = await cacheClient()
+    const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to get data.', 500) }
 
     const user = JSON.parse((await cache.get(`disco_user_${handle}`)) || '{}')
@@ -39,7 +66,7 @@ async function save(data) {
         throw new AppError('No user code provided to save data.', 500)
     }
     
-    const cache = await cacheClient()
+    const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to set data.', 500) }
 
     await cache.set(`disco_user_${data.handle}`, JSON.stringify(data))
@@ -48,7 +75,7 @@ async function save(data) {
     return true
 }
 
-async function cacheClient() {
+async function getCacheClient() {
     if (_client) { return Promise.resolve(_client) }
     
     if (!process.env.REDIS_URL) {
@@ -58,25 +85,25 @@ async function cacheClient() {
 
     return new Promise((resolve, reject) => {
         _client = redis.createClient({ url: process.env.REDIS_URL })
-        .on('error', (err) => {
-            logger.error(`ERROR from Redis: ${err.message || err}`)
-        })
-        .on('ready', () => {
-            logger.info('New redis client connection established.')
-            resolve(_client)
-        })
-        .on('end', (err) => {
-            if (err) {
-                logger.warn(`Client connection to redis server closed with error: ${err.message || err}`)
-            } else {
-                logger.warn('Client connection to redis server closed cleanly.')
-            }
-            _client = null
-        })
-        .connect()
+            .on('error', (err) => {
+                logger.error(`ERROR from Redis: ${err.message || err}`)
+            })
+            .on('ready', () => {
+                logger.info('New redis client connection established.')
+                resolve(_client)
+            })
+            .on('end', (err) => {
+                if (err) {
+                    logger.warn(`Client connection to redis server closed with error: ${err.message || err}`)
+                } else {
+                    logger.warn('Client connection to redis server closed cleanly.')
+                }
+                _client = null
+            })
+            .connect()
     })
 }
 
 module.exports = {
-    get, save, cleanHandle, handleExists
+    login, get, save, cleanHandle, handleExists, handleByCode, hashPin
 }
