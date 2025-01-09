@@ -1,6 +1,7 @@
 
 const logger = require('../util/logger')(process.env.LOG_LEVEL)
 const locations = require('../locations.json')
+const people = require('../people.json')
 const items = require('../items.json')
 
 // TODO: see inventory, take items if available, use items, see leaderboard
@@ -80,9 +81,9 @@ async function goto(user, ...tokens) {
     
     const resp = []
     if (user.convo) {
-        const person = getPerson(user, user.convo[0])
+        const person = people[user.convo[0]]
         if (person) {
-            resp.push(`${user.convo[0]} says "${person.abandon}"`)
+            resp.push(`${person.name}: "${person.abandon || 'Okay, bye!'}"`)
         }
         user.convo = null
     }
@@ -112,18 +113,22 @@ goto.alt = ['go to', 'travel to', 'take me to', 'head to', 'walk to', 'go']
 function engage(user, ...tokens) {
     const trigger = tokens.join(' ').trim().replace(/^(the) /, '')
     
-    const person = getPerson(user, trigger)
+    const target = locations[user.location].people.filter((pid) => {
+        const person = people[pid]
+        return person && (person.name.toLowerCase() === trigger.toLowerCase() || person.triggers.includes(trigger.toLowerCase()))
+    })[0] || null
+    const person = people[target]
     if (!person) {
         return 'You look around, but don\'t see anyone like that.'
     }
 
-    if (!user.contacts.includes(person.name)) {
-        user.contacts.push(person.name)
+    if (!user.contacts.includes(person.id)) {
+        user.contacts.push(person.id)
         user.score += person.points || 1
     }
-    
+
     // TODO: add condition for if person has already been seen... basically, change the greeting, and maybe the start point
-    user.convo = [person.name, 0]
+    user.convo = [person.id, 0]
 
     return `${person.name}: "${person.conversation[user.convo[1]].phrase}"`
 }
@@ -139,13 +144,6 @@ function take(user, ...tokens) {
     }
 }
 take.alt = ['pickup', 'pick up', 'retrieve', 'get', 'grab']
-
-
-function getPerson(user, trigger) {
-    return locations[user.location].people.filter((p) => {
-        return p.name.toLowerCase() === trigger.toLowerCase() || p.triggers.includes(trigger.toLowerCase())
-    })[0] || null
-}
 
 
 const commands = {

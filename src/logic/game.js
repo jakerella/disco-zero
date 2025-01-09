@@ -5,6 +5,7 @@ const commands = require('./commands')
 const convo = require('./convo')
 const AppError = require('../util/AppError')
 const locations = require('../locations.json')
+const people = require('../people.json')
 const logger = require('../util/logger')(process.env.LOG_LEVEL)
 
 router.get('/', async (req, res) => {
@@ -19,13 +20,11 @@ router.get('/', async (req, res) => {
             `You are currently ${(location) ? `at the ${location}` : 'lost'}.`
         ]
         if (req.session.user.convo) {
-            const person = locations[req.session.user.location].people.filter((p) => {
-                return p.name.toLowerCase() === req.session.user.convo[0].toLowerCase()
-            })[0] || null
+            const person = people[req.session.user.convo[0]]
             if (person) {
-                message.push(`You had been chatting with ${req.session.user.convo[0]}. They said, "${person.conversation[req.session.user.convo[1]].phrase}"`)
+                message.push(`You had been chatting with ${person.name}. They said, "${person.conversation[req.session.user.convo[1]].phrase}"`)
             } else {
-                logger.warn(`Unable to find person that user was chatting with (${req.session.user.convo[0]} at ${req.session.user.location})`)
+                logger.warn(`Unable to find person that user was chatting with (${req.session.user.convo[0]})`)
                 req.session.user.convo = null
                 await userModel.save(req.session.user)
             }
@@ -63,7 +62,7 @@ router.get('/cmd', async (req, res, next) => {
 
     if (req.session.user.convo) {
         try {
-            out = convo.handleConversation(req.session.user, tokens.join(' '))
+            out = convo.handleConversation(req.session.user, tokens.join(' ').replace(/\s?please\s?/, ''))
             req.session.user.score = Math.max(req.session.user.score, 0)
             await userModel.save(req.session.user)
         } catch(err) {
@@ -78,12 +77,16 @@ router.get('/cmd', async (req, res, next) => {
     let cmd = []
     let found = false
     for (let i=0; i<tokens.length; ++i) {
+        if (tokens[i] === 'please') {
+            continue
+        }
         cmd.push(tokens[i])
         if (commands[cmd.join(' ')]) {
             try {
                 found = true
                 out = await commands[cmd.join(' ')](req.session.user || null, ...tokens.slice(i+1))
             } catch(err) {
+                console.log(err)
                 return next(err)
             }
             if (Array.isArray(out)) {
