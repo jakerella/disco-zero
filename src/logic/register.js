@@ -49,6 +49,7 @@ router.post('/', async (req, res, next) => {
         handle,
         code: req.body.code,
         pin: userModel.hashPin(req.body.pin),
+        score: 10,
         location: '0193feed-2940-71ba-9fc5-64122b4b79ff',
         items: [],
         visited: ['0193feed-2940-71ba-9fc5-64122b4b79ff'],

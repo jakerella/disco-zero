@@ -1,27 +1,30 @@
 {
     "0193feed-2940-71ba-9fc5-64122b4b79ff": {
         "id": "0193feed-2940-71ba-9fc5-64122b4b79ff",
-        "name": "yours truly hotel lobby",
+        "type": "main",
+        "name": "yours truly hotel",
         "arrival": "You arrive at the Yours Truly hotel, site of the first ever District Con!",
-        "description": "You look around the lobby. The decor is pretty cool, and there's a district Con sign and registration table to your right. A *volunteer* stands behind it. To your left is the *cafe* and in front of you is the elevator to the *conference center*. Behind you is the door out onto New Hamphrire Ave NW and all of Washington, DC!",
+        "description": "You look around the lobby. The decor is pretty cool, and there's a district Con sign and registration table to your right. A *volunteer* stands behind it. In front of you is the elevator to the *conference center*. Behind you is the door out onto New Hampshire Ave NW and all of Washington, DC!",
+        "points": 10,
         "people": [
             {
                 "name": "Jenny",
                 "triggers": ["volunteer", "registration person", "registration volunteer"],
-                "greeting": "Welcome to District Con! Are you here to register?",
+                "points": 5,
+                "abandon": "Okay bye! Come see me if I can help.",
                 "conversation": [
                     {
                         "phrase": "Welcome to District Con! Are you here to register?",
                         "responses": [
                             {
                                 "triggers": ["yes"],
-                                "conditions": [{ "check": "has", "type": "item", "id": "019408f7-772f-70ee-9a69-2d8289644a12" }],
+                                "conditions": [{ "check": "has", "type": "item", "value": "019408f7-772f-70ee-9a69-2d8289644a12" }],
                                 "met": 2,
                                 "not": 1
                             },
                             {
                                 "triggers": ["no", "already did", "i am already registered", "already done", "i already did"],
-                                "conditions": [{ "check": "has", "type": "item", "id": "019408f7-772f-70ee-9a69-2d8289644a12" }],
+                                "conditions": [{ "check": "has", "type": "item", "value": "019408f7-772f-70ee-9a69-2d8289644a12" }],
                                 "met": 3,
                                 "not": 5
                             }
@@ -33,7 +36,7 @@
                         "end": true
                     },
                     {
-                        "phrase": "Oh, it looks like you already have one. Enjoy the con!",
+                        "phrase": "Oh, it looks like you're already registered and have your badge. Enjoy the con!",
                         "end": true
                     },
                     {
@@ -41,15 +44,19 @@
                         "responses": [
                             {
                                 "triggers": ["yes"],
-                                "conditions": [{ "check": "has", "type": "item", "id": "01942807-cdf2-74d7-8ad2-aa3c271ddee5" }],
-                                "met": 2,
-                                "not": 4
+                                "conditions": [{ "check": "has", "type": "item", "value": "01942807-cdf2-74d7-8ad2-aa3c271ddee5" }],
+                                "met": 4,
+                                "not": 5
                             },
                             {
                                 "triggers": ["no"],
-                                "met": 2
+                                "met": 6
                             }
                         ]
+                    },
+                    {
+                        "phrase": "Oh, it looks like you already have a map. Have you inspected it?",
+                        "end": true
                     },
                     {
                         "phrase": "No problem, here you go!",
@@ -57,42 +64,43 @@
                         "end": true
                     },
                     {
-                        "phrase": "Okay, bye!",
+                        "phrase": "Okay, enjoy the con!",
                         "end": true
                     }
                 ]
             }
-        ]
+        ],
+        "items": []
+    },
+    "019447f9-b219-73d6-8d7e-bcec12d2af9c": {
+        "id": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
+        "type": "room",
+        "parent": "0193feed-2940-71ba-9fc5-64122b4b79ff",
+        "name": "conference center",
+        "arrival": "You take the elevator up to the conference center.",
+        "description": "There are lots of people in the conference center, some just walking through, some standing around talking. You see a hallway that leads to some of the conference rooms.",
+        "points": 5,
+        "people": [],
+        "items": []
     },
     "0193feed-5326-7672-b1fd-c08658c45ac6": {
         "id": "0193feed-5326-7672-b1fd-c08658c45ac6",
+        "type": "main",
         "name": "white house",
         "arrival": "You arrive at the north side of the gates of the White House, near Lafayette park.",
-        "items": {
-            "pamphlet": "a pamphlet about the dangers of poor cybersecurity"
-        },
-        "people": [
-            {
-                "name": "Bob",
-                "type": "tourist",
-                "greeting": "Hey there! Cool place, huh?",
-                "interactions": [
-                    { "trigger": "take my picture", "item": "a pic of you near the white house" }
-                ]
-            }
-        ]
+        "description": "This is the White House where the President lives and works.",
+        "points": 10,
+        "items": [],
+        "people": []
     },
     "0193feee-0b82-704a-aeba-ce40029e7b7e": {
         "id": "0193feee-0b82-704a-aeba-ce40029e7b7e",
+        "type": "main",
         "name": "metro station",
         "arrival": "You are at a metro station, lucky for you, it's a free-ride weekend!",
-        "items": {},
-        "people": {
-            "station manager": {
-                "greeting": "hello",
-                "responses": { "suspicious activity": "someone was inserting something electronic into the fare machine" },
-                "items": []
-            }
-        }
+        "description": "This is a typical Washington, DC metro station. You can get anywhere in the city from here!",
+        "points": 5,
+        "items": [],
+        "people": []
     }
 }

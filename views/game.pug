@@ -5,7 +5,10 @@ block content
         section.output
             p.out #{message}
         form.game
-            label > 
+            if convo
+                label - 
+            else 
+                label > 
             input.prompt(autofocus='true')
     
     script(src='/game.js')

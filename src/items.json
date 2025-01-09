@@ -2,11 +2,13 @@
     "019408f7-772f-70ee-9a69-2d8289644a12": {
         "id": "019408f7-772f-70ee-9a69-2d8289644a12",
         "name": "badge",
-        "description": "This is your District Con badge. It gets you access to all the great content, villages, interactions, and social activities at District Con Zero!"
+        "description": "This is your District Con badge. It gets you access to all the great content, villages, interactions, and social activities at District Con Zero!",
+        "points": 5
     },
     "01942807-cdf2-74d7-8ad2-aa3c271ddee5": {
         "id": "01942807-cdf2-74d7-8ad2-aa3c271ddee5",
         "name": "venue map",
-        "description": "A map of the DistrictCon venue, the Yours Truly Hotel. TODO: add more detail"
+        "description": "A map of the DistrictCon venue, the Yours Truly Hotel. TODO: add more detail",
+        "points": 5
     }
 }

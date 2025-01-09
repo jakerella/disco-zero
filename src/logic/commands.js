@@ -3,7 +3,8 @@ const logger = require('../util/logger')(process.env.LOG_LEVEL)
 const locations = require('../locations.json')
 const items = require('../items.json')
 
-// TODO: talk to people (convo mechanism), use items, logout
+// TODO: see inventory, take items if available, use items, see leaderboard
+// TODO: trigger download for certain items (Aaron's challenge)
 
 function help() {
     return [
@@ -17,14 +18,19 @@ function help() {
 }
 help.alt = ['hint', 'hints', 'give me a hint', 'what is this', 'what should i do', 'what do i do', 'how do i play']
 
+function exit(user) {
+    return 'You want to leave, but aren\'t sure where you would go. Maybe you should decide that first?'
+}
+exit.alt = ['get out', 'leave', 'walk away', 'go away']
+
 function whoami(user) {
     if (user && user.handle) {
-        return user.handle
+        return `${user.handle} (${user.score || 0})`
     } else {
         return 'You seem to have lost your memory.'
     }
 }
-whoami.alt = ['who am i', 'what is my name', 'what am i called', 'what is my handle']
+whoami.alt = ['who am i', 'what is my name', 'what am i called', 'what is my handle', 'score', 'what is my score', 'points', 'how many points do i have', 'what are my points']
 
 function whereami(user) {
     if (user && user.location && locations[user.location]) {
@@ -54,45 +60,74 @@ async function goto(user, ...tokens) {
     const dest = tokens.join(' ').trim().toLowerCase().replace(/^the /, '')
     const loc = Object.keys(locations)
         .filter((id) => { return locations[id].name === dest })
-        .map((id) => { return locations[id] })
+        .map((id) => { return locations[id] })[0]
     
     if (!dest) {
         return 'Where do you want to go?'
-    } else if (!loc.length) {
+    } else if (!loc) {
         return 'You don\'t know where that is.'
-    } else if (loc.length > 1) {
-        return 'It looks like there are two locations with that name!'
-    } else if (user.location === loc[0].id) {
-        return 'You\'re already there!'
+    } else if (user.location === loc.id) {
+        return 'You\'re already here!'
     }
 
-    const resp = []
-    if (locations[user.location].name === 'metro station') {
-        resp.push('You hop on a metro train and are there in a flash.')
-    } else if (loc[0].name === 'metro station') {
-        resp.push('You take a short stroll to the nearest metro station.')
-    } else {
-        resp.push('That\'s a long walk, but you don\'t mind. Next time it might be better to find a metro station.')
+    const curr = locations[user.location]
+
+    if (loc.type === 'main' && curr.type !== 'main' && loc.id !== curr.parent) {
+        return `Looks like you\'re in the ${curr.name}. You probably need to find your way out first.`
+    } else if (loc.type !== 'main' && curr.id !== loc.parent) {
+        return 'You can\'t get there from here.'
     }
     
-    user.location = loc[0].id
-
-    if (!user.visited.includes(loc[0].id)) {
-        user.visited.push(loc[0].id)
+    const resp = []
+    if (user.convo) {
+        const person = getPerson(user, user.convo[0])
+        if (person) {
+            resp.push(`${user.convo[0]} says "${person.abandon}"`)
+        }
+        user.convo = null
     }
-    resp.push(loc[0].arrival)
+    if (locations[user.location].name === 'metro station') {
+        resp.push('You hop on a metro train and are there in a flash.')
+    } else if (loc.name === 'metro station') {
+        resp.push('You take a short stroll to the nearest metro station.')
+    } else if (loc.type === 'main') {
+        const tired = (Math.random() < 0.3) ? 1 : 0
+        if (tired) {
+            resp.push('That walk tired you out. Next time it might be better to find a metro station.')
+            user.score -= tired
+        }
+    }
+    
+    user.location = loc.id
+
+    if (!user.visited.includes(loc.id)) {
+        user.visited.push(loc.id)
+        user.score += loc.points || 1
+    }
+    resp.push(loc.arrival)
     return resp
 }
 goto.alt = ['go to', 'travel to', 'take me to', 'head to', 'walk to', 'go']
 
 function engage(user, ...tokens) {
-    const person = tokens.join(' ').trim().replace(/^(the) /, '')
+    const trigger = tokens.join(' ').trim().replace(/^(the) /, '')
     
-    // TODO: do all the work
+    const person = getPerson(user, trigger)
+    if (!person) {
+        return 'You look around, but don\'t see anyone like that.'
+    }
 
-    return `You are talking to ${person}`
+    if (!user.contacts.includes(person.name)) {
+        user.contacts.push(person.name)
+        user.score += person.points || 1
+    }
+    
+    // TODO: add condition for if person has already been seen... basically, change the greeting, and maybe the start point
+    user.convo = [person.name, 0]
+
+    return `${person.name}: "${person.conversation[user.convo[1]].phrase}"`
 }
-engage.alt = ['talk to', 'chat with', 'interact with', 'approach']
+engage.alt = ['talk to', 'talk with', 'speak to', 'chat with', 'interact with', 'approach']
 
 function take(user, ...tokens) {
     const item = tokens.join(' ').trim().replace(/^(the|a|an) /, '')
@@ -106,8 +141,15 @@ function take(user, ...tokens) {
 take.alt = ['pickup', 'pick up', 'retrieve', 'get', 'grab']
 
 
+function getPerson(user, trigger) {
+    return locations[user.location].people.filter((p) => {
+        return p.name.toLowerCase() === trigger.toLowerCase() || p.triggers.includes(trigger.toLowerCase())
+    })[0] || null
+}
+
+
 const commands = {
-    help, whoami, whereami, goto, take, inspect, engage
+    help, whoami, exit, whereami, goto, take, inspect, engage
 }
 const count = Object.keys(commands).length
 for (fn in commands) {

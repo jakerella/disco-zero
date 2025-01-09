@@ -17,6 +17,7 @@ const PORT = process.env.PORT || 80
 const app = express()
 app.use(express.static('static'))
 app.set('view engine', 'pug')
+app.set('x-powered-by', false)
 app.use(express.urlencoded({ extended: false }))
 
 
