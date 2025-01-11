@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     if (!req.session.user) {
         res.render('login', {
             page: 'login',
-            title: 'Login'
+            title: `${process.env.APP_NAME} Login`
         })
     } else {
         const location = locations[req.session.user.location].name
@@ -32,10 +32,11 @@ router.get('/', async (req, res) => {
         
         res.render('game', {
             page: 'game',
-            title: 'A little game',
+            title: process.env.APP_NAME || 'Game',
+            appName: process.env.APP_NAME || '',
             user: req.session.user || {},
             message: message.join('\n'),
-            convo: !!req.session.user.convo  // TODO: replciate this everywhere for changing the prompt
+            convo: !!req.session.user.convo
         })
     }
 })
@@ -69,8 +70,9 @@ router.get('/cmd', async (req, res, next) => {
             return next(err)
         }
         if (req.session.user.convo) {
-            res.set('X-disco-action', 'convo')
+            res.set(`X-${process.env.APP_NAME}-action`, 'convo')
         }
+        // TODO: allow templatized info like {{handle}}
         return res.end(out)
     }
 
@@ -98,8 +100,9 @@ router.get('/cmd', async (req, res, next) => {
         req.session.user.score = Math.max(req.session.user.score, 0)
         await userModel.save(req.session.user)
         if (req.session.user.convo) {
-            res.set('X-disco-action', 'convo')
+            res.set(`X-${process.env.APP_NAME}-action`, 'convo')
         }
+        // TODO: allow templatized info like {{handle}}
         res.end(out)
     } else {
         return next(new AppError('Nothing happened. Maybe try something else?', 400))
@@ -107,16 +110,16 @@ router.get('/cmd', async (req, res, next) => {
 })
 
 function expandContraction(t) {
-    const seconds = { 's': 'is', 'd': 'did', 't': 'not', 'll': 'will', 're': 'are', 'm': 'am' }
+    const seconds = { 's': 'is', 'd': 'did', 't': 'not', 'll': 'will', 're': 'are', 'm': 'am', 've': 'have' }
     
-    let m = t.match(/^(who|what|where|when|why|how)(s|d|ll|re)$/)
+    let m = t.match(/^(who|what|where|when|why|how)(s|d|ll|re|ve)$/)
     if (m) { return `${m[1]} ${seconds[m[2]]}` }
     
     m = t.match(/^(can|don|didn|shouldn)(t)$/)
     if (m) { return `${m[1]} ${seconds[m[2]]}` }
     if (t === 'wont') { return 'will not' }
 
-    m = t.match(/^(i|you|they|he|she)(s|d|m|ll)$/)
+    m = t.match(/^(i|you|they|he|she)(s|d|m|ll|ve)$/)
     if (m) { return `${m[1]} ${seconds[m[2]]}` }
 
     return t

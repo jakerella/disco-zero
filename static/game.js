@@ -2,7 +2,7 @@
     let ck = 'ct'
     const out = document.querySelector('.output')
     const wh = 'which'
-    const history = JSON.parse(localStorage.getItem('disco_history') || '[]')
+    const history = JSON.parse(localStorage.getItem('cmd_history') || '[]')
     const ey = 'ey'
     const form = document.querySelector('.terminal form')
     let kc = 'k'
@@ -44,7 +44,7 @@
             error = ' user-error'
         }
 
-        label.innerText = `${(resp.headers.get('X-Disco-Action') === 'convo') ? '-' : '>'} `
+        label.innerText = `${(resp.headers.get(`X-${APP_NAME}-Action`) === 'convo') ? '-' : '>'} `
         
         const node = document.createElement('p')
         node.classList.add('out')
@@ -91,7 +91,7 @@
     }
 
     window.addEventListener('beforeunload', () => {
-        localStorage.setItem('disco_history', JSON.stringify(history.slice(0, 100)))
+        localStorage.setItem('cmd_history', JSON.stringify(history.slice(0, 100)))
     })
 
     document.addEventListener('click', (e) => {

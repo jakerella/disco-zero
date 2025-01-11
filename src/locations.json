@@ -15,10 +15,21 @@
         "parent": "0193feed-2940-71ba-9fc5-64122b4b79ff",
         "name": "conference center",
         "arrival": "You take the elevator up to the conference center.",
-        "description": "There are lots of people in the conference center, some just walking through, some standing around talking. You see a hallway that leads to some of the conference rooms.",
+        "description": "There are lots of people in the conference center, some just walking through, some standing around talking. You see a hallway that leads to some of the session rooms, various doors to other places, the staff room, and of course the elevator you came up behind you.",
         "points": 5,
         "people": [],
         "items": []
+    },
+    "01944d58-f34c-775f-b6f4-dc0d40461ac0": {
+        "id": "01944d58-f34c-775f-b6f4-dc0d40461ac0",
+        "type": "room",
+        "parent": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
+        "name": "staff room",
+        "arrival": "You look around but no one seems to be blocking the staff room, so you decide to take a peek inside.",
+        "description": "This is less of a 'room' and more of a storage closet. There's a bunch of boxes, but they're all taped up. Sitting on one of the boxes is a small usb drive. You think you hear someone coming toward the room, so you probably shouldn't stay long!",
+        "points": 10,
+        "people": [],
+        "items": ["01944d5d-2035-708c-b913-f7be18c0cb7a"]
     },
     "0193feed-5326-7672-b1fd-c08658c45ac6": {
         "id": "0193feed-5326-7672-b1fd-c08658c45ac6",

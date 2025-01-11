@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
     if (errors.length) {
         return res.render('register', {
             page: 'register',
-            title: 'Register',
+            title: `Register for ${process.env.APP_NAME}`,
             code: req.body.code,
             message: errors.join(' ')
         })
@@ -53,7 +53,8 @@ router.post('/', async (req, res, next) => {
         location: '0193feed-2940-71ba-9fc5-64122b4b79ff',
         items: [],
         visited: ['0193feed-2940-71ba-9fc5-64122b4b79ff'],
-        contacts: []
+        contacts: [],
+        convo: null
     }
     await userModel.save(user)
     

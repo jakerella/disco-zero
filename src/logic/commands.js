@@ -4,10 +4,12 @@ const locations = require('../locations.json')
 const people = require('../people.json')
 const items = require('../items.json')
 
-// TODO: see inventory, take items if available, use items, see leaderboard
+// TODO: use items (if possible), see leaderboard (nice to have)
 // TODO: trigger download for certain items (Aaron's challenge)
 
 function help() {
+    // TODO: help on specific commands?
+
     return [
         'You consult the info packet you happen to have in your pocket.',
         'There are a number of locations for you to visit, people you can talk to, and items to collect!',
@@ -15,6 +17,7 @@ function help() {
         'You can *look around* to check out where you are, *go to* different locations, and *talk to* people.',
         'Along the way you\'ll be able to *take* items you find and *inspect* them for clues.',
         'There might be other things you can do as well!'
+        // TODO: add all basic commands and maybe something about the convo mechanism?
     ].join(' ')
 }
 help.alt = ['hint', 'hints', 'give me a hint', 'what is this', 'what should i do', 'what do i do', 'how do i play']
@@ -33,6 +36,8 @@ function whoami(user) {
 }
 whoami.alt = ['who am i', 'what is my name', 'what am i called', 'what is my handle', 'score', 'what is my score', 'points', 'how many points do i have', 'what are my points']
 
+// TODO: track score modifiers and allow user to see how their score is calculated
+
 function whereami(user) {
     if (user && user.location && locations[user.location]) {
         return `You are at the ${locations[user.location].name}`
@@ -41,6 +46,16 @@ function whereami(user) {
     }
 }
 whereami.alt = ['where am i', 'current location', 'location', 'pwd', 'what is my location']
+
+function inventory(user) {
+    const userItems = user.items.map((id) => { return (items[id]?.name || '') })
+    if (userItems.length) {
+        return `You have ${userItems.length} item${userItems.length === 1 ? '' : 's'}: ${userItems.join(', ')}`
+    } else {
+        return 'You only have the clothes on your back. Maybe you should get your badge from the *volunteer* at the registration desk in the *Yours Truly Hotel*?'
+    }
+}
+inventory.alt = ['what is in my inventory', 'what do i have', 'what am i carrying', 'what have i got', 'what do i got?']
 
 function inspect(user, ...tokens) {
     const target = tokens.join(' ').trim().toLowerCase().replace(/^(the|my|this) /, '')
@@ -101,6 +116,8 @@ async function goto(user, ...tokens) {
     
     user.location = loc.id
 
+    // TODO: Also store users by location ID so people can see who's around them?
+
     if (!user.visited.includes(loc.id)) {
         user.visited.push(loc.id)
         user.score += loc.points || 1
@@ -122,12 +139,13 @@ function engage(user, ...tokens) {
         return 'You look around, but don\'t see anyone like that.'
     }
 
-    if (!user.contacts.includes(person.id)) {
-        user.contacts.push(person.id)
+    const prev = user.contacts.filter((c) => c.id === person.id)[0]
+    if (!prev) {
+        user.contacts.push({id: person.id, type:'npc'})
         user.score += person.points || 1
     }
 
-    // TODO: add condition for if person has already been seen... basically, change the greeting, and maybe the start point
+    // TODO: add condition for if person has already been seen... basically, change the greeting, and maybe the start point?
     user.convo = [person.id, 0]
 
     return `${person.name}: "${person.conversation[user.convo[1]].phrase}"`
@@ -135,19 +153,32 @@ function engage(user, ...tokens) {
 engage.alt = ['talk to', 'talk with', 'speak to', 'chat with', 'interact with', 'approach']
 
 function take(user, ...tokens) {
-    const item = tokens.join(' ').trim().replace(/^(the|a|an) /, '')
-    if (!item) {
+    const itemName = tokens.join(' ').trim().replace(/^(the|a|an) /, '')
+    if (!itemName) {
         return 'What do you want to pick up?'
     } else {
-        // TODO: check to see if they can get the item, then add to inventory
-        return 'You picked up the ' + item
+        const itemId = locations[user.location]?.items.filter((id) => {
+            return items[id]?.name.toLowerCase() === itemName.toLowerCase()
+        })[0] || null
+
+        if (!itemId) {
+            return 'You don\'t see anything like that around here.'
+        } else if (user.items.includes(itemId)) {
+            return 'You already have that item.'
+        }
+
+        const item = items[itemId]
+        user.items.push(item.id)
+        user.score += item.points
+
+        return 'You pick up the ' + item.name
     }
 }
 take.alt = ['pickup', 'pick up', 'retrieve', 'get', 'grab']
 
 
 const commands = {
-    help, whoami, exit, whereami, goto, take, inspect, engage
+    help, whoami, exit, whereami, inventory, goto, take, inspect, engage
 }
 const count = Object.keys(commands).length
 for (fn in commands) {

@@ -37,7 +37,7 @@ const sessionOptions = {
     store: new RedisStore({ client: redisSessionClient }),
     resave: false,
     cookie: { maxAge: 86400000 * 3 }, // 3 days
-    name: 'disco-session',
+    name: `${process.env.APP_NAME}-session`,
     saveUninitialized: false
 }
 if (process.env.NODE_ENV !== 'development') {
@@ -72,7 +72,7 @@ app.use((err, req, res, next) => {
     } else {
         res.render('error', {
             page: 'error',
-            title: 'DisCo - Error',
+            title: `${process.env.APP_NAME} Error`,
             message: (status === 500) ? 'Sorry, we ran into a problem.' : err.message
         })
     }

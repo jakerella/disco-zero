@@ -22,7 +22,7 @@ async function login(handle, pin) {
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to perform user login.', 500) }
 
-    const user = JSON.parse((await cache.get(`disco_user_${handle}`)) || '{}')
+    const user = JSON.parse((await cache.get(`${process.env.APP_NAME}_user_${handle}`)) || '{}')
     if (user.pin === hashPin(pin)) {
         return user
     }
@@ -35,7 +35,7 @@ async function handleExists(handle) {
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to get data.', 500) }
 
-    const count = Number(await cache.exists(`disco_user_${handle}`))
+    const count = Number(await cache.exists(`${process.env.APP_NAME}_user_${handle}`))
     return count > 0
 }
 
@@ -44,7 +44,7 @@ async function handleByCode(code) {
     if (!code) { throw new AppError('No code provided to check.', 400) }
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to get data.', 500) }
-    return await cache.get(`disco_code_${code}`)
+    return await cache.get(`${process.env.APP_NAME}_code_${code}`)
 }
 
 async function get(handle, code) {
@@ -53,7 +53,7 @@ async function get(handle, code) {
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to get data.', 500) }
 
-    const user = JSON.parse((await cache.get(`disco_user_${handle}`)) || '{}')
+    const user = JSON.parse((await cache.get(`${process.env.APP_NAME}_user_${handle}`)) || '{}')
     if (user.code !== code) { throw new AppError('Sorry, but that user handle does not match that code.', 401) }
     return user
 }
@@ -69,8 +69,8 @@ async function save(data) {
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to set data.', 500) }
 
-    await cache.set(`disco_user_${data.handle}`, JSON.stringify(data))
-    await cache.set(`disco_code_${data.code}`, data.handle)
+    await cache.set(`${process.env.APP_NAME}_user_${data.handle}`, JSON.stringify(data))
+    await cache.set(`${process.env.APP_NAME}_code_${data.code}`, data.handle)
 
     return true
 }

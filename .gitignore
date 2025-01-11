@@ -5,3 +5,4 @@ node_modules/
 .env
 localcert/
 dump.rdb
+codes.txt

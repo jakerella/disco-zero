@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     }
     return res.render('login', {
         page: 'login',
-        title: 'Login'
+        title: `${process.env.APP_NAME} Login`
     })
 })
 
@@ -21,7 +21,7 @@ router.post('/', async (req, res, next) => {
     if (!handle || !pin) {
         return res.render('login', {
             page: 'login',
-            title: 'Login',
+            title: `${process.env.APP_NAME} Login`,
             message: 'Please enter your handle and PIN. If you haven\'t registered for the game yet, maybe ask someone how you can.'
         })
     }
@@ -30,7 +30,7 @@ router.post('/', async (req, res, next) => {
     if (!user) {
         return res.render('login', {
             page: 'login',
-            title: 'Login',
+            title: `${process.env.APP_NAME} Login`,
             message: 'Sorry, but that handle and PIN don\'t match. Want to try again?'
         })
     }

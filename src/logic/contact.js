@@ -12,18 +12,23 @@ router.get('/:code', async (req, res, next) => {
         if (req.session.user.code === req.params.code) {
             return res.render('game', {
                 page: 'game',
-                title: 'A little game',
+                title: process.env.APP_NAME || 'Game',
+                appName: process.env.APP_NAME || '',
                 user: req.session.user,
                 message: `You look at your confirmation email... yep, that\'s you.`
             })
         } else {
             
-            // TODO: new contact
+            // TODO: new contact (code that is not the logged in user)
+            // could be another player, or an NPC, or an item... basically anything with a UUID
+            // could be a secret location! or maybe the password to a location they can't access
+            // could be the start of a side quest with some hacking angle...
             logger.debug(`new contact: ${req.params.code}`)
 
             res.render('game', {
                 page: 'game',
-                title: 'A little game',
+                title: process.env.APP_NAME || 'Game',
+                appName: process.env.APP_NAME || '',
                 user: req.session.user,
                 message: `New contact: ${req.params.code}`
             })
@@ -38,7 +43,7 @@ router.get('/:code', async (req, res, next) => {
         } else {
             res.render('register', {
                 page: 'register',
-                title: 'Register',
+                title: `Register for ${process.env.APP_NAME}`,
                 code: req.params.code
             })
         }
