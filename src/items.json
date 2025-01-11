@@ -2,28 +2,28 @@
     "019408f7-772f-70ee-9a69-2d8289644a12": {
         "id": "019408f7-772f-70ee-9a69-2d8289644a12",
         "name": "badge",
-        "description": "This is your District Con badge. It gets you access to all the great content, villages, interactions, and social activities at DistrictCon Zero!",
+        "description": "This is your DistrictCon badge. It gets you access to all the great content, villages, interactions, and social activities at DistrictCon Zero! On the back, you see your handle and attendee code: {{handle}}:{{code}}",
         "use": {
             "type": "text",
-            "message": "You flash your badge to the people around you. They seem mildly impressed."
+            "value": "You flash your badge to the people around you. They seem mildly impressed."
         },
         "points": 5
     },
     "01942807-cdf2-74d7-8ad2-aa3c271ddee5": {
         "id": "01942807-cdf2-74d7-8ad2-aa3c271ddee5",
         "name": "venue map",
-        "description": "A map of the DistrictCon venue, the Yours Truly Hotel. The *conference center* is up the elevator past the lobby.",
+        "description": "A map of the DistrictCon venue within the *Yours Truly Hotel*. The *conference center* is up the elevator past the lobby. There are various sesison rooms and a *staff room* in the conference center. The registration desk is in the Yours Truly Hotel.",
         "use": null,
         "points": 5
     },
     "01944d5d-2035-708c-b913-f7be18c0cb7a": {
         "id": "01944d5d-2035-708c-b913-f7be18c0cb7a",
-        "name": "usb drive",
-        "description": "There's no label, but you never know, there could be something interesting on it.",
+        "name": "staff usb drive",
+        "description": "There's no label, but you never know, there could be something interesting on it. You could try to *use* it.",
         "use": {
             "type": "download",
-            "message": "You plug the drive into your burner laptop and see a single file. You copy it to your machine.",
-            "value": "/main.css"
+            "value": "static/main.css",
+            "filename": "secret.txt"
         },
         "points": 10
     }

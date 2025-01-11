@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const path = require('path')
 const userModel = require('../models/user')
 const commands = require('./commands')
 const convo = require('./convo')
@@ -49,7 +50,7 @@ router.get('/cmd', async (req, res, next) => {
         return next(new AppError('You look around in confusion... is this where you\'re supposed to be?', 400))
     }
 
-    let out = 'Nothing happened.'
+    let out = null
     let tokens = req.query.c.trim().toLowerCase().replaceAll(/[^a-z0-9\s\-]/g, '').split(' ')
 
     if (['logout', 'quit', 'q', 'exit'].includes(tokens[0])) {
@@ -72,12 +73,10 @@ router.get('/cmd', async (req, res, next) => {
         if (req.session.user.convo) {
             res.set(`X-${process.env.APP_NAME}-action`, 'convo')
         }
-        // TODO: allow templatized info like {{handle}}
-        return res.end(out)
+        return res.end(processTemplate(req.session.user, out))
     }
 
     let cmd = []
-    let found = false
     for (let i=0; i<tokens.length; ++i) {
         if (tokens[i] === 'please') {
             continue
@@ -85,7 +84,6 @@ router.get('/cmd', async (req, res, next) => {
         cmd.push(tokens[i])
         if (commands[cmd.join(' ')]) {
             try {
-                found = true
                 out = await commands[cmd.join(' ')](req.session.user || null, ...tokens.slice(i+1))
             } catch(err) {
                 console.log(err)
@@ -96,18 +94,45 @@ router.get('/cmd', async (req, res, next) => {
             }
         }
     }
-    if (found) {
+    if (out) {
         req.session.user.score = Math.max(req.session.user.score, 0)
         await userModel.save(req.session.user)
-        if (req.session.user.convo) {
-            res.set(`X-${process.env.APP_NAME}-action`, 'convo')
+        
+        if (/^DOWNLOAD\|/.test(out)) {
+            const [_, filename, filepath] = out.split('|')
+            const fullpath = path.join(__dirname, '..', '..', filepath)
+            logger.info(`User ${req.session.user.handle} downloaded ${filepath}`)
+            res.set('Content-Disposition', `attachment; filename="${filename}"`)
+            res.sendFile(fullpath, function(err) {
+                if(err) {
+                    logger.warn(err)
+                    return next(new AppError('Unable to download file.'))
+                }
+            })
+        } else {
+            if (req.session.user.convo) {
+                res.set(`X-${process.env.APP_NAME}-action`, 'convo')
+            }
+            res.end(processTemplate(req.session.user, out))
         }
-        // TODO: allow templatized info like {{handle}}
-        res.end(out)
     } else {
         return next(new AppError('Nothing happened. Maybe try something else?', 400))
     }
 })
+
+function processTemplate(user, phrase) {
+    let out = phrase
+    const vars = out.match(/{{[a-z0-9\-]+}}/g)
+    if (vars) {
+        for (let i=0; i<vars.length; ++i) {
+            const key = vars[i].substring(2, vars[i].length-2)
+            if (user[key]) {
+                out = out.replaceAll(vars[i], user[key])
+            }
+        }
+    }
+    return out
+}
 
 function expandContraction(t) {
     const seconds = { 's': 'is', 'd': 'did', 't': 'not', 'll': 'will', 're': 'are', 'm': 'am', 've': 'have' }

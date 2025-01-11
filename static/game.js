@@ -28,6 +28,8 @@
 
         out.innerHTML += `<p class='cmd'>${label.innerText} ${input}</p>`
         prompt.value = ''
+        historyEntry = 0
+        history.push(input)
         
         const resp = await fetch(`/cmd?c=${input}`, {
             headers: { 'accept': 'text/plain' }
@@ -35,8 +37,7 @@
         if (resp.redirected) {
             return window.location.replace(resp.url)
         }
-
-        const content = await resp.text()
+        
         let error = ''
         if (resp.status > 499) {
             error = ' error'
@@ -44,17 +45,29 @@
             error = ' user-error'
         }
 
-        label.innerText = `${(resp.headers.get(`X-${APP_NAME}-Action`) === 'convo') ? '-' : '>'} `
-        
-        const node = document.createElement('p')
-        node.classList.add('out')
-        if (error) { node.classList.add('error') }
-        out.appendChild(node)
-        typeOutput(node, content)
+        const disposition = resp.headers.get('Content-Disposition')
+        if (/^attachment/.test(disposition)) {
+            const [_, filename, __] = disposition.split('"')
+            const dataUrl = window.URL.createObjectURL(await resp.blob())
+            var a = document.createElement('a')
+            a.href = dataUrl
+            a.download = filename || 'file.txt'
+            document.body.appendChild(a)
+            a.click()
+            a.remove()
 
-        window.scrollTo(0, document.body.scrollHeight)
-        historyEntry = 0
-        history.push(input)
+        } else {
+            const content = await resp.text()
+
+            label.innerText = `${(resp.headers.get(`X-${APP_NAME}-Action`) === 'convo') ? '-' : '>'} `
+            const node = document.createElement('p')
+            node.classList.add('out')
+            if (error) { node.classList.add('error') }
+            out.appendChild(node)
+
+            typeOutput(node, content)
+            window.scrollTo(0, document.body.scrollHeight)
+        }
     })
     kc += ey
     const cc = 2.8*24<<63%3

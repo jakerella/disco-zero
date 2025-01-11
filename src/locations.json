@@ -14,8 +14,10 @@
         "type": "room",
         "parent": "0193feed-2940-71ba-9fc5-64122b4b79ff",
         "name": "conference center",
-        "arrival": "You take the elevator up to the conference center.",
-        "description": "There are lots of people in the conference center, some just walking through, some standing around talking. You see a hallway that leads to some of the session rooms, various doors to other places, the staff room, and of course the elevator you came up behind you.",
+        "arrival": "You flash your badge at the volunteer and take the elevator up to the conference center.",
+        "description": "There are lots of people in the conference center, some just walking through, some standing around talking. You see a hallway that leads to some of the session rooms, the staff room, and of course the elevator you came up behind you that leads to the Yours Truly Hotel.",
+        "conditions": [{ "check": "has", "type": "item", "value": "019408f7-772f-70ee-9a69-2d8289644a12" }],
+        "notmet": "A volunteer stops you at the elevator. \"Sorry, but you'll need a conference badge to go up. Have checked in at the registration desk with Jenny?\"",
         "points": 5,
         "people": [],
         "items": []
