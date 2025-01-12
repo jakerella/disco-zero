@@ -88,7 +88,10 @@ async function getCacheClient() {
     }
 
     return new Promise((resolve, reject) => {
-        _client = redis.createClient({ url: process.env.REDIS_URL })
+        _client = redis.createClient({
+            url: process.env.REDIS_URL,
+            tls: { rejectUnauthorized: false }
+        })
             .on('error', (err) => {
                 logger.error(`ERROR from Redis: ${err.message || err}`)
             })

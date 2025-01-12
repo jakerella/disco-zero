@@ -22,7 +22,10 @@ app.use(express.urlencoded({ extended: false }))
 
 
 /* ********** session handling ********** */
-const redisSessionClient = redis.createClient({ url: process.env.REDIS_URL })
+const redisSessionClient = redis.createClient({
+    url: process.env.REDIS_URL,
+    tls: { rejectUnauthorized: false }
+})
 redisSessionClient.on('error', (err) => {
     if (/ECONNREFUSED/.test(err.message || err)) {
         logger.error(`Unable to establish redis connection for session store on startup, stopping Node process:\n${err.message || err}`)

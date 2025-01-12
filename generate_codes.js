@@ -19,7 +19,10 @@ fs.writeFileSync(FILENAME, urls.join('\n'))
 console.log(`Wrote all URLs to ${FILENAME}`)
 
 if (REDIS_URL) {
-    const client = redis.createClient({ url: REDIS_URL })
+    const client = redis.createClient({
+        url: REDIS_URL,
+        tls: { rejectUnauthorized: false }
+    })
     client
         .on('error', (err) => {
             console.error(`ERROR from Redis: ${err.message || err}`)
