@@ -24,7 +24,10 @@ app.use(express.urlencoded({ extended: false }))
 /* ********** session handling ********** */
 const redisSessionClient = redis.createClient({
     url: process.env.REDIS_URL,
-    tls: { rejectUnauthorized: false }
+    socket: {
+        tls: (process.env.REDIS_URL.match(/rediss:/) != null),
+        rejectUnauthorized: false,
+    }
 })
 redisSessionClient.on('error', (err) => {
     if (/ECONNREFUSED/.test(err.message || err)) {

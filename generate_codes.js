@@ -21,7 +21,10 @@ console.log(`Wrote all URLs to ${FILENAME}`)
 if (REDIS_URL) {
     const client = redis.createClient({
         url: REDIS_URL,
-        tls: { rejectUnauthorized: false }
+        socket: {
+            tls: (process.env.REDIS_URL.match(/rediss:/) != null),
+            rejectUnauthorized: false,
+        }
     })
     client
         .on('error', (err) => {
