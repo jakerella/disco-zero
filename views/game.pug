@@ -3,13 +3,19 @@ extends partials/layout.pug
 block content
     article.terminal
         section.output
-            p.out #{message}
-        form.game
+            if message
+                p.out #{message}
+            if prompt
+                p.cmd > #{prompt}
+            if output
+                p.out #{output}
+        form.game(action='/', method='post')
             if convo
                 label - 
             else 
                 label > 
-            input.prompt(autofocus='true')
+            input.prompt(name='prompt', autofocus='true', autocomplete='off')
+            input(type='hidden', name='message', value=message)
     
     script.
         const APP_NAME = '#{appName}'

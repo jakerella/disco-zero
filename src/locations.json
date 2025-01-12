@@ -2,7 +2,7 @@
     "0193feed-2940-71ba-9fc5-64122b4b79ff": {
         "id": "0193feed-2940-71ba-9fc5-64122b4b79ff",
         "type": "main",
-        "name": "yours truly hotel",
+        "name": "Yours Truly Hotel",
         "arrival": "You arrive at the Yours Truly hotel, site of the first ever DistrictCon!",
         "description": "You look around the lobby. The decor is pretty cool, and there's a DistrictCon sign and registration table to your right. A *volunteer* stands behind it. In front of you is the elevator to the *conference center*. Behind you is the door out onto New Hampshire Ave NW and all of Washington, DC!",
         "points": 10,
@@ -13,7 +13,7 @@
         "id": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
         "type": "room",
         "parent": "0193feed-2940-71ba-9fc5-64122b4b79ff",
-        "name": "conference center",
+        "name": "Conference Center",
         "arrival": "You flash your badge at the volunteer and take the elevator up to the conference center.",
         "description": "There are lots of people in the conference center, some just walking through, some standing around talking. You see a hallway that leads to some of the session rooms, the staff room, and of course the elevator you came up behind you that leads to the Yours Truly Hotel.",
         "conditions": [{ "check": "has", "type": "item", "value": "019408f7-772f-70ee-9a69-2d8289644a12" }],
@@ -26,31 +26,53 @@
         "id": "01944d58-f34c-775f-b6f4-dc0d40461ac0",
         "type": "room",
         "parent": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
-        "name": "staff room",
+        "name": "Staff room",
         "arrival": "You look around but no one seems to be blocking the staff room, so you decide to take a peek inside.",
         "description": "This is less of a 'room' and more of a storage closet. There's a bunch of boxes, but they're all taped up. Sitting on one of the boxes is a small usb drive. You think you hear someone coming toward the room, so you probably shouldn't stay long!",
         "points": 10,
         "people": [],
         "items": ["01944d5d-2035-708c-b913-f7be18c0cb7a"]
     },
-    "0193feed-5326-7672-b1fd-c08658c45ac6": {
-        "id": "0193feed-5326-7672-b1fd-c08658c45ac6",
-        "type": "main",
-        "name": "white house",
-        "arrival": "You arrive at the north side of the gates of the White House, near Lafayette park.",
-        "description": "This is the White House where the President lives and works.",
-        "points": 10,
-        "items": [],
-        "people": []
-    },
     "0193feee-0b82-704a-aeba-ce40029e7b7e": {
         "id": "0193feee-0b82-704a-aeba-ce40029e7b7e",
         "type": "main",
-        "name": "metro station",
+        "name": "Metro station",
         "arrival": "You are at a metro station, lucky for you, it's a free-ride weekend!",
         "description": "This is a typical Washington, DC metro station. You can get anywhere in the city from here!",
         "points": 5,
         "items": [],
+        "people": []
+    },
+    "019456c6-8e0b-7672-9fcc-02aa047944bd": {
+        "id": "019456c6-8e0b-7672-9fcc-02aa047944bd",
+        "type": "hidden",
+        "name": "Capitol subway",
+        "arrival": "While on a tour of the Capitol building, you see a door labelled 'Capitol Subway'. The sign didn't say you couldn't go in, so you check it out.",
+        "description": "This appears to be a private subway system just for legislators and Capitol staff. There's a call button on the wall next to the small platform, but no subway train is there currently.",
+        "points": 20,
+        "items": [],
+        "people": []
+    },
+    "01945c61-418d-765a-82a2-b06d872dac99": {
+        "id": "01945c61-418d-765a-82a2-b06d872dac99",
+        "type": "main",
+        "name": "Som Records",
+        "arrival": "The shop is in a half-basement space of a red-brick building. You step in and enter another world.",
+        "description": "Inside you find plenty of sweet vinyl, both in boxes and adorning the walls and ceiling. It's tight inside, but not too crowded thankfully. There's a player to one side for listening before you buy. You start fliping through albums and right away see some amazing options. Toward the back you see a door simply labeled 'Som back room'.",
+        "points": 5,
+        "items": [],
+        "people": []
+    },
+    "01945c61-8a20-71eb-b7df-a6b72e27d5a8": {
+        "id": "01945c61-8a20-71eb-b7df-a6b72e27d5a8",
+        "type": "room",
+        "name": "Som back room",
+        "parent": "01945c61-418d-765a-82a2-b06d872dac99",
+        "conditions": [{ "check": "password", "type": "text", "value": "donnasummer" }],
+        "arrival": "You say the password and they let you into the back room.",
+        "description": "There are racks and racks of old vinyl, all disco. There's a low thumping disco vibe playing and only a couple other people there. You rifle through the stacks, but only thing stands out: a record labelled 'DistrictCon Soundtrack'. Surely that can't be for this event, right?",
+        "points": 10,
+        "items": ["01945c61-c10c-7788-b7e7-da82b5270751"],
         "people": []
     }
 }

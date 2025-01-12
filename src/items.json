@@ -2,6 +2,7 @@
     "019408f7-772f-70ee-9a69-2d8289644a12": {
         "id": "019408f7-772f-70ee-9a69-2d8289644a12",
         "name": "badge",
+        "alternates": ["con badge"],
         "description": "This is your DistrictCon badge. It gets you access to all the great content, villages, interactions, and social activities at DistrictCon Zero! On the back, you see your handle and attendee code: {{handle}}:{{code}}",
         "use": {
             "type": "text",
@@ -12,6 +13,7 @@
     "01942807-cdf2-74d7-8ad2-aa3c271ddee5": {
         "id": "01942807-cdf2-74d7-8ad2-aa3c271ddee5",
         "name": "venue map",
+        "alternates": ["map", "conference map"],
         "description": "A map of the DistrictCon venue within the *Yours Truly Hotel*. The *conference center* is up the elevator past the lobby. There are various sesison rooms and a *staff room* in the conference center. The registration desk is in the Yours Truly Hotel.",
         "use": null,
         "points": 5
@@ -19,6 +21,7 @@
     "01944d5d-2035-708c-b913-f7be18c0cb7a": {
         "id": "01944d5d-2035-708c-b913-f7be18c0cb7a",
         "name": "staff usb drive",
+        "alternates": ["usb drive", "thumb drive", "usb device"],
         "description": "There's no label, but you never know, there could be something interesting on it. You could try to *use* it.",
         "use": {
             "type": "download",
@@ -26,5 +29,29 @@
             "filename": "secret.txt"
         },
         "points": 10
+    },
+    "019456e1-5ff7-7425-8ebc-062a462fe6db": {
+        "id": "019456e1-5ff7-7425-8ebc-062a462fe6db",
+        "name": "metro map",
+        "alternates": ["subway map", "train map", "metro guide", "subway guide"],
+        "description": "A guide to all of the metro stations in the Washington, DC area.",
+        "use": null,
+        "points": 5
+    },
+    "01945c7c-e588-76de-8fb5-65e57f5b30ee": {
+        "id": "01945c7c-e588-76de-8fb5-65e57f5b30ee",
+        "name": "Som records hint",
+        "alternates": ["back room hint", "password hint", "som records back room password", "som records back room hint", "som records back room password hint"],
+        "description": "jimmy-T blind-messaged you saying \"Hey new friend, have you made it over to Som records yet? They have the ultimate disco vinyl collection, biggest you've ever seen, some of it basically brand new! Always so much fun.\"\nThen they gave you a hint to password for the back room at Som Records: 17 8 2 29 30 10 16 6 32 22 11",
+        "use": null,
+        "points": 1
+    },
+    "01945c61-c10c-7788-b7e7-da82b5270751": {
+        "id": "01945c61-c10c-7788-b7e7-da82b5270751",
+        "name": "DisCo soundtrack",
+        "alternates": ["districtcon soundtrack", "vinyl record", "record", "soundtrack"],
+        "description": "A vinyl record of the DistrictCon soundtrack.",
+        "use": null,
+        "points": 20
     }
 }

@@ -4,11 +4,15 @@ const locations = require('../locations.json')
 const people = require('../people.json')
 const items = require('../items.json')
 
-// TODO: see leaderboard
-// TODO: track score modifiers and allow user to see how their score is calculated
-// TODO: help on specific commands?
+// TODO: view contact list, and where they're at (if known)
+// TODO: list of where you've been (kind of like the inventory)
+// TODO: players can send messages to others in their contact list
 // TODO: Also store users by location ID so people can see who's around them?
 // TODO: add condition for if NPC has already been seen... basically, change the greeting, and maybe the start point?
+// TODO: track score modifiers and allow user to see how their score is calculated
+// TODO: see leaderboard
+// TODO: help on specific commands?
+
 
 function help() {
     return [
@@ -27,9 +31,19 @@ function help() {
 help.alt = ['hint', 'hints', 'give me a hint', 'what is this', 'what should i do', 'what do i do', 'how do i play']
 
 function exit(user) {
-    return 'You want to leave, but aren\'t sure where you would go. Maybe you should decide that first?'
+    if (locations[user.location].parent) {
+        const loc = locations[locations[user.location].parent]
+        user.location = loc.id
+        if (!user.visited.includes(loc.id)) {
+            user.visited.push(loc.id)
+            user.score += loc.points || 1
+        }
+        return `You go back to the ${loc.name}.`
+    }
+
+    return 'You could leave, but where would you go? Maybe you should decide that first.'
 }
-exit.alt = ['get out', 'leave', 'walk away', 'go away']
+exit.alt = ['get out', 'leave', 'walk out']
 
 function whoami(user) {
     if (user && user.handle) {
@@ -60,11 +74,13 @@ function inventory(user) {
 inventory.alt = ['what is in my inventory', 'what do i have', 'what am i carrying', 'what have i got', 'what do i got?']
 
 function inspect(user, ...tokens) {
-    const target = tokens.join(' ').trim().toLowerCase().replace(/^(the|my|this) /, '')
+    const target = tokens.join(' ').trim().toLowerCase().replace(/^(the|my|this|my) /, '')
     if (!target || ['venue', 'building', 'location', 'place', 'surroundings', 'here', 'me', 'setting'].includes(target)) {
         return locations[user.location].description
     } else {
-        const item = user.items.filter((id) => { return items[id]?.name === target }).map((id) => items[id])[0]
+        const item = user.items.filter((id) => {
+            return items[id]?.name.toLowerCase() === target || items[id]?.alternates.includes(target)
+        }).map((id) => items[id])[0]
         if (item) {
             return item.description
         } else {
@@ -75,31 +91,52 @@ function inspect(user, ...tokens) {
 inspect.alt = ['look around', 'look at', 'what can i see', 'what is around me', 'what is here']
 
 async function goto(user, ...tokens) {
-    const dest = tokens.join(' ').trim().toLowerCase().replace(/^the /, '')
+    let password = null
+    let dest = tokens.join(' ').trim().toLowerCase().replace(/^the /, '')
+    
+    const passHandler = dest.split('|')
+    if (passHandler.length === 3 && passHandler[0] === 'password') {
+        dest = passHandler[2]
+        password = passHandler[1]
+    }
+
     const loc = Object.keys(locations)
-        .filter((id) => { return locations[id].name === dest })
+        .filter((id) => { return locations[id].name.toLowerCase() === dest })
         .map((id) => { return locations[id] })[0]
     
     if (!dest) {
         return 'Where do you want to go?'
     } else if (!loc) {
-        return 'You don\'t know where that is.'
+        return 'Is that even a real place? You decide to stay put.'
     } else if (user.location === loc.id) {
         return 'You\'re already here!'
     }
 
     const curr = locations[user.location]
 
-    if (loc.type === 'main' && curr.type !== 'main' && loc.id !== curr.parent) {
+    if (loc.type === 'hidden') {
+        if (!user.visited.includes(loc.id)) {
+            return 'Is that even a real place? You decide to stay put.'
+        }
+    } else if (loc.type === 'main' && curr.parent && loc.id !== curr.parent) {
         return `Looks like you\'re in the ${curr.name}. You probably need to find your way out first.`
     } else if (loc.type !== 'main' && curr.id !== loc.parent) {
         return 'You can\'t get there from here.'
     }
 
     let met = true
-    ;(loc.conditions || []).forEach((cond) => {
-        if (!checkCondition(user, cond)) { met = false }
-    })
+    const conditions = loc.conditions || []
+    for (let i=0; i<conditions.length; ++i) {
+        if (conditions[i].check === 'password') {
+            if (password && password !== conditions[i].value) {
+                return 'Nope, that\'s not it.'
+            } else if (!password) {
+                return `PASSWORD|goto|${dest}`
+            }
+        } else if (!checkCondition(user, conditions[i])) {
+            met = false
+        }
+    }
     if (!met) {
         return loc.notmet || 'Sorry, but you can\'t go there right now.'
     }
@@ -133,10 +170,10 @@ async function goto(user, ...tokens) {
     resp.push(loc.arrival)
     return resp
 }
-goto.alt = ['go to', 'travel to', 'take me to', 'head to', 'walk to', 'go']
+goto.alt = ['go to', 'travel to', 'take me to', 'head to', 'walk to']
 
 function engage(user, ...tokens) {
-    const trigger = tokens.join(' ').trim().replace(/^(the) /, '')
+    const trigger = tokens.join(' ').trim().replace(/^(the|my) /, '')
     
     const target = locations[user.location].people.filter((pid) => {
         const person = people[pid]
@@ -165,7 +202,7 @@ function take(user, ...tokens) {
         return 'What do you want to pick up?'
     } else {
         const itemId = locations[user.location]?.items.filter((id) => {
-            return items[id]?.name.toLowerCase() === itemName.toLowerCase()
+            return items[id]?.name.toLowerCase() === itemName.toLowerCase() || items[id]?.alternates.includes(itemName.toLowerCase())
         })[0] || null
 
         if (!itemId) {
@@ -184,12 +221,12 @@ function take(user, ...tokens) {
 take.alt = ['pickup', 'pick up', 'retrieve', 'get', 'grab']
 
 function use(user, ...tokens) {
-    const itemName = tokens.join(' ').trim().replace(/^(the|a|an) /, '')
+    const itemName = tokens.join(' ').trim().replace(/^(the|a|an|my) /, '')
     if (!itemName) {
         return 'Which item do you want to use?'
     } else {
         const itemId = user.items.filter((id) => {
-            return items[id]?.name.toLowerCase() === itemName.toLowerCase()
+            return items[id]?.name.toLowerCase() === itemName.toLowerCase() || items[id]?.alternates.includes(itemName.toLowerCase())
         })[0] || null
 
         if (!itemId) {

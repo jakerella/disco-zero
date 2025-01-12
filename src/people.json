@@ -61,5 +61,49 @@
                 "end": true
             }
         ]
+    },
+    "01945af6-c88c-760a-95dc-a7d04aaf0085": {
+        "id": "01945af6-c88c-760a-95dc-a7d04aaf0085",
+        "name": "jimmy-T",
+        "triggers": [],
+        "points": 10,
+        "abandon": "Enjoy the music!",
+        "conversation": [
+            {
+                "phrase": "Hey new friend, have you made it over to Som records yet? They have the ultimate disco vinyl collection, biggest you've ever seen, some of it basically brand new! Always so much fun.",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 2
+                    }
+                ]
+            },
+            {
+                "phrase": "Awesome, enjoy the music my friend!",
+                "end": true
+            },
+            {
+                "phrase": "Oh wow, you should really check it out. The collection is only for hard core disco fans, tho. They keep it in a back room. Do you know the password?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 3
+                    }
+                ]
+            },
+            {
+                "phrase": "Ah, well I don't usually give this away, but since you're here at DistrictCon I'll give you a hint: 17 8 2 29 30 10 16 6 32 22 11",
+                "item": "01945c7c-e588-76de-8fb5-65e57f5b30ee",
+                "end": true
+            }
+        ]
     }
 }

@@ -28,7 +28,7 @@ function handleConversation(user, response) {
     for (let i=0; i<options.length; ++i) {
         const triggers = [...options[i].triggers]
         if (triggers.includes('yes')) {
-            triggers.push(...['yea', 'yep', 'yeah', 'y', 'yup', 'yarp', 'sure', 'correct', 'indeed', 'of course'])
+            triggers.push(...['yea', 'yep', 'yeah', 'y', 'yup', 'yarp', 'ok', 'okay', 'sure', 'correct', 'indeed', 'of course'])
         }
         if (triggers.includes('no')) {
             triggers.push(...['nah', 'nope', 'n', 'narp', 'incorrect', 'no way', 'nuh uh', 'never'])

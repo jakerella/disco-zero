@@ -62,7 +62,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
     let status = err.status || 500
     if (status > 499) {
-        logger.error(err)
+        logger.error(`${err.message || err} ${err.stack.split('\n')[1]}`)
     }
     
     res.status(status)

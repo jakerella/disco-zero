@@ -47,8 +47,12 @@ async function handleByCode(code) {
     return await cache.get(`${process.env.APP_NAME}_code_${code}`)
 }
 
-async function get(handle, code) {
-    handle = cleanHandle(handle)
+async function get(code, handle=null) {
+    if (handle) {
+        handle = cleanHandle(handle)
+    } else {
+        handle = await handleByCode(code)
+    }
     if (!handle || !code) { throw new AppError('No handle or code provided to retrieve user.', 400) }
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to get data.', 500) }

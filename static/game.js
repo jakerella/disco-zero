@@ -10,9 +10,24 @@
     const prompt = document.querySelector('.prompt')
     ck += 'rlK'
     const label = form.querySelector('label')
+    let currentOutput = null
+    let typingHandler = null
+    let passHandler = null
     
     form.addEventListener('submit', async (e) => {
+        if (document.location.pathname !== '/') {
+            return true
+        }
         e.preventDefault()
+
+        if (typingHandler) {
+            clearTimeout(typingHandler)
+            const outNode = document.querySelector('.output p.out:last-child')
+            outNode.innerText = currentOutput
+            currentOutput = null
+            typingHandler = null
+        }
+
         const input = prompt.value.trim()
         if (!input) {
             out.innerHTML += `<p class='cmd'>${label.innerText}</p>`
@@ -31,9 +46,13 @@
         historyEntry = 0
         history.push(input)
         
-        const resp = await fetch(`/cmd?c=${input}`, {
-            headers: { 'accept': 'text/plain' }
-        })
+        const headers = { 'accept': 'text/plain' }
+        if (passHandler) {
+            headers[`X-${APP_NAME}-action`] = passHandler
+            passHandler = null
+        }
+
+        const resp = await fetch(`/cmd?c=${input}`, { headers })
         if (resp.redirected) {
             return window.location.replace(resp.url)
         }
@@ -58,13 +77,16 @@
 
         } else {
             const content = await resp.text()
+            const actionHeader = resp.headers.get(`X-${APP_NAME}-Action`) || null
 
-            label.innerText = `${(resp.headers.get(`X-${APP_NAME}-Action`) === 'convo') ? '-' : '>'} `
+            passHandler = (/^PASSWORD\|/.test(actionHeader)) ? actionHeader : null
+            label.innerText = `${(actionHeader === 'convo' || /^PASSWORD\|/.test(actionHeader)) ? '-' : '>'} `
             const node = document.createElement('p')
             node.classList.add('out')
             if (error) { node.classList.add('error') }
             out.appendChild(node)
 
+            currentOutput = content
             typeOutput(node, content)
             window.scrollTo(0, document.body.scrollHeight)
         }
@@ -97,14 +119,14 @@
         const char = text[0]
         node.innerText += (char === ' ') ? ` ${text[1]}` : char
         if (text.length > 1) {
-            setTimeout(() => {
+            typingHandler = setTimeout(() => {
                 typeOutput(node, (char === ' ') ? text.substring(2) : text.substring(1))
             }, Math.floor(Math.random() * 40) + 15)
         }
     }
 
     window.addEventListener('beforeunload', () => {
-        localStorage.setItem('cmd_history', JSON.stringify(history.slice(0, 100)))
+        localStorage.setItem('cmd_history', JSON.stringify(history.slice(-100)))
     })
 
     document.addEventListener('click', (e) => {
