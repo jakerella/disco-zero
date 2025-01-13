@@ -167,7 +167,6 @@ async function handleCommand(user, input) {
 function processDownload(out, res) {
     const [_, filename, filepath] = out.split('|')
     const fullpath = path.join(__dirname, '..', '..', filepath)
-    logger.info(`User ${user.handle} downloaded ${filepath}`)
     res.set('Content-Disposition', `attachment; filename="${filename}"`)
     res.sendFile(fullpath, function(err) {
         if(err) {
