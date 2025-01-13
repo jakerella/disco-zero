@@ -4,6 +4,7 @@ const locations = require('../locations.json')
 const people = require('../people.json')
 const items = require('../items.json')
 
+
 // TODO: view contact list, and where they're at (if known)
 // TODO: list of where you've been (kind of like the inventory)
 // TODO: players can send messages to others in their contact list
@@ -194,7 +195,7 @@ function engage(user, ...tokens) {
 
     return `${person.name}: "${person.conversation[user.convo[1]].phrase}"`
 }
-engage.alt = ['talk to', 'talk with', 'speak to', 'chat with', 'interact with', 'approach']
+engage.alt = ['talk to', 'talk with', 'speak to', 'speak with', 'chat with', 'interact with', 'approach']
 
 function take(user, ...tokens) {
     const itemName = tokens.join(' ').trim().replace(/^(the|a|an) /, '')

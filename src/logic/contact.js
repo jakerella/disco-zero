@@ -7,8 +7,6 @@ const items = require('../items.json')
 const people = require('../people.json')
 const logger = require('../util/logger')(process.env.LOG_LEVEL)
 
-const POINTS_FOR_PLAYER_CONTACT = 10
-const POINTS_FOR_INACTIVE_PLAYER_CONTACT = 1
 
 router.get('/:code', async (req, res, next) => {
     if (req.session.user) {
@@ -67,7 +65,8 @@ router.get('/:code', async (req, res, next) => {
                 const handle = await userModel.handleByCode(req.params.code)
                 if (handle) {
                     const contact = await userModel.get(req.params.code, handle)
-                    message = `Your phone buzzes and you glance at it to see that ${handle} has sent you a message. They're over at the ${locations[contact.location].name}. You add them to your contact list.`
+                    message = `Your phone buzzes and you glance at it to see that ${handle} has sent you a message. They're over at the ${locations[contact.location].name}. You add them to your contact list!`
+                    // TODO: should there be more here???
                     req.session.user.contacts.push({ id: req.params.code, type: 'player' })
                     req.session.user.score += 15
                     await userModel.save(req.session.user)

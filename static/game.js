@@ -31,7 +31,7 @@
         const input = prompt.value.trim()
         if (!input) {
             out.innerHTML += `<p class='cmd'>${label.innerText}</p>`
-            window.scrollTo(0, document.body.scrollHeight)
+            // window.scrollTo(0, document.body.scrollHeight)
             return
         }
         if (input === 'clear') {
@@ -88,7 +88,7 @@
 
             currentOutput = content
             typeOutput(node, content)
-            window.scrollTo(0, document.body.scrollHeight)
+            // window.scrollTo(0, document.body.scrollHeight)
         }
     })
     kc += ey

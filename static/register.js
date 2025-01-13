@@ -27,11 +27,11 @@
         }
         
         if (!handleInput.value) {
-            if (['yes', 'y', 'yep', 'yup', 'yeah', 'yea', 'correct', 'right', 'indeed'].includes(prompt.value)) {
+            if (['yes', 'y', 'yep', 'yup', 'yeah', 'yea', 'okay', 'ok', 'correct', 'right', 'indeed'].includes(prompt.value.toLowerCase())) {
                 handleInput.value = handle
-                out.innerHTML += `<p class='out'>Please enter a person identification number (PIN) for your user account. (Digits only please.)</p>`
+                out.innerHTML += `<p class='out'>Please enter a personal identification number (PIN) for your user account. (Digits only please.)</p>`
 
-            } else if (['no', 'n', 'nah', 'nope', 'incorrect', 'wrong', 'cancel'].includes(prompt.value)) {
+            } else if (['no', 'n', 'nah', 'nope', 'incorrect', 'wrong', 'cancel'].includes(prompt.value.toLowerCase())) {
                 handle = null
                 handleInput.value = ''
                 out.innerHTML += `<p class='out'>What would you like your handle to be?</p>`
@@ -44,7 +44,7 @@
         }
         
         if (!/^[0-9]+$/.test(prompt.value)) {
-            out.innerHTML += `<p class='out user-error'>Sorry, but you need to enter a valid pin (digits only).</p>`
+            out.innerHTML += `<p class='out user-error'>Sorry, but you need to enter a valid PIN (digits only).</p>`
             prompt.value = ''
             e.preventDefault()
             return false

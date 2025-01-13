@@ -77,7 +77,7 @@
                         "met": 1
                     },
                     {
-                        "triggers": ["no"],
+                        "triggers": ["no", "I have not been there", "no I have not", "what is that", "what is it"],
                         "met": 2
                     }
                 ]
@@ -87,20 +87,20 @@
                 "end": true
             },
             {
-                "phrase": "Oh wow, you should really check it out. The collection is only for hard core disco fans, tho. They keep it in a back room. Do you know the password?",
+                "phrase": "Oh wow, you should really check it out. The collection is only for hard core disco fans, tho. They keep it in a back room. You should try to go there. Do have the password?",
                 "responses": [
                     {
                         "triggers": ["yes"],
                         "met": 1
                     },
                     {
-                        "triggers": ["no"],
+                        "triggers": ["no", "not yet", "what is it", "tell me the password"],
                         "met": 3
                     }
                 ]
             },
             {
-                "phrase": "Ah, well I don't usually give this away, but since you're here at DistrictCon I'll give you a hint: 17 8 2 29 30 10 16 6 32 22 11",
+                "phrase": "Ah, well I don't usually give this away, but since I *blind messaged* you, I'll give you a hint: 17 8 2 29 30 10 16 6 32 22 11",
                 "item": "01945c7c-e588-76de-8fb5-65e57f5b30ee",
                 "end": true
             }
