@@ -25,7 +25,7 @@
         "description": "There's no label, but you never know, there could be something interesting on it. You could try to *use* it.",
         "use": {
             "type": "download",
-            "value": "static/main.css",
+            "value": "static/01944d5d-2035-708c-b913-f7be18c0cb7a.txt",
             "filename": "secret.txt"
         },
         "points": 10

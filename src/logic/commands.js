@@ -18,14 +18,14 @@ function help() {
     return [
         'You consult the info packet you happen to have in your pocket.',
         'There are a number of locations for you to visit, people you can talk to, and items to collect!',
-        'It\'s not entirely clear what your ultimate goal is yet... but you might find that out along the way.',
-        'You can *look around* to check out where you are, *go to* different locations, and *talk to* people.',
-        'Along the way you\'ll be able to *take* items you find and *inspect* them for clues.',
-        'Other basic things are asking "Who am i?", checking your *inventory*, and you can *inspect* items you have.\n',
+        'It\'s not entirely clear what your ultimate goal is yet... but you might find that out along the way.\n\n',
+        'In the game you can *look around* to check out where you are, *go to* different locations, and *talk to* people.',
+        'Along the way you\'ll be able to *take* items you find, *inspect* them for clues, or even *use* some of them.',
+        'Other basic things are asking "Who am i?" or checking your *inventory*.\n\n',
         'When talking to someone in the game, make sure to pay attention to what they ask you and answer',
         'directly (your answers need to be specific and short, usually). Note that when talking to someone, you can\'t',
-        'use normal commands until you leave the conversation (usually by saying "goodbye").\n',
-        'You can "logout" any time to *exit* the game and clear your session.'
+        'use normal commands until you leave the conversation (usually by saying "goodbye" or when they say goodbye).\n\n',
+        'You can *logout* any time to clear your session.'
     ].join(' ')
 }
 help.alt = ['hint', 'hints', 'give me a hint', 'what is this', 'what should i do', 'what do i do', 'how do i play']
