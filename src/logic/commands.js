@@ -1,8 +1,10 @@
 
 const logger = require('../util/logger')(process.env.LOG_LEVEL)
+const AppError = require('../util/AppError')
 const locations = require('../locations.json')
 const people = require('../people.json')
 const items = require('../items.json')
+const adminActions = require('./admin')
 
 
 // TODO: view contact list, and where they're at (if known)
@@ -246,6 +248,20 @@ function use(user, ...tokens) {
 }
 use.alt = ['activate', 'operate']
 
+async function admin(user, ...tokens) {
+    if (!user.isAdmin) {
+        logger.warn(`admin action attempted by ${user.handle} (${user.code}): ${tokens.join(' ').replaceAll(/[^a-z0-9\-\.\|\\\/\s]/g, '')}`)
+        throw new AppError('Sorry, but you aren\'t supposed to do that.', 403)
+    }
+    
+    logger.info(`admin action by ${user.handle}: ${tokens.join(' ')}`)
+
+    const resp = await adminActions(tokens)
+    
+    return resp || 'Sorry, not sure what you\'re trying to do...'
+}
+use.alt = []
+
 
 function checkCondition(user, condition) {
     if (condition.check === 'has' && condition.type === 'item') {
@@ -258,7 +274,7 @@ function checkCondition(user, condition) {
 
 
 const commands = {
-    help, whoami, exit, whereami, inventory, goto, take, inspect, engage, use
+    help, whoami, exit, whereami, inventory, goto, take, inspect, engage, use, admin
 }
 const count = Object.keys(commands).length
 for (fn in commands) {

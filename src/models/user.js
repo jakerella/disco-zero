@@ -2,6 +2,7 @@
 const logger = require('../util/logger')(process.env.LOG_LEVEL)
 const redis = require('redis')
 const crypto = require('crypto')
+const uuid = require('uuid')
 const AppError = require('../util/AppError')
 
 let _client = null
@@ -40,8 +41,8 @@ async function handleExists(handle) {
 }
 
 async function handleByCode(code) {
-    code  = code.replaceAll(/[^a-f0-9\-]/g, '')
-    if (!code) { throw new AppError('No code provided to check.', 400) }
+    code = code.replaceAll(/[^a-f0-9\-]/g, '')
+    if (!uuid.validate(code)) { throw new AppError('No code provided to check.', 400) }
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to get data.', 500) }
     return await cache.get(`${process.env.APP_NAME}_code_${code}`)
@@ -53,12 +54,14 @@ async function get(code, handle=null) {
     } else {
         handle = await handleByCode(code)
     }
-    if (!handle || !code) { throw new AppError('No handle or code provided to retrieve user.', 400) }
+    if (!handle && !uuid.validate(code)) { throw new AppError('No handle or code provided to retrieve user.', 400) }
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to get data.', 500) }
 
     const user = JSON.parse((await cache.get(`${process.env.APP_NAME}_user_${handle}`)) || '{}')
-    if (user.code !== code) { throw new AppError('Sorry, but that user handle does not match that code.', 401) }
+    if (code && code !== user.code) {
+        throw new AppError('Sorry, but that user handle does not match that code.', 400)
+    }
     return user
 }
 
@@ -66,8 +69,8 @@ async function save(data) {
     if (!data.handle) {
         throw new AppError('No user handle provided to save data.', 500)
     }
-    if (!data.code) {
-        throw new AppError('No user code provided to save data.', 500)
+    if (!uuid.validate(data.code)) {
+        throw new AppError('Bad user code provided to save data.', 500)
     }
     
     const cache = await getCacheClient()
@@ -77,6 +80,24 @@ async function save(data) {
     await cache.set(`${process.env.APP_NAME}_code_${data.code}`, data.handle)
 
     return true
+}
+
+async function del(code, handle) {
+    handle = cleanHandle(handle)
+    if (!handle || !uuid.validate(code)) { throw new AppError('No handle or code provided to delete user.', 400) }
+    const cache = await getCacheClient()
+    if (!cache) { throw new AppError('No redis client available to delete data.', 500) }
+
+    const codeReset = await cache.set(`${process.env.APP_NAME}_code_${code}`, '')
+    const delCount = await cache.del(`${process.env.APP_NAME}_user_${handle}`)
+
+    if (codeReset === 'OK' && Number(delCount) === 1) {
+        logger.info(`Deleted user with handle: ${handle}`)
+        return true
+    } else {
+        logger.warn(`Problem deleting user with handle '${handle}' and code '${code}' (${codeReset} && ${delCount})`)
+        return false
+    }
 }
 
 async function getCacheClient() {
@@ -115,5 +136,5 @@ async function getCacheClient() {
 }
 
 module.exports = {
-    login, get, save, cleanHandle, handleExists, handleByCode, hashPin
+    login, get, save, del, cleanHandle, handleExists, handleByCode, hashPin
 }
