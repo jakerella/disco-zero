@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     } else {
         const location = locations[req.session.user.location].name
         const message = [
-            `You are currently ${(location) ? `at the ${location}` : 'lost'}.`
+            `You are currently ${(location) ? `at the ${location}` : 'lost'} and your score is ${req.session.user.score}.`
         ]
         if (req.session.user.convo) {
             const person = people[req.session.user.convo[0]]
@@ -53,6 +53,7 @@ router.post('/', async (req, res) => {
                     out = processTemplate(req.session.user, out)
                 }
             } else {
+                logger.debug(`Null command: ${cleanCommand(req.body.prompt)}`)
                 out = 'Nothing happened. Maybe try something else?'
             }
 
@@ -104,6 +105,7 @@ router.get('/cmd', async (req, res, next) => {
                 return res.end(processTemplate(req.session.user, out))
             }
         } else {
+            logger.debug(`Null command: ${cleanCommand(cmd)}`)
             return next(new AppError('Nothing happened. Maybe try something else?', 400))
         }
 
@@ -117,6 +119,10 @@ router.get('/cmd', async (req, res, next) => {
     }
 })
 
+function cleanCommand(input) {
+    return (input || '').trim().toLowerCase().replaceAll(/[^a-z0-9\s\-\|]/g, '')
+}
+
 async function handleCommand(user, input) {
     if (!user) {
         throw new AppError('Sorry, but you are not logged in', 401)
@@ -126,7 +132,7 @@ async function handleCommand(user, input) {
     }
 
     let out = null
-    let tokens = input.trim().toLowerCase().replaceAll(/[^a-z0-9\s\-\|]/g, '').split(' ')
+    let tokens = cleanCommand(input).split(' ')
 
     if (['logout', 'quit', 'q'].includes(tokens[0])) {
         throw new AppError('Please log in', 401)

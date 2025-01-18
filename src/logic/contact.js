@@ -27,20 +27,21 @@ router.get('/:code', async (req, res, next) => {
                 message = 'Looks like you were already connected with that person!'
 
             } else if (locations[req.params.code]) {
+                req.session.user.location = req.params.code
+                req.session.user.convo = null
                 if (req.session.user.visited.includes(req.params.code)) {
-                    message = `You already knew about the ${locations[req.params.code].name}, but this is a good reminder!`
+                    message = `You already knew about the ${locations[req.params.code].name}, but you head over anyway!`
                 } else {
-                    message = `You have discovered the ${locations[req.params.code].name}! You head over right away.`
-                    req.session.user.location = req.params.code
+                    message = `You have discovered the ${locations[req.params.code].name}! ${locations[req.params.code].arrival}`
                     req.session.user.visited.push(req.params.code)
                     req.session.user.score += locations[req.params.code].points || 1
-                    await userModel.save(req.session.user)
                     logger.info(`${req.session.user.handle} found hidden location: ${locations[req.params.code].name}`)
                 }
+                await userModel.save(req.session.user)
 
-            } else if (items[req.params.code]) {
+            } else if (items[req.params.code] && items[req.params.code].scanable) {
                 if (req.session.user.items.includes(req.params.code)) {
-                    message = `You already have the ${items[req.params.code].name}!`
+                    message = `You already have the ${items[req.params.code].name}.`
                 } else {
                     message = `You found a ${items[req.params.code].name}! You stash it away in your bag.`
                     req.session.user.items.push(req.params.code)
@@ -49,12 +50,12 @@ router.get('/:code', async (req, res, next) => {
                     logger.info(`${req.session.user.handle} found hidden item: ${items[req.params.code].name}`)
                 }
 
-            } else if (people[req.params.code]) {
+            } else if (people[req.params.code] && people[req.params.code].scanable) {
                 if (prevContact) {
                     message = `You look at your phone while standing around and re-read the message from ${people[req.params.code].name}: "${people[req.params.code].conversation[0].phrase}"`
                 } else {
                     req.session.user.contacts.push({ id: req.params.code, type: 'npc' })
-                    req.session.user.score += 15
+                    req.session.user.score += people[req.params.code].points || 1
                     message = `Your phone buzzes and you see a new text message. You don't recognize the number, but read it anyway.\n${people[req.params.code].name}: "${people[req.params.code].conversation[0].phrase}"`
                     logger.debug(`${req.session.user.handle} made new NPC contact with ${people[req.params.code].name}`)
                 }
@@ -62,20 +63,25 @@ router.get('/:code', async (req, res, next) => {
                 await userModel.save(req.session.user)
 
             } else {
-                const handle = await userModel.handleByCode(req.params.code)
-                if (handle) {
-                    const contact = await userModel.get(req.params.code, handle)
-                    message = `Your phone buzzes and you glance at it to see that ${handle} has sent you a message. They're over at the ${locations[contact.location].name}. You add them to your contact list!`
-                    // TODO: should there be more here???
-                    req.session.user.contacts.push({ id: req.params.code, type: 'player' })
-                    req.session.user.score += 15
-                    await userModel.save(req.session.user)
-                    logger.debug(`${req.session.user.handle} just connected with ${handle}`)
+                try {
+                    const handle = await userModel.handleByCode(req.params.code)
+                    if (handle) {
+                        const contact = await userModel.get(req.params.code, handle)
+                        message = `Your phone buzzes and you glance at it to see that ${handle} has sent you a message. They're over at the ${locations[contact.location].name}. You add them to your contact list!`
+                        req.session.user.contacts.push({ id: req.params.code, type: 'player' })
+                        req.session.user.score += 10
+                        await userModel.save(req.session.user)
+                        logger.debug(`${req.session.user.handle} just connected with ${handle}`)
+                    } else if (handle === '') {
+                        message = `That code looks vaguely familiar, but then you look up and realize there's no one here.`
+                    }
+                } catch(err) {
+                    message = null
                 }
             }
 
             if (!message) {
-                message = 'You look at the code you found, but can\'t make sense of it. Oh well.'
+                message = 'You look closely at the code you found, but can\'t make sense of it. Oh well.'
             }
 
             res.render('game', {

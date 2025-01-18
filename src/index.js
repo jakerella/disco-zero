@@ -11,6 +11,9 @@ const contact = require('./logic/contact')
 const register = require('./logic/register')
 const login = require('./logic/login')
 
+// TODO: see leaderboard / dashboard
+
+
 const PORT = process.env.PORT || 80
 
 /* ********** basic express app creation ********** */

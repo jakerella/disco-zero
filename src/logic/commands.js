@@ -1,19 +1,17 @@
 
 const logger = require('../util/logger')(process.env.LOG_LEVEL)
 const AppError = require('../util/AppError')
+const userModel = require('../models/user')
 const locations = require('../locations.json')
 const people = require('../people.json')
 const items = require('../items.json')
 const adminActions = require('./admin')
 
 
-// TODO: view contact list, and where they're at (if known)
-// TODO: list of where you've been (kind of like the inventory)
-// TODO: players can send messages to others in their contact list
 // TODO: Also store users by location ID so people can see who's around them?
+// TODO: players can send messages to others in their contact list
 // TODO: add condition for if NPC has already been seen... basically, change the greeting, and maybe the start point?
 // TODO: track score modifiers and allow user to see how their score is calculated
-// TODO: see leaderboard
 // TODO: help on specific commands?
 
 
@@ -49,7 +47,7 @@ function exit(user) {
 exit.alt = ['get out', 'leave', 'walk out']
 
 function whoami(user) {
-    if (user && user.handle) {
+    if (user.handle) {
         return `${user.handle} (${user.score || 0})`
     } else {
         return 'You seem to have lost your memory.'
@@ -58,7 +56,7 @@ function whoami(user) {
 whoami.alt = ['who am i', 'what is my name', 'what am i called', 'what is my handle', 'score', 'what is my score', 'points', 'how many points do i have', 'what are my points']
 
 function whereami(user) {
-    if (user && user.location && locations[user.location]) {
+    if (user.location && locations[user.location]) {
         return `You are at the ${locations[user.location].name}`
     } else {
         return 'You are lost.'
@@ -92,6 +90,41 @@ function inspect(user, ...tokens) {
     }
 }
 inspect.alt = ['look around', 'look at', 'what can i see', 'what is around me', 'what is here']
+
+async function contacts(user) {
+    const contacts = user.contacts.filter((c) => c.type === 'player')
+    const resp = []
+    for (let i=0; i<contacts.length; ++i) {
+        try {
+            const person = await userModel.get(contacts[i].id)
+            if (person) {
+                resp.push(`${person.handle} (currently ${(locations[person.location]) ? `at the ${locations[person.location].name}` : 'lost'})`)
+            }
+        } catch (err) {
+            logger.debug(`Error while trying to get people for contact list: ${err.message || err}`)
+            /* we'll let these go for the contact list */
+        }
+    }
+    if (resp.length) {
+        return `You have found ${resp.length} ${(resp.length === 1) ? 'person' : 'people'}:\n${resp.join('\n')}`
+    } else {
+        return 'Your contact list is empty... well, empty of _real_ people, anyway.'
+    }
+}
+contacts.alt = ['contact list', 'view my contacts', 'view contacts', 'who do i know', 'who have i met']
+
+function visited(user) {
+    if (!user.visited.length) {
+        return 'You don\'t seem to exist in spacetime. Maybe head back to the *Yours Truly Hotel*?'
+    } else {
+        const sites = user.visited.map((id) => locations[id]?.name)
+        if (sites.length === 1) {
+            return 'You haven\'t really gone anywhere yet, maybe ask someone for a map or just *look around*?'
+        }
+        return `You have been to ${sites.length} locations:\n${sites.join(', ')}`
+    }
+}
+visited.alt = ['locations', 'location history', 'venue history', 'where have i been', 'what locations have i seen', 'known locations']
 
 async function goto(user, ...tokens) {
     let password = null
@@ -274,7 +307,7 @@ function checkCondition(user, condition) {
 
 
 const commands = {
-    help, whoami, exit, whereami, inventory, goto, take, inspect, engage, use, admin
+    help, whoami, exit, whereami, inventory, contacts, visited, goto, take, inspect, engage, use, admin
 }
 const count = Object.keys(commands).length
 for (fn in commands) {

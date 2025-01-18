@@ -33,6 +33,7 @@
     "019456e1-5ff7-7425-8ebc-062a462fe6db": {
         "id": "019456e1-5ff7-7425-8ebc-062a462fe6db",
         "name": "metro map",
+        "scanable": true,
         "alternates": ["subway map", "train map", "metro guide", "subway guide"],
         "description": "A guide to all of the metro stations in the Washington, DC area.",
         "use": null,
