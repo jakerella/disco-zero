@@ -3,40 +3,27 @@ extends partials/layout.pug
 block content
     article.dashboard
         section
-            h3 Leaderboard (#{userCount} total)
+            h3 Leaderboard
+                span.user-count (#{userCount} total)
             ol.leaderboard
-                each user in leaderboard
-                    li.
-                        #{user.value} (#{user.score})
-            script.
-                const userCount = !{Number(userCount)}
         section
             h3 Player Connections
             p.
                 TBD
         section.stats
             h3 Locations
-            p.
-                #{locationStats.discovered} of #{locationStats.total} discovered
+            p.location-discovered
             h4 Locations Found by User Count
-            figure.locationChart.chart
-            script.
-                const locData = !{JSON.stringify(locationStats.counts)}
+            figure.location-chart.chart
         section.stats
             h3 Items
-            p.
-                #{itemStats.discovered} of #{itemStats.total} discovered
+            p.item-discovered
             h4 Items Found by User Count
-            figure.itemChart.chart
-            script.
-                const itemData = !{JSON.stringify(itemStats.counts)}
+            figure.item-chart.chart
         section.stats
             h3 NPCs
-            p.
-                #{npcStats.discovered} of #{npcStats.total} discovered
+            p.npc-discovered
             h4 NPCs Found by User Count
-            figure.npcChart.chart
-            script.
-                const npcData = !{JSON.stringify(npcStats.counts)}
+            figure.npc-chart.chart
     
     script(src='/dashboard.js')

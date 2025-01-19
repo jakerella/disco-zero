@@ -12,8 +12,6 @@ const register = require('./logic/register')
 const login = require('./logic/login')
 const dashboard = require('./logic/dashboard')
 
-// TODO: see leaderboard / dashboard
-
 
 const PORT = process.env.PORT || 80
 

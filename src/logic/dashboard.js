@@ -12,6 +12,31 @@ router.get('/', async (req, res, next) => {
         return next(new AppError('Sorry, but you can\'t see that page.', 403))
     }
 
+    const stats = await getStats()
+
+    return res.render('dashboard', {
+        page: 'dashboard',
+        title: `${process.env.APP_NAME} Dashboard`,
+        userCount: stats.userCount,
+        leaderboard: stats.leaderboard,
+        locationStats: stats.locationStats,
+        itemStats: stats.itemStats,
+        npcStats: stats.npcStats
+    })
+})
+
+router.get('/stats', async (req, res, next) => {
+    if (!req.session.user?.isAdmin) {
+        return next(new AppError('Sorry, but you can\'t see that page.', 403))
+    }
+
+    const stats = await getStats()
+
+    res.json(stats)
+})
+
+
+async function getStats() {
     const userCount = await userModel.userCount()
     const leaderboard = await userModel.leaderboard(10)
     const locData = await userModel.getStats('loc')
@@ -34,15 +59,13 @@ router.get('/', async (req, res, next) => {
         counts: npcData.byCount.sort((a, b) => { return Number(a.id) - Number(b.id) })
     }
 
-    return res.render('dashboard', {
-        page: 'dashboard',
-        title: `${process.env.APP_NAME} Dashboard`,
+    return {
         userCount,
         leaderboard,
         locationStats,
         itemStats,
         npcStats
-    })
-})
+    }
+}
 
 module.exports = router

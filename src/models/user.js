@@ -87,19 +87,12 @@ async function getStats(stat) {
 
     try {
         const byIdKeys = await cache.keys(`${process.env.APP_NAME}_statbyid_${stat}_*`)
-        
-        logger.debug(`byIdKeys: ${JSON.stringify(byIdKeys)}`)
-
         let byIdValues = []
         if (byIdKeys) {
             byIdValues = await cache.mGet(byIdKeys)
         }
 
-
         const byCountKeys = await cache.keys(`${process.env.APP_NAME}_statbycount_${stat}_*`)
-        
-        logger.debug(`byCountKeys: ${JSON.stringify(byCountKeys)}`)
-
         let byCountValues = []
         if (byCountKeys) {
             byCountValues = await cache.mGet(byCountKeys)
@@ -177,7 +170,26 @@ async function del(code, handle) {
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to delete data.', 500) }
 
-    // TODO: update stats?
+    const user = JSON.parse((await cache.get(`${process.env.APP_NAME}_user_${handle}`)) || 'null')
+    if (user) {
+        await cache.decr(`${process.env.APP_NAME}_statbycount_loc_${user.visited.length}`)
+        if (user.items.length) {
+            await cache.decr(`${process.env.APP_NAME}_statbycount_item_${user.items.length}`)
+        }
+        const npcCount = user.contacts.filter((c) => c.type === 'npc').length
+        if (npcCount) {
+            await cache.decr(`${process.env.APP_NAME}_statbycount_npc_${npcCount}`)
+        }
+
+        user.visited.forEach(async (id) => { await cache.decr(`${process.env.APP_NAME}_statbyid_loc_${id}`) })
+        user.items.forEach(async (id) => { await cache.decr(`${process.env.APP_NAME}_statbyid_item_${id}`) })
+        user.contacts
+            .filter((c) => c.type === 'npc')
+            .forEach(async (c) => { await cache.decr(`${process.env.APP_NAME}_statbyid_npc_${c.id}`) })
+        
+    } else {
+        logger.warn(`Unable to get user data for ${handle}, but will attempt to delete anyway...`)
+    }
 
     const leaderRemove = await cache.zRem('leaderboard', user.handle)
     const codeReset = await cache.set(`${process.env.APP_NAME}_code_${code}`, '')
