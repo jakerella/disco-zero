@@ -10,6 +10,7 @@ const game = require('./logic/game')
 const contact = require('./logic/contact')
 const register = require('./logic/register')
 const login = require('./logic/login')
+const dashboard = require('./logic/dashboard')
 
 // TODO: see leaderboard / dashboard
 
@@ -60,6 +61,7 @@ app.use(session(sessionOptions))
 app.use('/contact', contact)
 app.use('/register', register)
 app.use('/login', login)
+app.use('/dashboard', dashboard)
 app.use('/', game)
 
 app.use((req, res, next) => {

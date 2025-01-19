@@ -202,13 +202,15 @@ async function goto(user, ...tokens) {
     if (!user.visited.includes(loc.id)) {
         user.visited.push(loc.id)
         user.score += loc.points || 1
+        await userModel.incrementStat('loc', loc.id, user.visited.length)
     }
+    
     resp.push(loc.arrival)
     return resp
 }
 goto.alt = ['go to', 'travel to', 'take me to', 'head to', 'walk to']
 
-function engage(user, ...tokens) {
+async function engage(user, ...tokens) {
     const trigger = tokens.join(' ').trim().replace(/^(the|my) /, '')
     
     const target = locations[user.location].people.filter((pid) => {
@@ -224,6 +226,8 @@ function engage(user, ...tokens) {
     if (!prev) {
         user.contacts.push({id: person.id, type:'npc'})
         user.score += person.points || 1
+        const npcContacts = user.contacts.filter((c) => c.type === 'npc').length
+        await userModel.incrementStat('npc', person.id, npcContacts)
     }
 
     user.convo = [person.id, 0]
@@ -232,7 +236,7 @@ function engage(user, ...tokens) {
 }
 engage.alt = ['talk to', 'talk with', 'speak to', 'speak with', 'chat with', 'interact with', 'approach']
 
-function take(user, ...tokens) {
+async function take(user, ...tokens) {
     const itemName = tokens.join(' ').trim().replace(/^(the|a|an) /, '')
     if (!itemName) {
         return 'What do you want to pick up?'
@@ -250,6 +254,7 @@ function take(user, ...tokens) {
         const item = items[itemId]
         user.items.push(item.id)
         user.score += item.points
+        await userModel.incrementStat('item', itemId, user.items.length)
 
         return 'You pick up the ' + item.name
     }

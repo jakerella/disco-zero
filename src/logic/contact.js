@@ -35,6 +35,7 @@ router.get('/:code', async (req, res, next) => {
                     message = `You have discovered the ${locations[req.params.code].name}! ${locations[req.params.code].arrival}`
                     req.session.user.visited.push(req.params.code)
                     req.session.user.score += locations[req.params.code].points || 1
+                    await userModel.incrementStat('loc', req.params.code, req.session.user.visited.length)
                     logger.info(`${req.session.user.handle} found hidden location: ${locations[req.params.code].name}`)
                 }
                 await userModel.save(req.session.user)
@@ -47,6 +48,7 @@ router.get('/:code', async (req, res, next) => {
                     req.session.user.items.push(req.params.code)
                     req.session.user.score += items[req.params.code].points || 1
                     await userModel.save(req.session.user)
+                    await userModel.incrementStat('item', req.params.code, req.session.user.items.length)
                     logger.info(`${req.session.user.handle} found hidden item: ${items[req.params.code].name}`)
                 }
 
@@ -57,6 +59,8 @@ router.get('/:code', async (req, res, next) => {
                     req.session.user.contacts.push({ id: req.params.code, type: 'npc' })
                     req.session.user.score += people[req.params.code].points || 1
                     message = `Your phone buzzes and you see a new text message. You don't recognize the number, but read it anyway.\n${people[req.params.code].name}: "${people[req.params.code].conversation[0].phrase}"`
+                    const npcContacts = req.session.user.contacts.filter((c) => c.type === 'npc').length
+                    await userModel.incrementStat('npc', req.params.code, npcContacts)
                     logger.debug(`${req.session.user.handle} made new NPC contact with ${people[req.params.code].name}`)
                 }
                 req.session.user.convo = [req.params.code, 0]
@@ -76,6 +80,7 @@ router.get('/:code', async (req, res, next) => {
                         message = `That code looks vaguely familiar, but then you look up and realize there's no one here.`
                     }
                 } catch(err) {
+                    logger.debug(`Unable to find player contact: ${err.message || err}`)
                     message = null
                 }
             }
@@ -94,7 +99,12 @@ router.get('/:code', async (req, res, next) => {
             })
         }
     } else {
-        const handle = await userModel.handleByCode(req.params.code)
+        let handle = null
+        try {
+            handle = await userModel.handleByCode(req.params.code)
+        } catch (_) {
+            /* we let this go because it's almost certainly user error */
+        }
         if (handle) {
             return next(new AppError('Hmm, that code is already registered. Are you logged in?', 400))
         } else if (handle === null) {

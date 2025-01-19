@@ -45,35 +45,29 @@ router.post('/', async (req, res, next) => {
         })
     }
 
-    const user = {
-        handle,
-        code: req.body.code,
-        pin: userModel.hashPin(req.body.pin),
-        score: 10,
-        location: '0193feed-2940-71ba-9fc5-64122b4b79ff',
-        items: [],
-        visited: ['0193feed-2940-71ba-9fc5-64122b4b79ff'],
-        contacts: [],
-        convo: null
-    }
-    await userModel.save(user)
+    try {
+        const user = await userModel.create(handle, req.body.code, req.body.pin)
+        
+        logger.info(`Registered new user with handle '${handle}' and code '${req.body.code}'`)
     
-    logger.info(`Registered new user with handle '${user.handle}' and code '${user.code}'`)
-    
-    req.session.regenerate((err) => {
-        if (err) {
-            logger.warn(`Error generating new user session after registration: ${err.message || err}`)
-            return next(new AppError('Sorry, but there was a problem while generating a session, can you try refreshing?', 400))
-        }
-        req.session.user = user
-        req.session.save((err) => {
+        req.session.regenerate((err) => {
             if (err) {
-                logger.warn(`Error saving new user session after registration: ${err.message || err}`)
-                return next(new AppError('Sorry, but there was a problem while saving your session, can you try refreshing?', 400))
+                logger.warn(`Error generating new user session after registration: ${err.message || err}`)
+                return next(new AppError('Sorry, but there was a problem while generating a session, can you try refreshing?', 400))
             }
-            res.redirect('/')
+            req.session.user = user
+            req.session.save((err) => {
+                if (err) {
+                    logger.warn(`Error saving new user session after registration: ${err.message || err}`)
+                    return next(new AppError('Sorry, but there was a problem while saving your session, can you try refreshing?', 400))
+                }
+                res.redirect('/')
+            })
         })
-    })
+    } catch(err) {
+        logger.warn(`Problem during user registration: ${err.message || err}`)
+        return next(err)
+    }
 })
 
 module.exports = router

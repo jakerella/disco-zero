@@ -1,0 +1,42 @@
+extends partials/layout.pug
+
+block content
+    article.dashboard
+        section
+            h3 Leaderboard (#{userCount} total)
+            ol.leaderboard
+                each user in leaderboard
+                    li.
+                        #{user.value} (#{user.score})
+            script.
+                const userCount = !{Number(userCount)}
+        section
+            h3 Player Connections
+            p.
+                TBD
+        section.stats
+            h3 Locations
+            p.
+                #{locationStats.discovered} of #{locationStats.total} discovered
+            h4 Locations Found by User Count
+            figure.locationChart.chart
+            script.
+                const locData = !{JSON.stringify(locationStats.counts)}
+        section.stats
+            h3 Items
+            p.
+                #{itemStats.discovered} of #{itemStats.total} discovered
+            h4 Items Found by User Count
+            figure.itemChart.chart
+            script.
+                const itemData = !{JSON.stringify(itemStats.counts)}
+        section.stats
+            h3 NPCs
+            p.
+                #{npcStats.discovered} of #{npcStats.total} discovered
+            h4 NPCs Found by User Count
+            figure.npcChart.chart
+            script.
+                const npcData = !{JSON.stringify(npcStats.counts)}
+    
+    script(src='/dashboard.js')

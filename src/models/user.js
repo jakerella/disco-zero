@@ -12,8 +12,7 @@ function cleanHandle(handle) {
 }
 
 function hashPin(pin) {
-    // Yes... md5... terrible, ain't it? Wonder what someone could do with this...
-    return crypto.createHash('md5').update(`${pin}-${process.env.SALT}`).digest('hex')
+    return crypto.createHash('sha256').update(`${pin}-${process.env.SALT}`).digest('hex')
 }
 
 async function login(handle, pin) {
@@ -65,21 +64,111 @@ async function get(code, handle=null) {
     return user
 }
 
-async function save(data) {
-    if (!data.handle) {
-        throw new AppError('No user handle provided to save data.', 500)
-    }
-    if (!uuid.validate(data.code)) {
-        throw new AppError('Bad user code provided to save data.', 500)
+async function incrementStat(stat, id, count) {
+    if (!['loc', 'item', 'npc'].includes(stat)) {
+        return false
     }
     
     const cache = await getCacheClient()
-    if (!cache) { throw new AppError('No redis client available to set data.', 500) }
+    if (!cache) { return false /* We'll let this error go since it's just for the stats */ }
 
-    await cache.set(`${process.env.APP_NAME}_user_${data.handle}`, JSON.stringify(data))
-    await cache.set(`${process.env.APP_NAME}_code_${data.code}`, data.handle)
+    await cache.incr(`${process.env.APP_NAME}_statbyid_${stat}_${id}`)
+    await cache.incr(`${process.env.APP_NAME}_statbycount_${stat}_${count}`)
+    return true
+}
+
+async function getStats(stat) {
+    if (!['loc', 'item', 'npc'].includes(stat)) {
+        return {}
+    }
+    
+    const cache = await getCacheClient()
+    if (!cache) { throw new AppError('No redis client available to set user.', 500) }
+
+    try {
+        const byIdKeys = await cache.keys(`${process.env.APP_NAME}_statbyid_${stat}_*`)
+        
+        logger.debug(`byIdKeys: ${JSON.stringify(byIdKeys)}`)
+
+        let byIdValues = []
+        if (byIdKeys) {
+            byIdValues = await cache.mGet(byIdKeys)
+        }
+
+
+        const byCountKeys = await cache.keys(`${process.env.APP_NAME}_statbycount_${stat}_*`)
+        
+        logger.debug(`byCountKeys: ${JSON.stringify(byCountKeys)}`)
+
+        let byCountValues = []
+        if (byCountKeys) {
+            byCountValues = await cache.mGet(byCountKeys)
+        }
+
+        return {
+            type: stat,
+            byId: byIdKeys.map((k, i) => { return { id: k.split('_')[3], value: Number(byIdValues[i]) } }),
+            byCount: byCountKeys.map((k, i) => { return { id: k.split('_')[3], value: Number(byCountValues[i]) } })
+        }
+    } catch(err) {
+        logger.warn(`Unable to get all ${stat} stats: ${err.message || err}`)
+        return { tyupe: stat, byId: [], byCount: [] }
+    }
+}
+
+async function save(user) {
+    if (!user.handle) {
+        throw new AppError('No user handle provided to save user.', 500)
+    }
+    if (!uuid.validate(user.code)) {
+        throw new AppError('Bad user code provided to save user.', 500)
+    }
+    
+    const cache = await getCacheClient()
+    if (!cache) { throw new AppError('No redis client available to set user.', 500) }
+
+    await cache.set(`${process.env.APP_NAME}_user_${user.handle}`, JSON.stringify(user))
+    await cache.zAdd('leaderboard', { score: user.score, value: user.handle })
 
     return true
+}
+
+async function create(handle, code, pin) {
+    handle = cleanHandle(handle)
+
+    if (!handle) {
+        throw new AppError('No user handle provided to create user.', 400)
+    }
+    if (!pin) {
+        throw new AppError('No pin provided to create user.', 400)
+    }
+    if (!uuid.validate(code)) {
+        throw new AppError('Bad user code provided to create user.', 400)
+    }
+
+    const startLoc = '0193feed-2940-71ba-9fc5-64122b4b79ff'
+    const user = {
+        handle,
+        code,
+        pin: hashPin(pin),
+        score: 10,
+        location: startLoc,
+        items: [],
+        visited: [startLoc],
+        contacts: [],
+        convo: null
+    }
+    
+    const cache = await getCacheClient()
+    if (!cache) { throw new AppError('No redis client available to set user.', 500) }
+
+    user.createdAt = Date.now()
+    await cache.set(`${process.env.APP_NAME}_user_${user.handle}`, JSON.stringify(user))
+    await cache.set(`${process.env.APP_NAME}_code_${user.code}`, user.handle)
+    incrementStat('loc', startLoc, 1)
+    await cache.zAdd('leaderboard', { score: user.score, value: user.handle })
+
+    return user
 }
 
 async function del(code, handle) {
@@ -88,16 +177,34 @@ async function del(code, handle) {
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to delete data.', 500) }
 
+    // TODO: update stats?
+
+    const leaderRemove = await cache.zRem('leaderboard', user.handle)
     const codeReset = await cache.set(`${process.env.APP_NAME}_code_${code}`, '')
     const delCount = await cache.del(`${process.env.APP_NAME}_user_${handle}`)
 
-    if (codeReset === 'OK' && Number(delCount) === 1) {
+    if (codeReset === 'OK' && Number(delCount) === 1 && Number(leaderRemove) === 1) {
         logger.info(`Deleted user with handle: ${handle}`)
         return true
     } else {
-        logger.warn(`Problem deleting user with handle '${handle}' and code '${code}' (${codeReset} && ${delCount})`)
+        logger.warn(`Problem deleting user with handle '${handle}' and code '${code}', there may be data inconsistency!`)
         return false
     }
+}
+
+async function userCount() {
+    const cache = await getCacheClient()
+    if (!cache) { throw new AppError('No redis client available to delete data.', 500) }
+
+    return ((await cache.keys('disco_user_*')) || []).length
+}
+
+async function leaderboard(count = 10) {
+    count = Number(count) || 10
+    const cache = await getCacheClient()
+    if (!cache) { throw new AppError('No redis client available to delete data.', 500) }
+
+    return await cache.zRangeWithScores('leaderboard', 0, count-1, { REV: true })
 }
 
 async function getCacheClient() {
@@ -136,5 +243,5 @@ async function getCacheClient() {
 }
 
 module.exports = {
-    login, get, save, del, cleanHandle, handleExists, handleByCode, hashPin
+    login, get, create, save, incrementStat, getStats, del, cleanHandle, handleExists, handleByCode, hashPin, userCount, leaderboard
 }

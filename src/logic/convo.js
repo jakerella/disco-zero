@@ -1,9 +1,8 @@
 
-const logger = require('../util/logger')(process.env.LOG_LEVEL)
-const locations = require('../locations.json')
+const userModel = require('../models/user')
 const people = require('../people.json')
 
-function handleConversation(user, response) {
+async function handleConversation(user, response) {
     const person = people[user.convo[0]]
     if (!person) {
         user.convo = null
@@ -48,8 +47,9 @@ function handleConversation(user, response) {
     if (next === null) {
         return `${person.name}: "Sorry, I don't understand."`
     } else {
-        if (person.conversation[next].item) {
+        if (person.conversation[next].item && !user.items.includes(person.conversation[next].item)) {
             user.items.push(person.conversation[next].item)
+            await userModel.incrementStat('item', person.conversation[next].item, user.items.length)
         }
 
         if (person.conversation[next].end) {

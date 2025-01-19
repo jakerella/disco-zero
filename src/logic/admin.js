@@ -12,6 +12,17 @@ module.exports = async function adminActions(tokens) {
         }
     }
 
+    if (tokens[0] === 'promote' && tokens[1]) {
+        const user = await getUser(tokens[1])
+        if (user) {
+            user.isAdmin = true
+            await userModel.save(user)
+            return `${user.handle} is now an admin`
+        } else {
+            return 'User not found'
+        }
+    }
+
     if (tokens[0] === 'reset' && tokens[1] === 'pin' && tokens[2] && tokens[3]) {
         const pin = tokens[3].replace(/[^0-9]/g, '')
         const user = await getUser(tokens[2])
