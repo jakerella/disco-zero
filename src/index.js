@@ -6,11 +6,12 @@ const { RedisStore } = require('connect-redis')
 const redis = require('redis')
 const fs = require('fs')
 const logger = require('./util/logger')(process.env.LOG_LEVEL)
-const game = require('./logic/game')
-const contact = require('./logic/contact')
-const register = require('./logic/register')
-const login = require('./logic/login')
-const dashboard = require('./logic/dashboard')
+
+const contact = require('./routes/contact')
+const dashboard = require('./routes/dashboard')
+const game = require('./routes/game')
+const login = require('./routes/login')
+const register = require('./routes/register')
 
 
 const PORT = process.env.PORT || 80

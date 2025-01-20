@@ -1,6 +1,7 @@
 
 const userModel = require('../models/user')
 const people = require('../people.json')
+const logger = require('../util/logger')(process.env.LOG_LEVEL)
 
 async function handleConversation(user, response) {
     const person = people[user.convo[0]]
@@ -14,7 +15,7 @@ async function handleConversation(user, response) {
         const greetings = ['Hi', 'Hello', 'Howdy', 'Hiya']
         return `${person.name}: "${greetings[Math.floor(Math.random()*greetings.length)]}!"`
     }
-    if (['bye', 'goodbye', 'walk away', 'see ya', 'stop', 'stop chat', 'stop talking', 'end', 'end chat', 'end conversation', 'say bye', 'say goodbye'].includes(response)) {
+    if (['bye', 'goodbye', 'leave', 'exit', 'walk away', 'see ya', 'stop', 'stop chat', 'stop talking', 'end', 'end chat', 'end conversation', 'say bye', 'say goodbye'].includes(response)) {
         user.convo = null
         return `${person.name}: "${person.abandon || 'Okay, bye!'}"`
     }
@@ -25,6 +26,25 @@ async function handleConversation(user, response) {
     let next = null
     let options = person.conversation[user.convo[1]].responses
     for (let i=0; i<options.length; ++i) {
+        if (options[i].triggers[0] === '*') {
+            // This should always be the last option, and we should only get here if other options are exhausted
+            let met = true
+            ;(options[i].conditions || []).forEach((cond) => {
+                if (!checkCondition(user, cond)) {
+                    met = false
+                }
+            })
+            if (met && Array.isArray(options[i].met) && options[i].met.length === 2) {
+                next = options[i].met
+            } else if (met && Number.isInteger(options[i].met)) {
+                next = options[i].met
+            } else if (met) {
+                logger.warn(`Unable to read "met" entry on ${person.id} step ${user.convo[1]}`)
+            } else {
+                next = options[i].not || null
+            }
+        }
+
         const triggers = [...options[i].triggers]
         if (triggers.includes('yes')) {
             triggers.push(...['yea', 'yep', 'yeah', 'y', 'yup', 'yarp', 'ok', 'okay', 'sure', 'correct', 'indeed', 'of course'])
@@ -39,7 +59,16 @@ async function handleConversation(user, response) {
                     met = false
                 }
             })
-            next = (met) ? options[i].met : (options[i].not || null)
+
+            if (met && Array.isArray(options[i].met) && options[i].met.length === 2) {
+                next = options[i].met
+            } else if (met && Number.isInteger(options[i].met)) {
+                next = options[i].met
+            } else if (met) {
+                logger.warn(`Unable to read "met" entry on ${person.id} step ${user.convo[1]}`)
+            } else {
+                next = options[i].not || null
+            }
             break
         }
     }
@@ -47,6 +76,12 @@ async function handleConversation(user, response) {
     if (next === null) {
         return `${person.name}: "Sorry, I don't understand."`
     } else {
+        let nextMessage = null
+        if (Array.isArray(next)) {
+            // Used primarily as a loopback with a different message for the player
+            nextMessage = next[0]
+            next = next[1]
+        }
         if (person.conversation[next].item && !user.items.includes(person.conversation[next].item)) {
             user.items.push(person.conversation[next].item)
             await userModel.incrementStat('item', person.conversation[next].item, user.items.length)
@@ -57,7 +92,11 @@ async function handleConversation(user, response) {
         } else {
             user.convo[1] = next
         }
-        return `${person.name}: "${person.conversation[next].phrase}"`
+        if (nextMessage) {
+            return `${person.name}: "${nextMessage}"`
+        } else {
+            return `${person.name}: "${person.conversation[next].phrase}"`
+        }
     }
 }
 

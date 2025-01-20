@@ -137,5 +137,78 @@
                 "end": true
             }
         ]
+    },
+    "019480dd-1440-774a-b627-bfec6fd0db92": {
+        "id": "019480dd-1440-774a-b627-bfec6fd0db92",
+        "name": "bl4dz",
+        "triggers": [],
+        "points": 40,
+        "scanable": true,
+        "abandon": "Later sk8ter",
+        "conversation": [
+            {
+                "phrase": "Did you like the logo?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 2
+                    }
+                ]
+            },
+            {
+                "phrase": "Me too, images are always good for... things.",
+                "end": true
+            },
+            {
+                "phrase": "Sorry to hear that.",
+                "end": true
+            }
+        ]
+    },
+    "019484ae-309b-703b-aae8-09ee636ebf2b": {
+        "id": "019484ae-309b-703b-aae8-09ee636ebf2b",
+        "name": "???",
+        "triggers": [],
+        "points": 20,
+        "scanable": true,
+        "abandon": "Adios",
+        "conversation": [
+            {
+                "phrase": "So you found my calling card... nice skillz. Just one question for you: what's my handle?",
+                "responses": [
+                    {
+                        "triggers": ["leetbeats"],
+                        "conditions": [{ "check": "has", "type": "item", "value": "019484b4-6223-75e1-8c19-91ce155f4514" }],
+                        "met": 2,
+                        "not": 1
+                    },
+                    {
+                        "triggers": ["133783475"],
+                        "conditions": [{ "check": "has", "type": "item", "value": "019484b4-6223-75e1-8c19-91ce155f4514" }],
+                        "met": ["Heh, close, but what's that spell?", 0],
+                        "not": 1
+                    },
+                    {
+                        "triggers": ["*"],
+                        "conditions": [{ "check": "has", "type": "item", "value": "019484b4-6223-75e1-8c19-91ce155f4514" }],
+                        "met": ["That's not right. Try again.", 0],
+                        "not": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "Doesn't look like you actually did the leg work here, friend. Find my calling card.",
+                "end": true
+            },
+            {
+                "phrase": "Killer. Here's my number in case you need it in the future.",
+                "item": "019484b6-9be4-705e-bc49-a67260a268f4",
+                "end": true
+            }
+        ]
     }
 }

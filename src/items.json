@@ -54,5 +54,28 @@
         "description": "A vinyl record of the DistrictCon soundtrack.",
         "use": null,
         "points": 20
+    },
+    "019484b4-6223-75e1-8c19-91ce155f4514": {
+        "id": "019484b4-6223-75e1-8c19-91ce155f4514",
+        "name": "application log file",
+        "alternates": ["log file", "app logs", "app log file", "system log", "system logs", "syslog", "system log file"],
+        "description": "Someone asked you to look over this log file. You'll need to *use* it get the data",
+        "use": {
+            "type": "download",
+            "value": "static/019484b4-6223-75e1-8c19-91ce155f4514.gz",
+            "filename": "app-logs.gz"
+        },
+        "points": 5
+    },
+    "019484b6-9be4-705e-bc49-a67260a268f4": {
+        "id": "019484b6-9be4-705e-bc49-a67260a268f4",
+        "name": "leetBeats number",
+        "alternates": [],
+        "description": "You got leetBeats' mobile number... just in case you need their services.",
+        "use": {
+            "type": "text",
+            "value": "They didn't pick up. Maybe that was a burner."
+        },
+        "points": 30
     }
 }
