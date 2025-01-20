@@ -62,10 +62,13 @@ function whereami(user) {
         return 'You are lost.'
     }
 }
-whereami.alt = ['where am i', 'current location', 'location', 'what is my location']
+whereami.alt = ['where am i', 'current location', 'what is my location']
 
 function inventory(user) {
-    const userItems = user.items.map((id) => { return (items[id]?.name || '') })
+    const userItems = user.items
+        .filter((id) => items[id])
+        .map((id) => `${items[id].name} (${items[id].points})`)
+
     if (userItems.length) {
         return `You have ${userItems.length} item${userItems.length === 1 ? '' : 's'}: ${userItems.join(', ')}`
     } else {
@@ -92,23 +95,35 @@ function inspect(user, ...tokens) {
 inspect.alt = ['look around', 'look at', 'what can i see', 'what is around me', 'what is here']
 
 async function contacts(user) {
-    const contacts = user.contacts.filter((c) => c.type === 'player')
     const resp = []
-    for (let i=0; i<contacts.length; ++i) {
-        try {
-            const person = await userModel.get(contacts[i].id)
-            if (person) {
-                resp.push(`${person.handle} (currently ${(locations[person.location]) ? `at the ${locations[person.location].name}` : 'lost'})`)
+    for (let i=0; i<user.contacts.length; ++i) {
+        if (user.contacts[i].type === 'player') {
+            try {
+                const person = await userModel.get(user.contacts[i].id)
+                if (person) {
+                    resp.push(`${person.handle} (currently ${(locations[person.location]) ? `at the ${locations[person.location].name}` : 'lost'})`)
+                }
+            } catch (err) {
+                logger.debug(`Error while trying to get people for contact list: ${err.message || err}`)
+                /* we'll let these go for the contact list */
             }
-        } catch (err) {
-            logger.debug(`Error while trying to get people for contact list: ${err.message || err}`)
-            /* we'll let these go for the contact list */
+        } else if (people[user.contacts[i].id]) {
+            let loc = ''
+            if (!people[user.contacts[i].id].scanable) {
+                for (let id in locations) {
+                    if (locations[id].people.includes(user.contacts[i].id)) {
+                        loc = `, at the ${locations[id].name}`
+                        break
+                    }
+                }
+            }
+            resp.push(`${people[user.contacts[i].id].name} (NPC, ${people[user.contacts[i].id].points}${loc})`)
         }
     }
     if (resp.length) {
         return `You have found ${resp.length} ${(resp.length === 1) ? 'person' : 'people'}:\n${resp.join('\n')}`
     } else {
-        return 'Your contact list is empty... well, empty of _real_ people, anyway.'
+        return 'Your contact list is empty... you should *look around* and try to *talk to* people!'
     }
 }
 contacts.alt = ['contact list', 'view my contacts', 'view contacts', 'who do i know', 'who have i met']
@@ -117,11 +132,14 @@ function visited(user) {
     if (!user.visited.length) {
         return 'You don\'t seem to exist in spacetime. Maybe head back to the *Yours Truly Hotel*?'
     } else {
-        const sites = user.visited.map((id) => locations[id]?.name)
+        const sites = user.visited
+            .filter((id) => locations[id])
+            .map((id) => `${locations[id].name} (${locations[id].points})`)
         if (sites.length === 1) {
             return 'You haven\'t really gone anywhere yet, maybe ask someone for a map or just *look around*?'
+        } else {
+            return `You have been to ${sites.length} locations:\n${sites.join(', ')}`
         }
-        return `You have been to ${sites.length} locations:\n${sites.join(', ')}`
     }
 }
 visited.alt = ['locations', 'location history', 'venue history', 'where have i been', 'what locations have i seen', 'known locations']
@@ -189,12 +207,6 @@ async function goto(user, ...tokens) {
         resp.push('You hop on a metro train and are there in a flash.')
     } else if (loc.name === 'metro station') {
         resp.push('You take a short stroll to the nearest metro station.')
-    } else if (loc.type === 'main' && curr.type === 'main') {
-        const tired = (Math.random() < 0.3) ? 1 : 0
-        if (tired) {
-            resp.push('That walk tired you out. Next time it might be better to find a metro station.')
-            user.score -= tired
-        }
     }
     
     user.location = loc.id
