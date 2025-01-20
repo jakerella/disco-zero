@@ -155,7 +155,10 @@ async function goto(user, ...tokens) {
     }
 
     const loc = Object.keys(locations)
-        .filter((id) => { return locations[id].name.toLowerCase() === dest })
+        .filter((id) => {
+            const triggers = [locations[id].name.toLowerCase(), ...(locations[id].alt || [])]
+            return triggers.includes(dest)
+        })
         .map((id) => { return locations[id] })[0]
     
     if (!dest) {
