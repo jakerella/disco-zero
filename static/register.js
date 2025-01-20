@@ -29,7 +29,7 @@
         if (!handleInput.value) {
             if (['yes', 'y', 'yep', 'yup', 'yeah', 'yea', 'okay', 'ok', 'correct', 'right', 'indeed'].includes(prompt.value.toLowerCase())) {
                 handleInput.value = handle
-                out.innerHTML += `<p class='out'>Please enter a personal identification number (PIN) for your user account. (Digits only please.)</p>`
+                out.innerHTML += `<p class='out'>Please enter a password for your user account.</p>`
 
             } else if (['no', 'n', 'nah', 'nope', 'incorrect', 'wrong', 'cancel'].includes(prompt.value.toLowerCase())) {
                 handle = null
@@ -43,8 +43,8 @@
             return false
         }
         
-        if (!/^[0-9]+$/.test(prompt.value)) {
-            out.innerHTML += `<p class='out user-error'>Sorry, but you need to enter a valid PIN (digits only).</p>`
+        if (!prompt.value) {
+            out.innerHTML += `<p class='out user-error'>Sorry, but you need to enter a password as well.</p>`
             prompt.value = ''
             e.preventDefault()
             return false

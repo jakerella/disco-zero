@@ -15,23 +15,24 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res, next) => {
-    let [handle, pin] = req.body.input.trim().split(' ')
-    handle = userModel.cleanHandle(handle)
-
-    if (!handle || !pin) {
+    let parts = req.body.input.trim().split(' ')
+    const handle = userModel.cleanHandle(parts[0])
+    const pass = parts.slice(1).join(' ')
+    
+    if (!handle || !pass) {
         return res.render('login', {
             page: 'login',
             title: `${process.env.APP_NAME} Login`,
-            message: 'Please enter your handle and PIN. If you haven\'t registered for the game yet, maybe ask someone how you can.'
+            message: 'Please enter your handle and password. If you haven\'t registered for the game yet, maybe ask someone how you can.'
         })
     }
 
-    const user = await userModel.login(handle, pin)
+    const user = await userModel.login(handle, pass)
     if (!user) {
         return res.render('login', {
             page: 'login',
             title: `${process.env.APP_NAME} Login`,
-            message: 'Sorry, but that handle and PIN don\'t match. Want to try again?'
+            message: 'Sorry, but that handle and password don\'t match. Want to try again?'
         })
     }
     

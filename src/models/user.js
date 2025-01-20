@@ -11,19 +11,19 @@ function cleanHandle(handle) {
     return handle.trim().replaceAll(/[^a-z0-9\-\.\'\s]/ig, '').replaceAll(/\s/g, '-').substring(0, 30)
 }
 
-function hashPin(pin) {
-    return crypto.createHash('sha256').update(`${pin}-${process.env.SALT}`).digest('hex')
+function hashPass(pass) {
+    return crypto.createHash('sha256').update(`${pass}-${process.env.SALT}`).digest('hex')
 }
 
-async function login(handle, pin) {
+async function login(handle, pass) {
     handle = cleanHandle(handle)
-    if (!handle || !pin) { return null }
+    if (!handle || !pass) { return null }
 
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to perform user login.', 500) }
 
     const user = JSON.parse((await cache.get(`${process.env.APP_NAME}_user_${handle}`)) || '{}')
-    if (user.pin === hashPin(pin)) {
+    if (user.pass === hashPass(pass)) {
         return user
     }
     return null
@@ -126,14 +126,14 @@ async function save(user) {
     return true
 }
 
-async function create(handle, code, pin) {
+async function create(handle, code, pass) {
     handle = cleanHandle(handle)
 
     if (!handle) {
         throw new AppError('No user handle provided to create user.', 400)
     }
-    if (!pin) {
-        throw new AppError('No pin provided to create user.', 400)
+    if (!pass) {
+        throw new AppError('No password provided to create user.', 400)
     }
     if (!uuid.validate(code)) {
         throw new AppError('Bad user code provided to create user.', 400)
@@ -143,7 +143,7 @@ async function create(handle, code, pin) {
     const user = {
         handle,
         code,
-        pin: hashPin(pin),
+        pass: hashPass(pass),
         score: 10,
         location: startLoc,
         items: [],
@@ -264,5 +264,5 @@ async function getCacheClient() {
 }
 
 module.exports = {
-    login, get, create, save, incrementStat, getStats, addUserCode, del, cleanHandle, handleExists, handleByCode, hashPin, userCount, leaderboard
+    login, get, create, save, incrementStat, getStats, addUserCode, del, cleanHandle, handleExists, handleByCode, hashPass, userCount, leaderboard
 }

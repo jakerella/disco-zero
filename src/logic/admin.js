@@ -23,17 +23,17 @@ module.exports = async function adminActions(tokens) {
         }
     }
 
-    if (tokens[0] === 'reset' && tokens[1] === 'pin' && tokens[2] && tokens[3]) {
-        const pin = tokens[3].replace(/[^0-9]/g, '')
+    if (tokens[0] === 'reset' && tokens[1] === 'password' && tokens[2] && tokens[3]) {
+        const pass = tokens.splice(3).join(' ')
         const user = await getUser(tokens[2])
-        if (user && pin) {
-            user.pin = userModel.hashPin(pin)
+        if (user && pass) {
+            user.pass = userModel.hashPass(pass)
             await userModel.save(user)
-            return `PIN for user: ${user.handle} has been changed`
+            return `Password for user: ${user.handle} has been changed`
         } else if (!user) {
             return 'User not found'
-        } else if (!pin) {
-            return 'Please provide a new PIN (all digits) as the last parameter'
+        } else if (!pass) {
+            return 'Please provide a new password as the last parameter'
         }
     }
 

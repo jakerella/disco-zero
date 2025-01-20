@@ -11,11 +11,11 @@
             return false
         }
         
-        if (!/^\w+\s[0-9]+$/.test(prompt.value)) {
+        if (!/^\w+\s.+$/.test(prompt.value)) {
             const name = names[Math.floor(Math.random() * names.length)]
-            const pin = Math.ceil(Math.random() * 8) * Math.ceil(Math.random() * 37915)
+            const pass = Math.ceil(Math.random() * 8) * Math.ceil(Math.random() * 37915)
             out.innerHTML += `<p class='cmd'>${p} ${prompt.value}</p>`
-            out.innerHTML += `<p class='out user-error'>Please enter your handle and PIN, for example: ${name} ${pin}</p>`
+            out.innerHTML += `<p class='out user-error'>Please enter your handle and password, for example: ${name} ${pass}</p>`
             prompt.value = ''
             e.preventDefault()
             return false

@@ -32,8 +32,8 @@ router.post('/', async (req, res, next) => {
     } else if (await userModel.handleExists(handle)) {
         errors.push('That handle is taken. Can you choose another?')
     }
-    if (!/^[0-9]+$/.test(req.body.pin)) {
-        errors.push('You need to enter a valid PIN (digits only).')
+    if (!req.body.pass) {
+        errors.push('You need to enter a password.')
     }
     
     if (errors.length) {
@@ -46,7 +46,7 @@ router.post('/', async (req, res, next) => {
     }
 
     try {
-        const user = await userModel.create(handle, req.body.code, req.body.pin)
+        const user = await userModel.create(handle, req.body.code, req.body.pass)
         
         logger.info(`Registered new user with handle '${handle}' and code '${req.body.code}'`)
     
