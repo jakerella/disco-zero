@@ -1,5 +1,6 @@
 
 const userModel = require('../models/user')
+const locations = require('../locations.json')
 const people = require('../people.json')
 const logger = require('../util/logger')(process.env.LOG_LEVEL)
 
@@ -105,6 +106,12 @@ function checkCondition(user, condition) {
         return user.items.includes(condition.value)
     } else if (condition.check === 'has' && condition.type === 'contact') {
         return !!user.contacts.filter((c) => c.id === condition.value)[0]
+    } else if (condition.check === 'count' && condition.type === 'locations') {
+        if (condition.value === 'max') {
+            return user.visited.length === Object.keys(locations).length
+        } else if (Number(condition.value) || condition.value === '0') {
+            return user.visited.length === Number(condition.value)
+        }
     }
     return false
 }

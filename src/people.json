@@ -64,14 +64,14 @@
     },
     "01947a4a-8bc7-75df-8e1f-3f86dc276e19": {
         "id": "01947a4a-8bc7-75df-8e1f-3f86dc276e19",
-        "name": "jakerella",
+        "name": "dclogo",
         "triggers": [],
-        "points": 30,
+        "points": 25,
         "scanable": true,
         "abandon": "Farewell",
         "conversation": [
             {
-                "phrase": "Howdy. Enjoying the game?",
+                "phrase": "You like the logo?",
                 "responses": [
                     {
                         "triggers": ["yes"],
@@ -84,7 +84,7 @@
                 ]
             },
             {
-                "phrase": "Glad to hear it! See ya around.",
+                "phrase": "Glad to hear it! Enjoy the con",
                 "end": true
             },
             {
@@ -207,6 +207,61 @@
             {
                 "phrase": "Killer. Here's my number in case you need it in the future.",
                 "item": "019484b6-9be4-705e-bc49-a67260a268f4",
+                "end": true
+            }
+        ]
+    },
+    "0194854c-270a-731a-b450-f428014008af": {
+        "id": "0194854c-270a-731a-b450-f428014008af",
+        "name": "jakerella",
+        "triggers": [],
+        "points": 20,
+        "scanable": true,
+        "abandon": "Aloha",
+        "conversation": [
+            {
+                "phrase": "Are you liking the game so far?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 2
+                    }
+                ]
+            },
+            {
+                "phrase": "Glad to hear it! Have you found all of the hidden locations?",
+                "responses": [
+                    {
+                        "triggers": ["yes", "i think so", "probably", "definitely"],
+                        "conditions": [{ "check": "count", "type": "locations", "value": "max" }],
+                        "met": 3,
+                        "not": 4
+                    },
+                    {
+                        "triggers": ["no", "definitely not", "i need help", "maybe", "hell no", "heck no"],
+                        "met": 5
+                    }
+                ]
+            },
+            {
+                "phrase": "Sorry to hear that, but hey, it is year Zero.",
+                "end": true
+            },
+            {
+                "phrase": "Wow! You're some kinda 1337 hacker, aren't you? Here, take a challenge coin.",
+                "item": "01948551-c92b-7324-b951-14b6d5d1fced",
+                "end": true
+            },
+            {
+                "phrase": "Hmm, I don't think so... maybe you should find me and I can give you a hint.",
+                "end": true
+            },
+            {
+                "phrase": "No problem, the game is hard for a reason! Come find me if you want a hint.",
                 "end": true
             }
         ]
