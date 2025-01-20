@@ -56,6 +56,11 @@ module.exports = async function adminActions(tokens) {
         }
     }
 
+    if (tokens.join(' ') === 'add user code') {
+        const code = await userModel.addUserCode()
+        return `Added new user code: ${code}`
+    }
+
     return null
 }
 

@@ -164,6 +164,15 @@ async function create(handle, code, pin) {
     return user
 }
 
+async function addUserCode() {
+    const cache = await getCacheClient()
+    if (!cache) { throw new AppError('No redis client available to set user.', 500) }
+    
+    const code = uuid.v7()
+    await cache.set(`${process.env.APP_NAME}_code_${code}`, '')
+    return code
+}
+
 async function del(code, handle) {
     handle = cleanHandle(handle)
     if (!handle || !uuid.validate(code)) { throw new AppError('No handle or code provided to delete user.', 400) }
@@ -255,5 +264,5 @@ async function getCacheClient() {
 }
 
 module.exports = {
-    login, get, create, save, incrementStat, getStats, del, cleanHandle, handleExists, handleByCode, hashPin, userCount, leaderboard
+    login, get, create, save, incrementStat, getStats, addUserCode, del, cleanHandle, handleExists, handleByCode, hashPin, userCount, leaderboard
 }
