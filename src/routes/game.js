@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
     } else {
         let out = null
         try {
-            out = await handleCommand(req.session.user, req.body.prompt)
+            out = await handleCommand(req, req.body.prompt)
             if (out) {
                 if (/^DOWNLOAD\|/.test(out)) {
                     out = 'Nothing happened, but you should try that same command again.'
@@ -92,7 +92,7 @@ router.get('/cmd', async (req, res, next) => {
             cmd = `${secondaryAction[1]} ${secondaryAction[0]}|${cmd}|${secondaryAction[2]}`
         }
 
-        out = await handleCommand(req.session.user, cmd)
+        out = await handleCommand(req, cmd)
         if (req.session.user.convo) {
             res.set(`X-${process.env.APP_NAME}-action`, 'convo')
         }
@@ -125,14 +125,15 @@ function cleanCommand(input) {
     return (input || '').trim().toLowerCase().replaceAll(/[^a-z0-9\s\-\|]/g, '')
 }
 
-async function handleCommand(user, input) {
-    if (!user) {
+async function handleCommand(req, input) {
+    if (!req.session.user) {
         throw new AppError('Sorry, but you are not logged in', 401)
     }
     if (!input) {
         return ' '
     }
 
+    const user = req.session.user
     let out = null
     let tokens = cleanCommand(input).split(' ')
 
@@ -152,7 +153,7 @@ async function handleCommand(user, input) {
     }
 
     if (tokens.length === 1 && uuid.validate(tokens[0])) {
-        return await handleContact(user, tokens[0])
+        return await handleContact(req, tokens[0])
     }
 
     let cmd = []

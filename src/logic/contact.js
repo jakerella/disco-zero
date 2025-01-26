@@ -7,7 +7,8 @@ const items = require('../items.json')
 const people = require('../people.json')
 
 
-module.exports = async function handleContact(user, code) {
+module.exports = async function handleContact(req, code) {
+    const user = req.session.user
     if (user) {
         if (user.code === code) {
             return 'You look at your confirmation email... yep, that\'s you.'
@@ -79,12 +80,16 @@ module.exports = async function handleContact(user, code) {
             }
 
             if (!message) {
+                req.session.falseContacts++
                 message = 'You look closely at the code you found, but can\'t make sense of it. Oh well.'
+            } else {
+                req.session.lastGoodContact = Date.now()
             }
 
             return message
         }
     } else {
+        req.session.falseContacts++
         throw new AppError('You need to be logged in.', 401)
     }
 }

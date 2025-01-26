@@ -18,7 +18,7 @@ router.get('/:code', async (req, res, next) => {
             })
         } else {
             try {
-                const message = await handleContact(req.session.user, req.params.code)
+                const message = await handleContact(req, req.params.code)
 
                 if (!message) {
                     message = 'You look closely at the code you found, but can\'t make sense of it. Oh well.'

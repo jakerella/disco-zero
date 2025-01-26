@@ -52,7 +52,29 @@ function whoami(user) {
         return 'You seem to have lost your memory.'
     }
 }
-whoami.alt = ['who am i', 'what is my name', 'what am i called', 'what is my handle', 'score', 'what is my score', 'points', 'how many points do i have', 'what are my points']
+whoami.alt = ['who am i', 'what is my name', 'what am i called', 'what is my handle', 'what is my score', 'how many points do i have', 'what are my points']
+
+async function leaderboard(user) {
+    const scores = await userModel.leaderboard(10)
+    const resp = ['The top 10 players are:']
+    let found = false
+    scores.forEach((entry) => {
+        let marker = ''
+        if (entry.value === user.handle) {
+            found = true
+            marker = '* '
+        }
+        resp.push(`${marker}${entry.value} (${entry.score})`)
+    })
+    if (!found) {
+        resp.push('...')
+        resp.push(`* ${user.handle} (${user.score})`)
+    }
+
+    return resp
+    // return `The top 10 players are:\n${resp.join('\n')}`
+}
+leaderboard.alt = ['scores', 'points', 'where am i on the leaderboard', 'who has the most points', 'what are the scores', 'what are the points', 'who has the highest score']
 
 function whereami(user) {
     if (user.location && locations[user.location]) {
@@ -69,7 +91,7 @@ function inventory(user) {
         .map((id) => `${items[id].name} (${items[id].points})`)
 
     if (userItems.length) {
-        return `You have ${userItems.length} item${userItems.length === 1 ? '' : 's'}: ${userItems.join(', ')}`
+        return `You have ${userItems.length} item${userItems.length === 1 ? '' : 's'} (of ${Object.keys(items).length} possible): ${userItems.join(', ')}`
     } else {
         return 'You only have the clothes on your back. Maybe you should get your badge from the *volunteer* at the registration desk in the *Yours Truly Hotel*?'
     }
@@ -120,7 +142,7 @@ async function contacts(user) {
         }
     }
     if (resp.length) {
-        return `You have found ${resp.length} ${(resp.length === 1) ? 'person' : 'people'}:\n${resp.join('\n')}`
+        return `You have found ${resp.length} ${(resp.length === 1) ? 'person' : 'people'} (there are ${Object.keys(people).length} NPCs):\n${resp.join('\n')}`
     } else {
         return 'Your contact list is empty... you should *look around* and try to *talk to* people!'
     }
@@ -137,7 +159,7 @@ function visited(user) {
         if (sites.length === 1) {
             return 'You haven\'t really gone anywhere yet, maybe ask someone for a map or just *look around*?'
         } else {
-            return `You have been to ${sites.length} locations:\n${sites.join(', ')}`
+            return `You have been to ${sites.length} locations (of ${Object.keys(locations).length} possible):\n${sites.join(', ')}`
         }
     }
 }
@@ -326,7 +348,7 @@ function checkCondition(user, condition) {
 
 
 const commands = {
-    help, whoami, exit, whereami, inventory, contacts, visited, goto, take, inspect, engage, use, admin
+    help, whoami, exit, whereami, inventory, contacts, visited, leaderboard, goto, take, inspect, engage, use, admin
 }
 const count = Object.keys(commands).length
 for (fn in commands) {

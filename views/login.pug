@@ -6,7 +6,8 @@ block content
             if message
                 pre.out #{message}
             else 
-                pre.out Welcome! If you've already started a game, please type in your handle and password, for example: mary 1234
+                pre.out Welcome! If you've already started a game, please type in your handle and password, for example: 
+                    span.initial-creds {{user}} {{pass}}
                 pre.out If you haven't registered in the game yet, you might need to ask someone how you can start.
         form.login(method='post', action='/login')
             label > 

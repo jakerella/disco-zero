@@ -12,6 +12,7 @@ const dashboard = require('./routes/dashboard')
 const game = require('./routes/game')
 const login = require('./routes/login')
 const register = require('./routes/register')
+const AppError = require('./util/AppError')
 
 
 const PORT = process.env.PORT || 80
@@ -57,6 +58,17 @@ app.use(session(sessionOptions))
 
 
 /* ********** routes and middleware ********** */
+app.use('/', (req, res, next) => {
+    if (req.session.user) {
+        req.session.falseContacts = req.session.falseContacts || 0
+        logger.debug(`user ${req.session.user.handle} has tried ${req.session.falseContacts} bad contacts`)
+    }
+    if (req.session.falseContacts > 5) {
+        req.session.destroy()
+        return next(new AppError('Whew, checking all those bad codes really wore you out. You decide to take a break for a bit.', 418))
+    }
+    next()
+})
 app.use('/contact', contact)
 app.use('/register', register)
 app.use('/login', login)
