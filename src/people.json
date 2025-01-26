@@ -265,5 +265,153 @@
                 "end": true
             }
         ]
+    },
+    "0185a6ed-e177-74d8-856e-e5f22dbfb66d": {
+        "id": "0185a6ed-e177-74d8-856e-e5f22dbfb66d",
+        "name": "nakasone-aid",
+        "triggers": [],
+        "points": 30,
+        "scanable": true,
+        "abandon": "Goodbye!",
+        "conversation": [
+            {
+                "phrase": "TODO: message",
+                "end": true
+            }
+        ]
+    },
+    "01876657-476a-7e44-9006-a4ea7dcd7f5b": {
+        "id": "01876657-476a-7e44-9006-a4ea7dcd7f5b",
+        "name": "Halvar",
+        "triggers": ["lost guy", "lost man", "lost traveler"],
+        "points": 30,
+        "scanable": true,
+        "abandon": "Okay, bye!",
+        "conversation": [
+            {
+                "phrase": "Oh thank goodness, I found someone with a map! I'm trying to get to an event, maybe you can help me?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "conditions": [{ "check": "has", "type": "item", "value": "019456e1-5ff7-7425-8ebc-062a462fe6db" }],
+                        "met": 3,
+                        "notmet": 2
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "Oh, okay. No problem. Thanks anyway, maybe someone can fill in for me.",
+                "end": true
+            },
+            {
+                "phrase": "Hey wait, that's not a metro map! I need to find someone with a map of the metro stations.",
+                "end": true
+            },
+            {
+                "phrase": "I'm supposed to be speaking at DistrictCon, but can't remember how to get there. I think I'm on the orange line, can you tell me what metro station is closest in walking distance to the Yours Truly Hotel?",
+                "responses": [
+                    {
+                        "triggers": ["re-foggy bottom", "re-gwu"],
+                        "met": 4
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["*"],
+                        "conditions": [{ "check": "has", "type": "item", "value": "019456e1-5ff7-7425-8ebc-062a462fe6db" }],
+                        "met": ["Hmm, are you sure? That doesn't look right on the map.", 3],
+                        "not": 2
+                    }
+                ]
+            },
+            {
+                "phrase": "Oh, thank you! I know it's not much, but here's a custom sticker for helping me. I'd better hurry, but see you at the con!",
+                "item": "0185e0d6-c1eb-737e-8546-4eeb34ae2e93",
+                "end": true
+            }
+        ]
+    },
+    "0172bafc-9469-7383-b920-6f9f4540b795": {
+        "id": "0172bafc-9469-7383-b920-6f9f4540b795",
+        "name": "Station Manager",
+        "triggers": ["metro manager", "metro station manager", "manager"],
+        "points": 10,
+        "abandon": "Good day to you.",
+        "conversation": [
+            {
+                "phrase": "Do you need help finding something?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["re-maps?"],
+                        "conditions": [{ "check": "has", "type": "item", "value": "019456e1-5ff7-7425-8ebc-062a462fe6db" }],
+                        "met": 4,
+                        "notmet": 5
+                    }
+                ]
+            },
+            {
+                "phrase": "No problem, where do you need to go?",
+                "responses": [
+                    {
+                        "triggers": ["re-yours truly"],
+                        "met": 6
+                    },
+                    {
+                        "triggers": ["re-district ?con"],
+                        "met": 7
+                    }
+                ]
+            },
+            {
+                "phrase": "Okay, did you need something else?",
+                "responses": [
+                    {
+                        "triggers": ["re-maps?"],
+                        "conditions": [{ "check": "has", "type": "item", "value": "019456e1-5ff7-7425-8ebc-062a462fe6db" }],
+                        "met": 4,
+                        "notmet": 5
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 3
+                    }
+                ]
+            },
+            {
+                "phrase": "No worries, have a good day.",
+                "end": true
+            },
+            {
+                "phrase": "Hmm, that looks like a metro station map in your hand! Let me know if you need any other help.",
+                "end": true
+            },
+            {
+                "phrase": "Sure thing, here's a metro station map.",
+                "item": "019456e1-5ff7-7425-8ebc-062a462fe6db",
+                "end": true
+            },
+            {
+                "phrase": "Hmm, I think the closest station to that hotel is Foggy Bottom. Take the orange line that way. Have a good day!",
+                "end": true
+            },
+            {
+                "phrase": "Ah, I think I heard about that event. It's at the Yours Truly hotel, right? You can take the orange line to Foggy Bottom to get there.",
+                "end": true
+            }
+        ]
     }
 }

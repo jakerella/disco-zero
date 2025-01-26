@@ -22,7 +22,7 @@
 
         if (typingHandler) {
             clearTimeout(typingHandler)
-            const outNode = document.querySelector('.output p.out:last-child')
+            const outNode = document.querySelector('.output pre.out:last-child')
             outNode.innerText = currentOutput
             currentOutput = null
             typingHandler = null
@@ -30,7 +30,7 @@
 
         const input = prompt.value.trim()
         if (!input) {
-            out.innerHTML += `<p class='cmd'>${label.innerText}</p>`
+            out.innerHTML += `<pre class='cmd'>${label.innerText}</p>`
             window.scrollTo(0, document.body.scrollHeight)
             return
         }
@@ -41,7 +41,7 @@
             return
         }
 
-        out.innerHTML += `<p class='cmd'>${label.innerText} ${input}</p>`
+        out.innerHTML += `<pre class='cmd'>${label.innerText} ${input}</p>`
         prompt.value = ''
         historyEntry = 0
         history.push(input)
@@ -81,7 +81,7 @@
 
             passHandler = (/^PASSWORD\|/.test(actionHeader)) ? actionHeader : null
             label.innerText = `${(actionHeader === 'convo' || /^PASSWORD\|/.test(actionHeader)) ? '-' : '>'} `
-            const node = document.createElement('p')
+            const node = document.createElement('pre')
             node.classList.add('out')
             if (error) { node.classList.add('error') }
             out.appendChild(node)
@@ -101,7 +101,7 @@
                 prompt.value = history[history.length - historyEntry]
             }
         // } else if (e[ck] && (e[wh] === cc || e[kc+'Code'] === cc)) {
-        //     out.innerHTML += `<p class='cmd'>${p} </p>`
+        //     out.innerHTML += `<pre class='cmd'>${p} </p>`
         //     p = '$'
         //     form.querySelector('label').innerText = `${p} `
         //     prompt.value = ''

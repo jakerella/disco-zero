@@ -32,12 +32,16 @@
     },
     "019456e1-5ff7-7425-8ebc-062a462fe6db": {
         "id": "019456e1-5ff7-7425-8ebc-062a462fe6db",
-        "name": "metro map",
+        "name": "DC Metro Map",
         "scanable": true,
-        "alternates": ["subway map", "train map", "metro guide", "subway guide"],
-        "description": "A guide to all of the metro stations in the Washington, DC area.",
-        "use": null,
-        "points": 5
+        "alternates": ["metro map", "subway map", "train map", "metro station map", "metro guide", "subway guide"],
+        "description": "A guide to all of the metro stations in the Washington, DC area. You can *use* this map to read it.",
+        "use": {
+            "type": "download",
+            "value": "static/019456e1-5ff7-7425-8ebc-062a462fe6db.ascii",
+            "filename": "metro-map.ascii"
+        },
+        "points": 10
     },
     "01945c7c-e588-76de-8fb5-65e57f5b30ee": {
         "id": "01945c7c-e588-76de-8fb5-65e57f5b30ee",
@@ -85,5 +89,16 @@
         "description": "A over-sized challenge coin with a picture of a stuffed tiger on one side and the DistrictCon logo on the other. Around the outside of the tiger-side it says 'So long, and thanks for all the fish.'",
         "use": null,
         "points": 50
+    },
+    "0185e0d6-c1eb-737e-8546-4eeb34ae2e93": {
+        "id": "0185e0d6-c1eb-737e-8546-4eeb34ae2e93",
+        "name": "Halvar's memory-safe sticker",
+        "alternates": ["sticker", "halvars sticker", "memory safe sticker", "memory-safe sticker"],
+        "description": "You turn the item over a couple of times, yep, it's a sticker.",
+        "use": {
+            "type": "text",
+            "value": "You peel off the backing of the sticker and slap it on your laptop. 'That looks reeeeaaal niiiice,' you say loudly to yourself. Other people look at you strangely, but you don't care."
+        },
+        "points": 20
     }
 }

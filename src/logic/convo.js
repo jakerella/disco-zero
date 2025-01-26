@@ -71,6 +71,32 @@ async function handleConversation(user, response) {
                 next = options[i].not || null
             }
             break
+        } else {
+            for (let j=0; j<triggers.length; ++j) {
+                if (/^re\-/.test(triggers[j])) {
+                    const trigger = new RegExp(triggers[j].substring(3))
+                    
+                    if (trigger.test(response)) {
+                        let met = true
+                        ;(options[i].conditions || []).forEach((cond) => {
+                            if (!checkCondition(user, cond)) {
+                                met = false
+                            }
+                        })
+
+                        if (met && Array.isArray(options[i].met) && options[i].met.length === 2) {
+                            next = options[i].met
+                        } else if (met && Number.isInteger(options[i].met)) {
+                            next = options[i].met
+                        } else if (met) {
+                            logger.warn(`Unable to read "met" entry on ${person.id} step ${user.convo[1]}`)
+                        } else {
+                            next = options[i].not || null
+                        }
+                        break
+                    }
+                }
+            }
         }
     }
 

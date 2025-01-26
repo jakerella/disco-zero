@@ -4,11 +4,11 @@ block content
     article.terminal
         section.output
             if message
-                p.out #{message}
+                pre.out #{message}
             if prompt
-                p.cmd > #{prompt}
+                pre.cmd > #{prompt}
             if output
-                p.out #{output}
+                pre.out #{output}
         form.game(action='/', method='post')
             if convo
                 label - 

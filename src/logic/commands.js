@@ -9,7 +9,6 @@ const adminActions = require('./admin')
 
 
 // TODO: Also store users by location ID so people can see who's around them?
-// TODO: players can send messages to others in their contact list
 // TODO: add condition for if NPC has already been seen... basically, change the greeting, and maybe the start point?
 // TODO: track score modifiers and allow user to see how their score is calculated
 // TODO: help on specific commands?

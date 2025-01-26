@@ -3,10 +3,21 @@ const uuid = require('uuid')
 const userModel = require('../models/user')
 
 module.exports = async function adminActions(tokens) {
+    if (tokens[0] === 'help') {
+        return [
+            'Hello admin! You can use the following commands:',
+            '  get user [username] - Return the full data object of the given user',
+            '  add user code - Add a new user code for an attendee to register with (the code will be displayed)',
+            '  reset password [username] [password] - Reset a user\'s password to the given value',
+            '  delete user [username] - Completely delete a user\'s records - CAREFUL, this is permanent',
+            '  promote [username] - Promote the given user to be an admin'
+        ].join('\n')
+    }
+
     if (tokens[0] === 'get' && tokens[1] === 'user' && tokens[2]) {
         const user = await getUser(tokens[2])
         if (user) {
-            return JSON.stringify(user, null, 2).replaceAll(/  /g, '..')
+            return JSON.stringify(user, null, 2).replaceAll(/  /g, '  ')
         } else {
             return 'User not found'
         }

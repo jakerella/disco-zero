@@ -66,7 +66,7 @@ module.exports = async function handleContact(user, code) {
                         const contact = await userModel.get(code, handle)
                         message = `Your phone buzzes and you glance at it to see that ${handle} has sent you a message. They're over at the ${locations[contact.location].name}. You add them to your contact list!`
                         user.contacts.push({ id: code, type: 'player' })
-                        user.score += 10
+                        user.score += 5
                         await userModel.save(user)
                         logger.debug(`${user.handle} just connected with ${handle}`)
                     } else if (handle === '') {

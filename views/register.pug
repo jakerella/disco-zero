@@ -4,8 +4,8 @@ block content
     article.terminal
         section.output
             if message
-                p.out #{message}
-            p.out Welcome to the game. What would you like your handle to be?
+                pre.out #{message}
+            pre.out Welcome to the game. What would you like your handle to be?
         form.register(method='post', action='/register')
             label > 
             input.prompt(name='pass', autofocus='true')
