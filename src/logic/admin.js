@@ -1,6 +1,10 @@
 
 const uuid = require('uuid')
 const userModel = require('../models/user')
+const locations = require('../locations.json')
+const people = require('../people.json')
+const items = require('../items.json')
+
 
 module.exports = async function adminActions(tokens) {
     if (tokens[0] === 'help') {
@@ -72,7 +76,88 @@ module.exports = async function adminActions(tokens) {
         return `Added new user code: ${code}`
     }
 
+    if (tokens.join(' ') === 'map') {
+        const locTree = {}
+
+        for (let id in locations) {
+            const loc = buildLocation(locations[id])
+
+            if (loc.parent) {
+                addRoomToLocation(locTree, loc)
+            } else {
+                locTree[id] = loc
+            }
+        }
+
+        const resp = []
+        for (let id in locTree) {
+            resp.push(...getLocationMapText(locTree[id], 0))
+        }
+
+        return resp
+    }
+
     return null
+}
+
+function buildLocation(loc) {
+    return {
+        id: loc.id,
+        parent: loc.parent,
+        name: loc.name,
+        points: loc.points,
+        rooms: {},
+        items: loc.items.map((i) => `${items[i].name} (${items[i].points})`),
+        people: loc.people.map((p) => {
+            const itemList = []
+            people[p].conversation.forEach(step => {
+                if (step.item) {
+                    itemList.push(`${items[step.item].name} (${items[step.item].points})`)
+                }
+            })
+            let itemText = ''
+            if (itemList.length) {
+                itemText = ` (gives items: ${itemList.join(', ')})`
+            }
+
+            return `${people[p].name} (${people[p].points})${itemText}`
+        })
+    }
+}
+
+function addRoomToLocation(group, loc) {
+    if (group[loc.parent]) {
+        group[loc.parent].rooms[loc.id] = loc
+    } else {
+        Object.keys(group).forEach((id) => {
+            addRoomToLocation(group[id].rooms, loc)
+        })
+    }
+}
+
+function getLocationMapText(loc, level) {
+    const pad = Array(level * 2).fill(' ').join('')
+    const lines = []
+    let itemText = ''
+    let peopleText = ''
+    if (loc.items.length) {
+        itemText = `:${(loc.items.length === 1) ? ' ' : `\n${pad}    `}${loc.items.join(`\n${pad}    `)}`
+    }
+    if (loc.people.length) {
+        peopleText = `:\n${pad}    ${loc.people.join(`\n${pad}    `)}`
+    }
+
+    lines.push(`${pad}${(level > 0) ? 'Room' : 'Location'}: ${loc.name} (${loc.points})`)
+    if (itemText) {
+        lines.push(`${pad}  has ${loc.items.length} item${(loc.items.length === 1) ? '' : 's'}${itemText}`)
+    }
+    if (peopleText) {
+        lines.push(`${pad}  ${(itemText) ? 'and' : 'has'} ${loc.people.length} ${(loc.people.length === 1) ? 'person' : 'people'}${peopleText}`)
+    }
+    Object.keys(loc.rooms).forEach((id) => {
+        lines.push(...getLocationMapText(loc.rooms[id], level + 1))
+    })
+    return lines
 }
 
 async function getUser(token) {
