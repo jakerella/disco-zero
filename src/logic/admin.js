@@ -94,6 +94,31 @@ module.exports = async function adminActions(tokens) {
             resp.push(...getLocationMapText(locTree[id], 0))
         }
 
+        resp.push('\nScanable NPCs:')
+        for (let id in people) {
+            if (people[id].scanable) {
+                const itemList = []
+                people[id].conversation.forEach(step => {
+                    if (step.item) {
+                        itemList.push(`${items[step.item].name} (${items[step.item].points})`)
+                    }
+                })
+                let itemText = ''
+                if (itemList.length) {
+                    itemText = ` (gives items: ${itemList.join(', ')})`
+                }
+
+                resp.push(`  ${people[id].name} (${people[id].points})${itemText}`)
+            }
+        }
+
+        resp.push('\nScanable Items:')
+        for (let id in items) {
+            if (items[id].scanable) {
+                resp.push(`  ${items[id].name} (${items[id].points})`)
+            }
+        }
+
         return resp
     }
 
@@ -105,6 +130,7 @@ function buildLocation(loc) {
         id: loc.id,
         parent: loc.parent,
         name: loc.name,
+        type: loc.type,
         points: loc.points,
         rooms: {},
         items: loc.items.map((i) => `${items[i].name} (${items[i].points})`),
@@ -147,7 +173,7 @@ function getLocationMapText(loc, level) {
         peopleText = `:\n${pad}    ${loc.people.join(`\n${pad}    `)}`
     }
 
-    lines.push(`${pad}${(level > 0) ? 'Room' : 'Location'}: ${loc.name} (${loc.points})`)
+    lines.push(`${pad}${(level > 0) ? 'Room' : 'Location'}: ${loc.name} (${loc.points}${(loc.type === 'hidden') ? ', hidden' : ''})`)
     if (itemText) {
         lines.push(`${pad}  has ${loc.items.length} item${(loc.items.length === 1) ? '' : 's'}${itemText}`)
     }
