@@ -130,6 +130,7 @@
     })
 
     document.addEventListener('click', (e) => {
-        if (e.target.tagName.toLowerCase() === 'html') { prompt.focus() }
+        const t = e.target.tagName.toLowerCase()
+        if (t === 'html' || t === 'body' || t === 'img') { prompt.focus() }
     })
 })()

@@ -61,9 +61,9 @@ app.use(session(sessionOptions))
 app.use('/', (req, res, next) => {
     if (req.session.user) {
         req.session.falseContacts = req.session.falseContacts || 0
-        logger.debug(`user ${req.session.user.handle} has tried ${req.session.falseContacts} bad contacts`)
     }
     if (req.session.falseContacts > 5) {
+        logger.debug(`Auto-logged out user ${req.session.user.handle} for ${req.session.falseContacts} bad contact tries`)
         req.session.destroy()
         return next(new AppError('Whew, checking all those bad codes really wore you out. You decide to take a break for a bit.', 418))
     }
@@ -109,8 +109,13 @@ if (process.env.NODE_ENV === 'development' && fs.existsSync('./localcert/localho
     const key = fs.readFileSync('./localcert/localhost.decrypted.key')
     const https = require('https')
     server = https.createServer({ key, cert }, app)
+    logger.info(`Using localhost development cert`)
 }
 
 server.listen(PORT, () => {
-    logger.info(`Listening at https://localhost:${PORT}`)
+    if (process.env.NODE_ENV === 'development') {
+        logger.info(`Listening at https://localhost:${PORT}`)
+    } else {
+        logger.info(`Listening on port ${PORT}`)
+    }
 })

@@ -3,7 +3,27 @@
 * {margin:0;padding:0;}
 input, button, textarea, select {font:inherit;}
 h1,h2,h3,h4,p,pre {overflow-wrap:break-word;text-wrap:balance;text-wrap:pretty;}
-html,body,input {background:#000;color:#eee;}
+html,body,input {background-color:#000;color:#eee;}
+.bg {
+    position: fixed;
+    top: 25%;
+    left: 0;
+    filter: grayscale(100%);
+    opacity: 3%;
+    z-index: 0;
+    width: 100%;
+}
+@media (min-width: 500px) {
+    .bg { top: 0; }
+}
+@media (min-width: 1024px) {
+    .bg { width: auto; }
+}
+
+main {
+    position: relative;
+    z-index: 1;
+}
 .terminal, .terminal .out, .terminal .cmd {
     font-family: 'Consolas', fixed-width;
     padding: 0.2rem;
