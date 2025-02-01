@@ -14,7 +14,7 @@
         "id": "01942807-cdf2-74d7-8ad2-aa3c271ddee5",
         "name": "venue map",
         "alternates": ["map", "conference map"],
-        "description": "A map of the DistrictCon venue within the *Yours Truly Hotel*. The *conference center* is up the elevator past the lobby. There are various sesison rooms and a *staff room* in the conference center. The registration desk is in the Yours Truly Hotel.",
+        "description": "A map of the DistrictCon venue within the *Yours Truly Hotel*. On the ground level is the lobby and registration desk, as well as the *Mercy Me* bar and restaurant. Downstairs is the *conference center* where the *main stage*, *policy room*, and *village of villages* is located. There are also restrooms down there and the staff room.",
         "use": null,
         "points": 5
     },
@@ -63,7 +63,7 @@
         "id": "019484b4-6223-75e1-8c19-91ce155f4514",
         "name": "application log file",
         "alternates": ["log file", "app logs", "app log file", "system log", "system logs", "syslog", "system log file"],
-        "description": "Someone asked you to look over this log file. You'll need to *use* it get the data",
+        "description": "Winnona asked you to look over this log file. You'll need to *use* it get the data",
         "use": {
             "type": "download",
             "value": "static/019484b4-6223-75e1-8c19-91ce155f4514.gz",
@@ -103,8 +103,8 @@
     },
     "0171b8b7-6eb3-7688-8cc6-e9345e870135": {
         "id": "0171b8b7-6eb3-7688-8cc6-e9345e870135",
-        "name": "DisCode",
-        "alternates": ["DisCo game code", "game code"],
+        "name": "DisCo Web Code",
+        "alternates": ["DisCo html code", "html code", "web code"],
         "description": "You found the DisCo game code! Well, you found the easy part, anyway.",
         "use": null,
         "points": 15

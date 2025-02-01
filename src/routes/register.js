@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const uuid = require('uuid')
 const logger = require('../util/logger')(process.env.LOG_LEVEL)
 const AppError = require('../util/AppError')
 const userModel = require('../models/user')
+const { uuidValid } = require('../util/helpers')
 
 
 router.get('/', (req, res, next) => {
@@ -18,7 +18,7 @@ router.post('/', async (req, res, next) => {
     const handle = userModel.cleanHandle(req.body.handle)
 
     let errors = []
-    if (!req.body.code || !uuid.validate(req.body.code)) {
+    if (!uuidValid(req.body.code)) {
         return next(new AppError('You need a valid, unique code. Have you checked your badge?', 400))
     } else {
         const handleInUse = await userModel.handleByCode(req.body.code)

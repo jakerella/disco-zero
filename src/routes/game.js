@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const path = require('path')
-const uuid = require('uuid')
 const logger = require('../util/logger')(process.env.LOG_LEVEL)
 const userModel = require('../models/user')
 const commands = require('../logic/commands')
@@ -10,6 +9,7 @@ const handleContact = require('../logic/contact')
 const AppError = require('../util/AppError')
 const locations = require('../locations.json')
 const people = require('../people.json')
+const { uuidValid } = require('../util/helpers')
 
 router.get('/', async (req, res) => {
     if (!req.session.user) {
@@ -152,7 +152,7 @@ async function handleCommand(req, input) {
         return out
     }
 
-    if (tokens.length === 1 && uuid.validate(tokens[0])) {
+    if (tokens.length === 1 && uuidValid(tokens[0])) {
         return await handleContact(req, tokens[0])
     }
 

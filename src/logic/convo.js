@@ -2,6 +2,7 @@
 const userModel = require('../models/user')
 const locations = require('../locations.json')
 const people = require('../people.json')
+const items = require('../items.json')
 const logger = require('../util/logger')(process.env.LOG_LEVEL)
 
 async function handleConversation(user, response) {
@@ -11,7 +12,6 @@ async function handleConversation(user, response) {
         return 'It looks like they just vanished! You decide to move on.'
     }
 
-    // TODO: convert these things to a regex to catch things like "bye for now", etc?
     if (['hi', 'hello', 'howdy', 'hiya', 'good morning', 'good afternoon', 'good evening'].includes(response)) {
         const greetings = ['Hi', 'Hello', 'Howdy', 'Hiya']
         return `${person.name}: "${greetings[Math.floor(Math.random()*greetings.length)]}!"`
@@ -108,8 +108,13 @@ async function handleConversation(user, response) {
             // Used primarily as a loopback with a different message for the player
             nextMessage = next[0]
             next = next[1]
+        } else {
+            nextMessage = person.conversation[next].phrase
         }
+
+        let itemName = null
         if (person.conversation[next].item && !user.items.includes(person.conversation[next].item)) {
+            itemName = items[person.conversation[next].item].name
             user.items.push(person.conversation[next].item)
             await userModel.incrementStat('item', person.conversation[next].item, user.items.length)
         }
@@ -119,11 +124,7 @@ async function handleConversation(user, response) {
         } else {
             user.convo[1] = next
         }
-        if (nextMessage) {
-            return `${person.name}: "${nextMessage}"`
-        } else {
-            return `${person.name}: "${person.conversation[next].phrase}"`
-        }
+        return `${person.name}: "${nextMessage}"${(itemName) ? `\nYou received the ${itemName}!` : ''}`
     }
 }
 

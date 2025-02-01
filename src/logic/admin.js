@@ -4,6 +4,7 @@ const userModel = require('../models/user')
 const locations = require('../locations.json')
 const people = require('../people.json')
 const items = require('../items.json')
+const { uuidValid } = require('../util/helpers')
 
 
 module.exports = async function adminActions(tokens) {
@@ -188,7 +189,7 @@ function getLocationMapText(loc, level) {
 
 async function getUser(token) {
     let user = null
-    if (uuid.validate(token)) {
+    if (uuidValid(token)) {
         user = await userModel.get(token)
     } else {
         user = await userModel.get(null, token)

@@ -4,6 +4,7 @@ const redis = require('redis')
 const crypto = require('crypto')
 const uuid = require('uuid')
 const AppError = require('../util/AppError')
+const { uuidValid } = require('../util/helpers')
 
 let _client = null
 
@@ -41,7 +42,7 @@ async function handleExists(handle) {
 
 async function handleByCode(code) {
     code = code.replaceAll(/[^a-f0-9\-]/g, '')
-    if (!uuid.validate(code)) { throw new AppError('No code provided to check.', 400) }
+    if (!uuidValid(code)) { throw new AppError('No code provided to check.', 400) }
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to get data.', 500) }
     return await cache.get(`${process.env.APP_NAME}_code_${code}`)
@@ -53,7 +54,7 @@ async function get(code, handle=null) {
     } else {
         handle = await handleByCode(code)
     }
-    if (!handle && !uuid.validate(code)) { throw new AppError('No handle or code provided to retrieve user.', 400) }
+    if (!handle && !uuidValid(code)) { throw new AppError('No handle or code provided to retrieve user.', 400) }
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to get data.', 500) }
 
@@ -113,7 +114,7 @@ async function save(user) {
     if (!user.handle) {
         throw new AppError('No user handle provided to save user.', 500)
     }
-    if (!uuid.validate(user.code)) {
+    if (!uuidValid(user.code)) {
         throw new AppError('Bad user code provided to save user.', 500)
     }
     
@@ -135,7 +136,7 @@ async function create(handle, code, pass) {
     if (!pass) {
         throw new AppError('No password provided to create user.', 400)
     }
-    if (!uuid.validate(code)) {
+    if (!uuidValid(code)) {
         throw new AppError('Bad user code provided to create user.', 400)
     }
 
@@ -175,7 +176,7 @@ async function addUserCode() {
 
 async function del(code, handle) {
     handle = cleanHandle(handle)
-    if (!handle || !uuid.validate(code)) { throw new AppError('No handle or code provided to delete user.', 400) }
+    if (!handle || !uuidValid(code)) { throw new AppError('No handle or code provided to delete user.', 400) }
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to delete data.', 500) }
 

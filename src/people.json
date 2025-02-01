@@ -5,6 +5,16 @@
         "triggers": ["volunteer", "registration person", "registration volunteer"],
         "points": 5,
         "abandon": "Okay bye! Come see me if I can help.",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "01942807-cdf2-74d7-8ad2-aa3c271ddee5" }],
+                "met": 8
+            },
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "019408f7-772f-70ee-9a69-2d8289644a12" }],
+                "met": 7
+            }
+        ],
         "conversation": [
             {
                 "phrase": "Welcome to District Con! Are you here to register?",
@@ -33,7 +43,7 @@
                 "end": true
             },
             {
-                "phrase": "Okay, did you need a map of the venue?",
+                "phrase": "Do you need a map of the venue?",
                 "responses": [
                     {
                         "triggers": ["yes"],
@@ -58,6 +68,25 @@
             },
             {
                 "phrase": "Okay, enjoy the con!",
+                "end": true
+            },
+            {
+                "phrase": "Hello again! I see you still have your badge. Did you need a map of the venue?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "conditions": [{ "check": "has", "type": "item", "value": "01942807-cdf2-74d7-8ad2-aa3c271ddee5" }],
+                        "met": 4,
+                        "not": 5
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 6
+                    }
+                ]
+            },
+            {
+                "phrase": "Nice to see you again! Looks like you have your badge and map, you should head down to the conference center and check it out. Bye!",
                 "end": true
             }
         ]
@@ -180,8 +209,8 @@
             }
         ]
     },
-    "0194854c-270a-731a-b450-f428014008af": {
-        "id": "0194854c-270a-731a-b450-f428014008af",
+    "01001010-6666-7777-8888-1337c0d38055": {
+        "id": "01001010-6666-7777-8888-1337c0d38055",
         "name": "jakerella",
         "triggers": [],
         "points": 20,
@@ -379,6 +408,65 @@
             },
             {
                 "phrase": "Ah, I think I heard about that event. It's at the Yours Truly hotel, right? You can take the orange line to Foggy Bottom to get there.",
+                "end": true
+            }
+        ]
+    },
+    "018caca3-4794-7316-b3b9-855fd36f9350": {
+        "id": "018caca3-4794-7316-b3b9-855fd36f9350",
+        "name": "Winnona",
+        "triggers": ["conference founder", "disco founder", "districtcon founder", "disco organizer", "organizer"],
+        "points": 15,
+        "scanable": true,
+        "abandon": "Bye!",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "019484b6-9be4-705e-bc49-a67260a268f4" }],
+                "met": 5
+            },
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "019484b4-6223-75e1-8c19-91ce155f4514" }],
+                "met": 2
+            }
+        ],
+        "conversation": [
+            {
+                "phrase": "Oh hi! Sorry, I'm super busy, but really happy you joined us at DistrictCon Zero! Hey, do you have a minute to help me out?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "No problem, enjoy the con!",
+                "end": true
+            },
+            {
+                "phrase": "I think someone may have hacked into the DisCo web site. Any chance you could look through the logs for any clues?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 3
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "Awesome, I've already sent the log file to you! Hope you enjoy the con!",
+                "item": "019484b4-6223-75e1-8c19-91ce155f4514",
+                "end": true
+            },
+            {
+                "phrase": "You found the hacker?! Nice job! Oooh, it was leetBeats? That character is always up to something, but they're harmless... mostly. Thanks again for the help, and enjoy the con.",
                 "end": true
             }
         ]
