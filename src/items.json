@@ -100,5 +100,13 @@
             "value": "You peel off the backing of the sticker and slap it on your laptop. 'That looks reeeeaaal niiiice,' you say loudly to yourself. Other people look at you strangely, but you don't care."
         },
         "points": 20
+    },
+    "0171b8b7-6eb3-7688-8cc6-e9345e870135": {
+        "id": "0171b8b7-6eb3-7688-8cc6-e9345e870135",
+        "name": "DisCode",
+        "alternates": ["DisCo game code", "game code"],
+        "description": "You found the DisCo game code! Well, you found the easy part, anyway.",
+        "use": null,
+        "points": 15
     }
 }
