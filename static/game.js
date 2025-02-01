@@ -128,9 +128,12 @@
     window.addEventListener('beforeunload', () => {
         localStorage.setItem('cmd_history', JSON.stringify(history.slice(-100)))
     })
-
     document.addEventListener('click', (e) => {
         const t = e.target.tagName.toLowerCase()
         if (t === 'html' || t === 'body' || t === 'img') { prompt.focus() }
+    })
+    document.querySelector('.bg').addEventListener('contextmenu', (e) => {
+        e.preventDefault()
+        return false
     })
 })()

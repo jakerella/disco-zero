@@ -9,7 +9,7 @@ html,body,input {background-color:#000;color:#eee;}
     top: 25%;
     left: 0;
     filter: grayscale(100%);
-    opacity: 3%;
+    opacity: 5%;
     z-index: 0;
     width: 100%;
 }
@@ -17,7 +17,11 @@ html,body,input {background-color:#000;color:#eee;}
     .bg { top: 0; }
 }
 @media (min-width: 1024px) {
-    .bg { width: auto; }
+    .bg {
+        width: auto;
+        left: 50%;
+        margin-left: -465px; /* half of width */
+    }
 }
 
 main {
