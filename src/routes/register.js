@@ -17,6 +17,8 @@ router.get('/', (req, res, next) => {
 router.post('/', async (req, res, next) => {
     const handle = userModel.cleanHandle(req.body.handle)
 
+    // TODO: check for explitives?
+
     let errors = []
     if (!uuidValid(req.body.code)) {
         return next(new AppError('You need a valid, unique code. Have you checked your badge?', 400))

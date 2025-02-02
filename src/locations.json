@@ -135,7 +135,7 @@
     "vendor1": {
         "id": "vendor1",
         "type": "room",
-        "parent": "01949f41-f35b-724c-8a12-5ec3846bd3b6",
+        "parent": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
         "name": "Vendor 1",
         "alt": [],
         "arrival": "You walk over to the vendor table..... TODO: MESSAGE",

@@ -1,9 +1,11 @@
 ;(() => {
     const leaderboardNode = document.querySelector('.leaderboard')
-    const charts = ['location', 'item', 'npc'].map((t) => {
+    
+    const charts = ['location', 'item', 'npc', 'player'].map((t) => {
         return {
             name: `${t}Stats`,
-            nodes: { disc: document.querySelector(`.${t}-discovered`), chart: document.querySelector(`.${t}-chart`) }
+            nodes: { disc: document.querySelector(`.${t}-discovered`), chart: document.querySelector(`.${t}-chart`) },
+            limit: (t === 'player') ? 10 : 20
         }
     })
 
@@ -16,12 +18,14 @@
             const stats = await resp.json()
 
             charts.forEach((c) => {
-                c.nodes.disc.innerText = `${stats[c.name].discovered} of ${stats[c.name].total} discovered`
-                buildChart(c.nodes.chart, stats[c.name].counts, stats.userCount)
+                if (c.nodes.disc) {
+                    c.nodes.disc.innerText = `${stats[c.name].discovered} of ${stats[c.name].total} discovered`
+                }
+                buildChart(c.nodes.chart, stats[c.name].counts.slice(0, c.limit), stats.userCount)
             })
             updateLeaderboard(leaderboardNode, stats.leaderboard)
 
-            setTimeout(getLatest, 3000)
+            setTimeout(getLatest, 5000)
 
         } else {
             console.warn('Problem fetching new stats, stopping poll:', await resp.text())

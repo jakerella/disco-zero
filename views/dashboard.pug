@@ -5,11 +5,12 @@ block content
         section
             h3 Leaderboard
                 span.user-count (#{userCount} total)
+            //- TODO: make this 2 columns
             ol.leaderboard
         section
-            h3 Player Connections
-            p.
-                TBD
+            h3 Player-to-Player Connections
+            h4 Largest Networks by User Count
+            figure.player-chart.chart
         section.stats
             h3 Locations
             p.location-discovered

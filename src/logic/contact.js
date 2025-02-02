@@ -53,6 +53,7 @@ module.exports = async function handleContact(req, code) {
                     user.contacts.push({ id: code, type: 'npc' })
                     user.score += people[code].points || 1
                     message = `Your phone buzzes and you see a new text message. You don't recognize the number, but read it anyway.\n${people[code].name}: "${people[code].conversation[0].phrase}"`
+                    
                     const npcContacts = user.contacts.filter((c) => c.type === 'npc').length
                     await userModel.incrementStat('npc', code, npcContacts)
                     logger.debug(`${user.handle} made new NPC contact with ${people[code].name}`)
@@ -69,6 +70,9 @@ module.exports = async function handleContact(req, code) {
                         user.contacts.push({ id: code, type: 'player' })
                         user.score += 5
                         await userModel.save(user)
+
+                        const playerContacts = user.contacts.filter((c) => c.type === 'player').length
+                        await userModel.incrementStat('player', null, playerContacts)
                         logger.debug(`${user.handle} just connected with ${handle}`)
                     } else if (handle === '') {
                         message = `That code looks vaguely familiar, but then you look up and realize there's no one here.`

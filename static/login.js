@@ -11,7 +11,7 @@
             return false
         }
         
-        if (!/^\w+\s.+$/.test(prompt.value)) {
+        if (!/^[\w\-\.\']+\s.+$/.test(prompt.value)) {
             const creds = getUserAndPass()
             out.innerHTML += `<pre class='cmd'>${p} ${prompt.value}</p>`
             out.innerHTML += `<pre class='out user-error'>Please enter your handle and password, for example: ${creds.user} ${creds.pass}</p>`

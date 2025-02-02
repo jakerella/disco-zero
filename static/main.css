@@ -76,6 +76,9 @@ input.prompt, input.prompt:focus {
 .dashboard ul, .dashboard ol {
     padding-left: 2rem;
 }
+.dashboard .leaderboard {
+    columns: 2;
+}
 .dashboard h3 {
     font-size: 1.2rem;
     font-weight: bold;

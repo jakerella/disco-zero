@@ -66,20 +66,22 @@ async function get(code, handle=null) {
 }
 
 async function incrementStat(stat, id, count) {
-    if (!['loc', 'item', 'npc'].includes(stat)) {
+    if (!['loc', 'item', 'npc', 'player'].includes(stat)) {
         return false
     }
     
     const cache = await getCacheClient()
     if (!cache) { return false /* We'll let this error go since it's just for the stats */ }
 
-    await cache.incr(`${process.env.APP_NAME}_statbyid_${stat}_${id}`)
+    if (stat !== 'player') {
+        await cache.incr(`${process.env.APP_NAME}_statbyid_${stat}_${id}`)
+    }
     await cache.incr(`${process.env.APP_NAME}_statbycount_${stat}_${count}`)
     return true
 }
 
 async function getStats(stat) {
-    if (!['loc', 'item', 'npc'].includes(stat)) {
+    if (!['loc', 'item', 'npc', 'player'].includes(stat)) {
         return {}
     }
     
@@ -87,10 +89,14 @@ async function getStats(stat) {
     if (!cache) { throw new AppError('No redis client available to set user.', 500) }
 
     try {
-        const byIdKeys = await cache.keys(`${process.env.APP_NAME}_statbyid_${stat}_*`)
-        let byIdValues = []
-        if (byIdKeys) {
-            byIdValues = await cache.mGet(byIdKeys)
+        let byIdKeys = null
+        let byIdValues = null
+        if (stat !== 'player') {
+            byIdKeys = await cache.keys(`${process.env.APP_NAME}_statbyid_${stat}_*`)
+            byIdValues = []
+            if (byIdKeys) {
+                byIdValues = await cache.mGet(byIdKeys)
+            }
         }
 
         const byCountKeys = await cache.keys(`${process.env.APP_NAME}_statbycount_${stat}_*`)
@@ -101,7 +107,7 @@ async function getStats(stat) {
 
         return {
             type: stat,
-            byId: byIdKeys.map((k, i) => { return { id: k.split('_')[3], value: Number(byIdValues[i]) } }),
+            byId: (byIdKeys) ? byIdKeys.map((k, i) => { return { id: k.split('_')[3], value: Number(byIdValues[i]) } }) : null,
             byCount: byCountKeys.map((k, i) => { return { id: k.split('_')[3], value: Number(byCountValues[i]) } })
         }
     } catch(err) {

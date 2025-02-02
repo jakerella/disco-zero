@@ -52,16 +52,22 @@
             passHandler = null
         }
 
-        const resp = await fetch(`/cmd?c=${input}`, { headers })
+        let resp = null
+        try {
+            resp = await fetch(`/cmd?c=${input}`, { headers })
+        } catch(err) {
+            console.warn(err)
+            const node = document.createElement('pre')
+            node.classList.add('out')
+            node.classList.add('error')
+            out.appendChild(node)
+            currentOutput = 'Sorry, there\'s a problem with the server.'
+            typeOutput(node, currentOutput)
+            return
+        }
+
         if (resp.redirected) {
             return window.location.replace(resp.url)
-        }
-        
-        let error = ''
-        if (resp.status > 499) {
-            error = ' error'
-        } else if (resp.status > 399) {
-            error = ' user-error'
         }
 
         const disposition = resp.headers.get('Content-Disposition')
@@ -83,7 +89,7 @@
             label.innerText = `${(actionHeader === 'convo' || /^PASSWORD\|/.test(actionHeader)) ? '-' : '>'} `
             const node = document.createElement('pre')
             node.classList.add('out')
-            if (error) { node.classList.add('error') }
+            if (resp.status > 399) { node.classList.add('error') }
             out.appendChild(node)
 
             currentOutput = content
