@@ -79,9 +79,11 @@ module.exports = async function adminActions(tokens) {
 
     if (tokens.join(' ') === 'map') {
         const locTree = {}
+        let total = 0
 
         for (let id in locations) {
             const loc = buildLocation(locations[id])
+            total += locations[id].points
 
             if (loc.parent) {
                 addRoomToLocation(locTree, loc)
@@ -97,6 +99,7 @@ module.exports = async function adminActions(tokens) {
 
         resp.push('\nScanable NPCs:')
         for (let id in people) {
+            total += people[id].points
             if (people[id].scanable) {
                 const itemList = []
                 people[id].conversation.forEach(step => {
@@ -115,12 +118,15 @@ module.exports = async function adminActions(tokens) {
 
         resp.push('\nScanable Items:')
         for (let id in items) {
+            total += items[id].points
             if (items[id].scanable) {
                 resp.push(`  ${items[id].name} (${items[id].points})`)
             }
         }
 
-        return resp
+        total += await userModel.userCount() - 1
+
+        return [`Current maximum possible points: ${total}`, ...resp]
     }
 
     return null
