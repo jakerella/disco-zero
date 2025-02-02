@@ -52,7 +52,7 @@ function whoami(user) {
         return 'You seem to have lost your memory.'
     }
 }
-whoami.alt = ['who am i', 'what is my name', 'what am i called', 'what is my handle', 'what is my score', 'how many points do i have', 'what are my points']
+whoami.alt = ['who am i', 'score', 'my score', 'my points', 'what is my name', 'what am i called', 'what is my handle', 'what is my score', 'how many points do i have', 'what are my points']
 
 async function leaderboard(user) {
     const scores = await userModel.leaderboard(10)

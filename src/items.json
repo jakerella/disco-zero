@@ -85,7 +85,7 @@
     "01948551-c92b-7324-b951-14b6d5d1fced": {
         "id": "01948551-c92b-7324-b951-14b6d5d1fced",
         "name": "jakerella's challenge coin",
-        "alternates": ["challenge coin", "jakerellas coin", "jakerella coin"],
+        "alternates": ["jakerellas coin", "jakerella coin"],
         "description": "A over-sized challenge coin with a picture of a stuffed tiger on one side and the DistrictCon logo on the other. Around the outside of the tiger-side it says 'So long, and thanks for all the fish.'",
         "use": null,
         "points": 50
@@ -108,5 +108,29 @@
         "description": "You found the DisCo game code! Well, you found the easy part, anyway.",
         "use": null,
         "points": 15
+    },
+    "01743c40-5e69-7c06-ad72-a5d168075279": {
+        "id": "01743c40-5e69-7c06-ad72-a5d168075279",
+        "name": "Level 1 Social Network Coin",
+        "alternates": ["level 1 coin", "level 1 social coin", "level 1 network coin", "l1 coin", "l1 social coin", "l1 network coin"],
+        "description": "A small, bronze coin with a spider web-looking graphic on one side and the words 'Socially Inclined' on the other.",
+        "use": null,
+        "points": 20
+    },
+    "0183fd5b-1009-7086-8c35-f1495d067b3d": {
+        "id": "0183fd5b-1009-7086-8c35-f1495d067b3d",
+        "name": "Level 2 Social Network Coin",
+        "alternates": ["level 2 coin", "level 2 social coin", "level 2 network coin", "l2 coin", "l2 social coin", "l2 network coin"],
+        "description": "A moderately-sized, silver coin with a neural net graphic on one side and the words 'Social Butterfly' on the other.",
+        "use": null,
+        "points": 50
+    },
+    "018966db-fde3-70b4-9f0a-077394462fba": {
+        "id": "018966db-fde3-70b4-9f0a-077394462fba",
+        "name": "Level 3 Social Network Coin",
+        "alternates": ["level 3 coin", "level 3 social coin", "level 3 network coin", "l3 coin", "l3 social coin", "l3 network coin"],
+        "description": "A large, gold coin with a colorful enamel inlayed graphic on one side depicting the interconnectivity of society. On the reverse is the full color DisctrictCon logo and around the edge are the words 'DistrictCon Social Ambassador'.",
+        "use": null,
+        "points": 100
     }
 }

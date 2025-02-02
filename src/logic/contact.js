@@ -7,6 +7,13 @@ const items = require('../items.json')
 const people = require('../people.json')
 
 
+const socialNetworkThresholds = {
+    20: '01743c40-5e69-7c06-ad72-a5d168075279',
+    50: '0183fd5b-1009-7086-8c35-f1495d067b3d',
+    100: '018966db-fde3-70b4-9f0a-077394462fba'
+}
+
+
 module.exports = async function handleContact(req, code) {
     const user = req.session.user
     if (user) {
@@ -68,12 +75,22 @@ module.exports = async function handleContact(req, code) {
                         const contact = await userModel.get(code, handle)
                         message = `Your phone buzzes and you glance at it to see that ${handle} has sent you a message. They're over at the ${locations[contact.location].name}. You add them to your contact list!`
                         user.contacts.push({ id: code, type: 'player' })
-                        user.score += 5
-                        await userModel.save(user)
+                        user.score += 1
 
                         const playerContacts = user.contacts.filter((c) => c.type === 'player').length
                         await userModel.incrementStat('player', null, playerContacts)
+
+                        if (socialNetworkThresholds[playerContacts]) {
+                            message += `\nYou received the ${items[socialNetworkThresholds[playerContacts]].name}!`
+                            user.items.push(socialNetworkThresholds[playerContacts])
+                            user.score += items[socialNetworkThresholds[playerContacts]].points || 1
+                            await userModel.incrementStat('item', socialNetworkThresholds[playerContacts], user.items.length)
+                            logger.debug(`${user.handle} just received the ${items[socialNetworkThresholds[playerContacts]].name}`)
+                        }
+
+                        await userModel.save(user)
                         logger.debug(`${user.handle} just connected with ${handle}`)
+
                     } else if (handle === '') {
                         message = `That code looks vaguely familiar, but then you look up and realize there's no one here.`
                     }
