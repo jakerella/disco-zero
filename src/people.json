@@ -470,5 +470,19 @@
                 "end": true
             }
         ]
+    },
+    "017fbc25-29c3-7f02-ab02-cfb829f5c55c": {
+        "id": "017fbc25-29c3-7f02-ab02-cfb829f5c55c",
+        "name": "aaron",
+        "triggers": [],
+        "points": 100,
+        "scanable": true,
+        "abandon": "See ya.",
+        "conversation": [
+            {
+                "phrase": "You did it!",
+                "end": true
+            }
+        ]
     }
 }
