@@ -22,7 +22,14 @@ router.get('/', async (req, res) => {
         if (req.session.user.convo) {
             const person = people[req.session.user.convo[0]]
             if (person) {
-                message.push(`You had been chatting with ${person.name}. They said, "${person.conversation[req.session.user.convo[1]].phrase}"`)
+                let runMsg = null
+                if (person.conversation[req.session.user.convo[1]].run) {
+                    runMsg = await convo.runCommand(req.session.user, person.conversation[req.session.user.convo[1]].run)
+                }
+                message.push([
+                    `You had been chatting with ${person.name}.`,
+                    `They said, "${person.conversation[req.session.user.convo[1]].phrase}"${(runMsg) ? `\n${runMsg}` : ''}`,
+                ].join(' '))
             } else {
                 logger.warn(`Unable to find person that user was chatting with (${req.session.user.convo[0]})`)
                 req.session.user.convo = null

@@ -5,10 +5,10 @@
         "name": "Yours Truly Hotel Lobby",
         "alt": ["yours truly", "yours truly hotel", "conference hotel", "hotel", "hotel lobby"],
         "arrival": "You arrive at the Yours Truly hotel, site of the first ever DistrictCon!",
-        "description": "You look around the lobby. The decor is pretty cool, and there's a DistrictCon sign and registration table to your right. A *volunteer* stands behind it. Beyond the registration desk are the stairs to the *conference center* and to your left is the Mercy Me bar and restaurant. Behind you is the door out onto New Hampshire Ave NW and all of Washington, DC! The metro can take you anywhere you want to go.",
+        "description": "You look around the lobby. The decor is pretty cool, and there's a DistrictCon sign and registration table to your right with some conference *stickers* on it. A *volunteer* stands behind the table. Beyond the registration desk are the stairs to the *conference center* and to your left is the Mercy Me bar and restaurant. Behind you is the door out onto New Hampshire Ave NW and all of Washington, DC! The metro can take you anywhere you want to go, just head to the *metro station*.",
         "points": 10,
         "people": ["01944d26-e9e6-730a-917e-defe1528c42e"],
-        "items": []
+        "items": ["017477a4-e776-7c13-a066-166e870d627c"]
     },
     "018daa13-30b6-74a1-819f-ba0e795a6ce4": {
         "id": "018daa13-30b6-74a1-819f-ba0e795a6ce4",
@@ -39,7 +39,7 @@
     "01944d58-f34c-775f-b6f4-dc0d40461ac0": {
         "id": "01944d58-f34c-775f-b6f4-dc0d40461ac0",
         "type": "room",
-        "parent": "0193feed-2940-71ba-9fc5-64122b4b79ff",
+        "parent": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
         "name": "Staff room",
         "alt": ["staff room", "staff only room", "staffs room", "conference staff room"],
         "arrival": "You look around but no one seems to be blocking the staff room, so you decide to take a peek inside.",
@@ -64,13 +64,25 @@
         "id": "01949f41-8f5f-7558-8038-0820979b2de2",
         "type": "room",
         "parent": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
-        "name": "DisCo Policy Room",
-        "alt": ["policy room", "room 2", "room two", "disco 2", "disco two", "room 14", "room fourteen"],
-        "arrival": "You walk into the policy talks room.",
-        "description": "The DisCo Policy room is where people are gathering to discuss various government policies around cyber security, ethical hacking, and related topics. Most of the roundtables here are invite only, but you walk in between sessions.",
-        "points": 5,
-        "people": [],
+        "name": "Jump the Wall",
+        "alt": ["jtw", "jtw room", "jump the wall room"],
+        "arrival": "You walk into a dark space lit only by the dim screens of many laptops.",
+        "description": "The space is rumbles with the murmur of so many hackers trying their best to overcome an invisible hurdle. You notice that most people are heads down on their computers, but every once in a while you hear an excited cry from a lone hacker... they found something. In the corner you spot RoRo, one of the DisCo organizers, keeping an eye on the activities.",
+        "points": 10,
+        "people": ["017135d5-5288-78bd-9438-b3f864a6bbc4"],
         "items": []
+    },
+    "01805090-e6f6-7582-bf41-2527c143e62d": {
+        "id": "01805090-e6f6-7582-bf41-2527c143e62d",
+        "type": "room",
+        "parent": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
+        "name": "Staff room",
+        "alt": ["staff room", "staff only room", "staffs room", "conference staff room"],
+        "arrival": "You look around but no one seems to be blocking the staff room, so you decide to take a peek inside.",
+        "description": "This is less of a 'room' and more of a storage closet. There's a bunch of boxes, but they're all taped up. Sitting on one of the boxes is a small usb drive. You think you hear someone coming toward the room, so you probably shouldn't stay long!",
+        "points": 10,
+        "people": [],
+        "items": ["01944d5d-2035-708c-b913-f7be18c0cb7a"]
     },
     "01949f41-f35b-724c-8a12-5ec3846bd3b6": {
         "id": "01949f41-f35b-724c-8a12-5ec3846bd3b6",
@@ -92,7 +104,7 @@
         "alt": ["aerospace table", "aerospace"],
         "arrival": "You walk over to the Aerospace Village table..... TODO: MESSAGE",
         "description": "TODO",
-        "points": 5,
+        "points": 15,
         "people": [],
         "items": []
     },
@@ -102,9 +114,9 @@
         "parent": "01949f41-f35b-724c-8a12-5ec3846bd3b6",
         "name": "Red Team Village",
         "alt": ["rtv", "red team table", "redteam village", "redteam table"],
-        "arrival": "You walk over to the Red Team Village table..... TODO: MESSAGE",
-        "description": "TODO",
-        "points": 5,
+        "arrival": "You walk over to the Red Team Village table to check it out.",
+        "description": "Someone standing next to the table greets you, 'Hi! I go by NOPResearcher, thanks for stopping by. The Red Team Village is focuses on training the art of critical thinking, collaboration, and strategy in offensive security. The RTV brings together information security professionals to share new tactices and techniques in offensive security. You could spend your entire DistrictCon engaged in introductory workshops or even challenge yourself in immersive CTF competition to put those newly obtained skills to the test!'",
+        "points": 15,
         "people": [],
         "items": []
     },
@@ -116,7 +128,7 @@
         "alt": ["ics table", "industrial control systems village", "industrial control systems table"],
         "arrival": "You walk over to the ICS Village table..... TODO: MESSAGE",
         "description": "TODO",
-        "points": 5,
+        "points": 15,
         "people": [],
         "items": []
     },

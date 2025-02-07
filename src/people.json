@@ -358,6 +358,22 @@
                         "conditions": [{ "check": "has", "type": "item", "value": "019456e1-5ff7-7425-8ebc-062a462fe6db" }],
                         "met": 4,
                         "notmet": 5
+                    },
+                    {
+                        "triggers": ["re-where is", "re-how do i"],
+                        "met": 8
+                    },
+                    {
+                        "triggers": ["re-yours truly"],
+                        "met": 6
+                    },
+                    {
+                        "triggers": ["re-district ?con"],
+                        "met": 7
+                    },
+                    {
+                        "triggers": ["re-som records"],
+                        "met": 8
                     }
                 ]
             },
@@ -371,6 +387,14 @@
                     {
                         "triggers": ["re-district ?con"],
                         "met": 7
+                    },
+                    {
+                        "triggers": ["re-som records"],
+                        "met": 8
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": 9
                     }
                 ]
             },
@@ -394,8 +418,25 @@
                 "end": true
             },
             {
-                "phrase": "Hmm, that looks like a metro station map in your hand! Let me know if you need any other help.",
-                "end": true
+                "phrase": "Hmm, looks like have a metro station map, that's good. Did you need help find somewhere specifically?",
+                "responses": [
+                    {
+                        "triggers": ["re-yours truly"],
+                        "met": 6
+                    },
+                    {
+                        "triggers": ["re-district ?con"],
+                        "met": 7
+                    },
+                    {
+                        "triggers": ["re-som records"],
+                        "met": 8
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": 9
+                    }
+                ]
             },
             {
                 "phrase": "Sure thing, here's a metro station map.",
@@ -403,12 +444,31 @@
                 "end": true
             },
             {
-                "phrase": "Hmm, I think the closest station to that hotel is Foggy Bottom. Take the orange line that way. Have a good day!",
+                "phrase": "Hmm, I think the closest station to that hotel is Foggy Bottom. Take the orange line that way. Have a good day!\n(You can probably just say 'go to the Yours Truly hotel')",
                 "end": true
             },
             {
-                "phrase": "Ah, I think I heard about that event. It's at the Yours Truly hotel, right? You can take the orange line to Foggy Bottom to get there.",
+                "phrase": "Ah, I think I heard about that event. It's at the Yours Truly hotel, right? You can take the orange line to Foggy Bottom to get there.\n(You can probably just say 'go to the Yours Truly hotel')",
                 "end": true
+            },
+            {
+                "phrase": "The best way to get there is taking the green line to the U Street station, it's just a couple blocks from there.\n(You can probably just say 'go to Som Records')",
+                "end": true
+            },
+            {
+                "phrase": "Sorry, not sure how to get there. But maybe a map would help. Do you need one?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "conditions": [{ "check": "has", "type": "item", "value": "019456e1-5ff7-7425-8ebc-062a462fe6db" }],
+                        "met": 4,
+                        "notmet": 5
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 3
+                    }
+                ]
             }
         ]
     },
@@ -431,7 +491,7 @@
         ],
         "conversation": [
             {
-                "phrase": "Oh hi! Sorry, I'm super busy, but really happy you joined us at DistrictCon Zero! Hey, do you have a minute to help me out?",
+                "phrase": "Oh hi! Oh my goodness, thank you so much for coming to DistrictCon's Year Zero! Hey, do you have a minute to help me out?",
                 "responses": [
                     {
                         "triggers": ["yes"],
@@ -448,7 +508,7 @@
                 "end": true
             },
             {
-                "phrase": "I think someone may have hacked into the DisCo web site. Any chance you could look through the logs for any clues?",
+                "phrase": "I think someone may have broken into the DisCo web server Any chance you could look through the logs for any clues?",
                 "responses": [
                     {
                         "triggers": ["yes"],
@@ -466,7 +526,7 @@
                 "end": true
             },
             {
-                "phrase": "You found the hacker?! Nice job! Oooh, it was leetBeats? That character is always up to something, but they're harmless... mostly. Thanks again for the help, and enjoy the con.",
+                "phrase": "You found our hacker?! Nice job! Oooh, it was leetBeats? That character is always up to something, but they're harmless... mostly. I'm going to have to give them a talking to. Thanks again for the help, and enjoy the con.",
                 "end": true
             }
         ]
@@ -481,6 +541,83 @@
         "conversation": [
             {
                 "phrase": "You did it!",
+                "end": true
+            }
+        ]
+    },
+    "017135d5-5288-78bd-9438-b3f864a6bbc4": {
+        "id": "017135d5-5288-78bd-9438-b3f864a6bbc4",
+        "name": "RoRo",
+        "triggers": [],
+        "points": 5,
+        "abandon": "See ya.",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "018b86aa-07e1-7b73-8416-0825a12d2fd3" }],
+                "met": 5
+            }
+        ],
+        "conversation": [
+            {
+                "phrase": "Hello! This is pretty freakin' cool, huh? People working together, code-ing side by side, 1+1, making shit happen! I love watchin' these folks. One of the teams had to try like 32 different iterations of some script just get paest one firewall rule. You know, I think they found something that they haven't been able to crack yet. You wanna help out?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "No problem, but you should come back and try! Maybe bring a friend.",
+                "end": true
+            },
+            {
+                "phrase": "This one is a bit tricky. You should find a friend to work with. Therae's lots of people here to choose from, way more than two hundred, but probably not over five hundred, I think. Do you have someone? If so, tell me their handle.",
+                "responses": [
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": "*",
+                        "conditions": [
+                            { "check": "is", "type": "indualconvo", "value": "017135d5-5288-78bd-9438-b3f864a6bbc4" }
+                        ],
+                        "met": {
+                            "actions": [
+                                ["store", "{{user-codes-key}}"]
+                            ],
+                            "goto": 3
+                        },
+                        "not": ["Sorry, but I'll need to be talking to both of you at the same time. Invite your friend to join us here and chat me up. Make sure you're connected to them in thiw world!", 2]
+                    }
+                ]
+            },
+            {
+                "phrase": "Okay, so here's the deal: the team found this data on a foreign server simply labelled 'secret'. I know, obvious, but  thae saying goes, 'hackers gotta hack'. The team that found it has already moved on, they figure they can decrypt the data any time, but maybe you two can help? Here's the data, did you copy it down?",
+                "run": ["encrypt", 2, "018b86aa-07e1-7b73-8416-0825a12d2fd3", "aes256", 32, "jtwfile"],
+                "item": "01722dfb-8da9-745d-85bf-be3b4e3c8bbf",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 4
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": ["Okay, I can repeat it...", 3]
+                    }
+                ]
+            },
+            {
+                "phrase": "Awesome, good luck!",
+                "end": true
+            },
+            {
+                "phrase": "Oh wow, you figured it out! Amazing! Enjoy the rest of the con.",
                 "end": true
             }
         ]

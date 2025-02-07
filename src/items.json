@@ -132,5 +132,38 @@
         "description": "A large, gold coin with a colorful enamel inlayed graphic on one side depicting the interconnectivity of society. On the reverse is the full color DisctrictCon logo and around the edge are the words 'DistrictCon Social Ambassador'.",
         "use": null,
         "points": 100
+    },
+    "01722dfb-8da9-745d-85bf-be3b4e3c8bbf": {
+        "id": "01722dfb-8da9-745d-85bf-be3b4e3c8bbf",
+        "name": "Encrypted JTW file",
+        "alternates": ["jtw file", "encrypted file", "encrypted data"],
+        "description": "This is the encrypted data file you got from RoRo in the Jump the Wall room. You can *use* it to see the data.",
+        "use": {
+            "type": "userprop",
+            "value": "jtwfile"
+        },
+        "points": 10
+    },
+    "018b86aa-07e1-7b73-8416-0825a12d2fd3": {
+        "id": "018b86aa-07e1-7b73-8416-0825a12d2fd3",
+        "name": "Decrypted JTW file",
+        "scanable": true,
+        "alternates": ["decrypted file", "plaintext file", "plain text file", "plaintext jtw file", "plain text jtw file"],
+        "description": "You were able to decrypt the file! You can *use* it to see the contents",
+        "use": {
+            "type": "download",
+            "value": "static/018b86aa-07e1-7b73-8416-0825a12d2fd3.gif",
+            "filename": "decrypted-message.gif"
+        },
+        "points": 100
+    },
+    "017477a4-e776-7c13-a066-166e870d627c": {
+        "id": "017477a4-e776-7c13-a066-166e870d627c",
+        "name": "DisctrictCon Zero Sticker",
+        "scanable": true,
+        "alternates": ["sticker", "stickers", "conference sticker", "disco sticker", "districtcon sticker"],
+        "description": "This is the official DistrictCon sticker. It has a blue background and pink cherry blossom accents. It's in the shape of the number zero and has the name of the conference in the center of the zero.",
+        "use": null,
+        "points": 5
     }
 }

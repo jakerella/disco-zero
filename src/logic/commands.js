@@ -328,6 +328,8 @@ function use(user, ...tokens) {
         const item = items[itemId]
         if (item.use?.type === 'text') {
             return item.use.value
+        } else if (item.use?.type === 'userprop') {
+                return user[item.use.value]
         } else if (item.use?.type === 'download') {
             return `DOWNLOAD|${item.use.filename || 'file.txt'}|${item.use.value}`
         } else {

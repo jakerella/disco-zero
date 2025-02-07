@@ -97,30 +97,37 @@ module.exports = async function adminActions(tokens) {
             resp.push(...getLocationMapText(locTree[id], 0))
         }
 
-        resp.push('\nScanable NPCs:')
+        resp.push('\nScanable-only NPCs:')
         for (let id in people) {
             total += people[id].points
             if (people[id].scanable) {
-                const itemList = []
-                people[id].conversation.forEach(step => {
-                    if (step.item) {
-                        itemList.push(`${items[step.item].name} (${items[step.item].points})`)
+                let scanOnly = true
+                for (let lid in locations) {
+                    if (locations[lid].people.includes(id)) {
+                        scanOnly = false
+                        break
                     }
-                })
-                let itemText = ''
-                if (itemList.length) {
-                    itemText = ` (gives items: ${itemList.join(', ')})`
                 }
-
-                resp.push(`  ${people[id].name} (${people[id].points})${itemText}`)
+                if (scanOnly) {
+                    resp.push(`  ${buildNPC(id)}`)
+                }
             }
         }
 
-        resp.push('\nScanable Items:')
+        resp.push('\nScanable-only Items:')
         for (let id in items) {
             total += items[id].points
             if (items[id].scanable) {
-                resp.push(`  ${items[id].name} (${items[id].points})`)
+                let scanOnly = true
+                for (let lid in locations) {
+                    if (locations[lid].items.includes(id)) {
+                        scanOnly = false
+                        break
+                    }
+                }
+                if (scanOnly) {
+                    resp.push(`  ${items[id].name}* (${items[id].points})`)
+                }
             }
         }
 
@@ -140,22 +147,26 @@ function buildLocation(loc) {
         type: loc.type,
         points: loc.points,
         rooms: {},
-        items: loc.items.map((i) => `${items[i].name} (${items[i].points})`),
-        people: loc.people.map((p) => {
-            const itemList = []
-            people[p].conversation.forEach(step => {
-                if (step.item) {
-                    itemList.push(`${items[step.item].name} (${items[step.item].points})`)
-                }
-            })
-            let itemText = ''
-            if (itemList.length) {
-                itemText = ` (gives items: ${itemList.join(', ')})`
-            }
-
-            return `${people[p].name} (${people[p].points})${itemText}`
+        items: loc.items.map((i) => `${items[i].name}${items[i].scanable ? '*' : ''} (${items[i].points})`),
+        people: loc.people.map((pid) => {
+            return buildNPC(pid)
         })
     }
+}
+
+function buildNPC(pid) {
+    const itemList = []
+    people[pid].conversation.forEach(step => {
+        if (step.item) {
+            itemList.push(`${items[step.item].name} (${items[step.item].points})`)
+        }
+    })
+    let itemText = ''
+    if (itemList.length) {
+        itemText = ` (gives items: ${itemList.join(', ')})`
+    }
+
+    return `${people[pid].name}${people[pid].scanable ? '*' : ''} (${people[pid].points})${itemText}`
 }
 
 function addRoomToLocation(group, loc) {
