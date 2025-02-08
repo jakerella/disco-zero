@@ -47,7 +47,7 @@
         "id": "01945c7c-e588-76de-8fb5-65e57f5b30ee",
         "name": "Som records hint",
         "alternates": ["back room hint", "password hint", "som records back room password", "som records back room hint", "som records back room password hint"],
-        "description": "jimmy-T blind-messaged you saying \"Hey new friend, have you made it over to Som records yet? They have the ultimate disco vinyl collection, biggest you've ever seen, some of it basically brand new! Always so much fun.\"\nThen they gave you a hint to password for the back room at Som Records: 17 8 2 29 30 10 16 6 32 22 11",
+        "description": "r00s3v3lt gave you a hint to the password for Som Records back room: 17 8 2 29 30 10 16 6 32 22 11\nYou met him in the bagel shop wher he said: \"Hey new friend, have you made it over to Som records yet? They have the ultimate disco vinyl collection, biggest you've ever seen, some of it basically brand new! Always so much fun.\"",
         "use": null,
         "points": 1
     },
@@ -165,5 +165,27 @@
         "description": "This is the official DistrictCon sticker. It has a blue background and pink cherry blossom accents. It's in the shape of the number zero and has the name of the conference in the center of the zero.",
         "use": null,
         "points": 5
+    },
+    "01794855-f57f-7920-9fac-ac24d0a12cbf": {
+        "id": "01794855-f57f-7920-9fac-ac24d0a12cbf",
+        "name": "Stale bagel",
+        "alternates": ["bagel"],
+        "description": "This bagel is rock hard. You're not sure you could eat it, but maybe you'll need to hammer some nails later?",
+        "use": {
+            "type": "text",
+            "value": "You pull out the stale bagel and consider, for a moment, the cost of the dental repair if you eat it. Maybe you should get a fresh one."
+        },
+        "points": 5
+    },
+    "01795eff-b2c3-749d-84bc-a639917c7b90": {
+        "id": "01795eff-b2c3-749d-84bc-a639917c7b90",
+        "name": "Tasty bagel",
+        "alternates": ["fresh bagel"],
+        "description": "You bought this bagel at Call Your Mother. It is absolutely delicious, and looks much better than that stale bagel you saw on a table.",
+        "use": {
+            "type": "text",
+            "value": "You take a small bite of the fresh bagel and savor it. Maybe you'll save the rest for later."
+        },
+        "points": 10
     }
 }

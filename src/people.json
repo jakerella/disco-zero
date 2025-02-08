@@ -122,12 +122,106 @@
             }
         ]
     },
+    "0173c786-7c86-7d80-bf9d-a4609fa62edc": {
+        "id": "0173c786-7c86-7d80-bf9d-a4609fa62edc",
+        "name": "w4sh1ngt0n",
+        "triggers": [],
+        "points": 3,
+        "abandon": "Dead prez 4 l1f3!",
+        "conversation": [
+            {
+                "phrase": "Have you ever listened to the Dead Presidents?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "You gotta do that! They have a bunch of their stuff at Som Records.",
+                "end": true
+            },
+            {
+                "phrase": "Nah, I mean have you _really_ *listened* to them?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 3
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "Righteous. Later!",
+                "end": true
+            }
+        ]
+    },
+    "01863501-1ed9-7c42-929a-0931d6deccb4": {
+        "id": "01863501-1ed9-7c42-929a-0931d6deccb4",
+        "name": "j3ff3rs0n",
+        "triggers": [],
+        "points": 3,
+        "abandon": "Dead prez 4 l1f3!",
+        "conversation": [
+            {
+                "phrase": "I love the Dead Presidents, don't you?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "Oh, no way! You need to listen to their stuff. I think Som Records has some.",
+                "end": true
+            },
+            {
+                "phrase": "All right, all right.",
+                "end": true
+            }
+        ]
+    },
+    "016fa1e4-60e1-7db7-97a5-38c980197973": {
+        "id": "016fa1e4-60e1-7db7-97a5-38c980197973",
+        "name": "l1nc0ln",
+        "triggers": [],
+        "points": 3,
+        "abandon": "Dead prez 4 l1f3!",
+        "conversation": [
+            {
+                "phrase": "When's the last time you listened to the Dead Presidents?",
+                "responses": [
+                    {
+                        "triggers": ["*"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "Woah. Okay, well... you know Som Records has, like, all their stuff on classic vinyl. Check it out.",
+                "end": true
+            }
+        ]
+    },
     "01945af6-c88c-760a-95dc-a7d04aaf0085": {
         "id": "01945af6-c88c-760a-95dc-a7d04aaf0085",
-        "name": "jimmy-T",
+        "name": "r00s3v3lt",
         "triggers": [],
         "points": 10,
-        "scanable": true,
         "abandon": "Enjoy the music!",
         "conversation": [
             {
@@ -138,14 +232,23 @@
                         "met": 1
                     },
                     {
-                        "triggers": ["no", "I have not been there", "no I have not", "what is that", "what is it"],
+                        "triggers": ["no"],
                         "met": 2
                     }
                 ]
             },
             {
-                "phrase": "Awesome, enjoy the music my friend!",
-                "end": true
+                "phrase": "Awesome, awesome. Have you seen their disco collection?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 4
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 2
+                    }
+                ]
             },
             {
                 "phrase": "Oh wow, you should really check it out. The collection is only for hard core disco fans, tho. They keep it in a back room. You should try to go there. Do have the password?",
@@ -161,8 +264,12 @@
                 ]
             },
             {
-                "phrase": "Ah, well I don't usually give this away, but since I *blind messaged* you, I'll give you a hint: 17 8 2 29 30 10 16 6 32 22 11",
+                "phrase": "Ah, well I don't usually give this away, but you look pretty cool. I'll give you a hint: 17 8 2 29 30 10 16 6 32 22 11",
                 "item": "01945c7c-e588-76de-8fb5-65e57f5b30ee",
+                "end": true
+            },
+            {
+                "phrase": "That's cool, very cool. My pals here aren't into DisCo so much, but I can dig it. Enjoy the con!",
                 "end": true
             }
         ]
@@ -618,6 +725,96 @@
             },
             {
                 "phrase": "Oh wow, you figured it out! Amazing! Enjoy the rest of the con.",
+                "end": true
+            }
+        ]
+    },
+    "0192d13c-4610-74d6-bb11-3bf824930005": {
+        "id": "0192d13c-4610-74d6-bb11-3bf824930005",
+        "name": "Bagel Clerk",
+        "triggers": ["call your mother worker", "call your mother clerk", "bagel shop clerk", "bagel shop worker", "clerk"],
+        "points": 5,
+        "abandon": "Thanks for coming by!",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "01795eff-b2c3-749d-84bc-a639917c7b90" }],
+                "met": 5
+            }
+        ],
+        "conversation": [
+            {
+                "phrase": "Hi! Welcome to Call Your Mother! Are you here with the conference?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 6
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 3
+                    },
+                    {
+                        "triggers": ["re-give me", "re-i want"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "Geez, I was just trying to be friendly. Fine, what kind of bagel do you want?",
+                "responses": [
+                    {
+                        "triggers": ["*"],
+                        "met": 2
+                    }
+                ]
+            },
+            {
+                "phrase": "Aw, gee, we're out of... everything. Maybe come back later.",
+                "end": true
+            },
+            {
+                "phrase": "Oh, no? I hear it's pretty swell. You should check it out. So, you want a bagel?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 4
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 5
+                    }
+                ]
+            },
+            {
+                "phrase": "Here you go, enjoy!",
+                "item": "01795eff-b2c3-749d-84bc-a639917c7b90",
+                "end": true
+            },
+            {
+                "phrase": "Okay, well, there's a line building up, so...",
+                "end": true
+            },
+            {
+                "phrase": "That's neat! Some day maybe I'll get into hacking stuff. Is it hard?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 7
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 8
+                    }
+                ]
+            },
+            {
+                "phrase": "Oh, okay. Well, there's a line building up, here's your bagel. Enjoy!",
+                "item": "01795eff-b2c3-749d-84bc-a639917c7b90",
+                "end": true
+            },
+            {
+                "phrase": "Really? I woulda thought it'd be tough. Maybe I should try some day. Here's your bagel, enjoy!",
+                "item": "01795eff-b2c3-749d-84bc-a639917c7b90",
                 "end": true
             }
         ]

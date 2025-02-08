@@ -22,6 +22,18 @@
         "people": ["018caca3-4794-7316-b3b9-855fd36f9350"],
         "items": []
     },
+    "018346eb-53ac-74a1-b4ab-14d69098e3a0": {
+        "id": "018346eb-53ac-74a1-b4ab-14d69098e3a0",
+        "type": "room",
+        "parent": "0193feed-2940-71ba-9fc5-64122b4b79ff",
+        "name": "Call Your Mother",
+        "alt": ["call your mother bagels", "bagel shop", "bagel place"],
+        "arrival": "You walk past the restaurant to the bagel shop.",
+        "description": "The shop smells amazing, and you really could use a nosh. There's no line right now, so probably the best time to get something. There's a clerk behind the counter, and a group of four people sitting by the window. Everyone in the group is wearing a different hoodie, and they all have their names on them, although you can only see three of them: w4sh1ngt0n, j3ff3rs0n, and l1nc0ln.",
+        "points": 5,
+        "people": ["01945af6-c88c-760a-95dc-a7d04aaf0085", "0192d13c-4610-74d6-bb11-3bf824930005", "0173c786-7c86-7d80-bf9d-a4609fa62edc", "01863501-1ed9-7c42-929a-0931d6deccb4", "016fa1e4-60e1-7db7-97a5-38c980197973"],
+        "items": ["01794855-f57f-7920-9fac-ac24d0a12cbf"]
+    },
     "019447f9-b219-73d6-8d7e-bcec12d2af9c": {
         "id": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
         "type": "room",
