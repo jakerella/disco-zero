@@ -108,8 +108,9 @@ router.get('/cmd', async (req, res, next) => {
             if (/^DOWNLOAD\|/.test(out)) {
                 processDownload(out, res)
             } else if (/^PASSWORD\|/.test(out)) {
-                res.set(`X-${process.env.APP_NAME}-action`, out)
-                return res.end('Someone steps out and bocks your way. "Sorry, but I\'m going to need the password."')
+                const [key, cmd, input, phrase] = out.split('|')
+                res.set(`X-${process.env.APP_NAME}-action`, [key, cmd, input].join('|'))
+                return res.end(phrase)
             } else {
                 return res.end(processTemplate(req.session.user, out))
             }

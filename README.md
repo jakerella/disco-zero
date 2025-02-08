@@ -12,3 +12,14 @@ Would you like to play a game?
 7. Configure your environment variables by copying `.env.example` and renaming it to `.env`, then change the values to match your local environment!
 
 Now you should be ready to run the application locally with `node .` (or use `npm run watch` to continuously watch for file changes and restart the app).
+
+
+## Helpful Redis commands
+
+Open CLI to heroku redis: `heroku redis:cli -a disco-game -c disco-game`
+
+Get keys matching a pattern: `KEYS disco_code_1010*`
+
+Add a new code to be used by a player: `SET disco_code_[UUID] ""`
+
+Get a player's data: `GET disco_user_[handle]`

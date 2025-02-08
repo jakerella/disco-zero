@@ -13,19 +13,44 @@ const adminActions = require('./admin')
 
 function help() {
     return [
-        'You consult the info packet you happen to have in your pocket. ',
-        'There are a number of locations for you to visit, people you can talk to, and items to collect! ',
-        'It\'s not entirely clear what your ultimate goal is yet... but you might find that out along the way.\n\n',
-        'In the game you can *look around* to check out where you are, *go to* different locations, and *talk to* people. ',
-        'Along the way you\'ll be able to *take* items you find, *inspect* them for clues, or even *use* some of them. ',
-        'Other basic things are asking "Who am i?" or checking your *inventory*.\n\n',
-        'When talking to someone in the game, make sure to pay attention to what they ask you and answer ',
-        'directly (your answers need to be specific and short, usually). Note that when talking to someone, you can\'t ',
-        'use normal commands until you leave the conversation (usually by saying "goodbye" or when they say goodbye).\n\n',
-        'You can *logout* any time to clear your session.'
-    ].join('')
+        'You consult the info packet you happen to have in your pocket.',
+        'You appear to be in a text-based adventure game where you can score points for visiting locations, meeting people, and completing challenges!',
+        'You also note in the packet that the person with the highest score at the end of the conference will earn a **FREE PASS** to next year\'s event.',
+        '\n\nIn the game you can *look around* to check out where you are, *go to* different locations, and *talk to* people you find.',
+        'Along the way you\'ll be able to *take* items you find, *look at* them for clues, or even *use* some of them.',
+        'Other basic things are asking "Who am i?" or checking your *inventory*, *visited* locations, or *contacts*.',
+        '\n\nWhen talking to someone in the game, make sure to pay attention to what they ask you and answer directly.',
+        'Your answers should be **specific and short**.',
+        'Note that when talking to someone, you can\'t use normal commands until you leave the conversation (usually by saying "goodbye").',
+        '\n\nYou can *logout* any time to clear your session, or use the *reset password* command to, you know, reset your password.',
+        'If necessary, a game admin can fully delete all of your data (ask a conference organizer).'
+    ].join(' ')
 }
 help.alt = ['hint', 'hints', 'give me a hint', 'what is this', 'what should i do', 'what do i do', 'how do i play']
+
+async function resetpassword(user, ...tokens) {
+    let password = null
+    if (tokens.length) {
+        const [action, tempPass, _] = tokens[0].split('|')
+        if (action === 'password' && tempPass) {
+            password = tempPass
+        }
+    }
+
+    if (password) {
+        if (['nevermind', 'quit', 'cancel', 'exit'].includes(password)) {
+            return `No problem, nothing was changed.`
+        } else {
+            user.pass = userModel.hashPass(password)
+            return `Got it, your password has been changed! (You can *logout* if you want to.)`
+        }
+    } else {
+        return `PASSWORD|resetpassword|null|What would you like your new password to be?`
+    }
+
+
+}
+resetpassword.alt = ['reset password', 'reset pass', 'change password', 'change pass', 'change my password', 'reset my password', 'password reset', 'password change']
 
 function exit(user) {
     if (locations[user.location].parent) {
@@ -206,7 +231,7 @@ async function goto(user, ...tokens) {
             if (password && password !== conditions[i].value) {
                 return 'Nope, that\'s not it.'
             } else if (!password) {
-                return `PASSWORD|goto|${dest}`
+                return `PASSWORD|goto|${dest}|Someone steps out and bocks your way. "Sorry, but I'm going to need the password."`
             }
         } else if (!checkCondition(user, conditions[i])) {
             met = false
@@ -365,7 +390,7 @@ function checkCondition(user, condition) {
 
 
 const commands = {
-    help, whoami, exit, whereami, inventory, contacts, visited, leaderboard, goto, take, inspect, engage, use, admin
+    help, whoami, resetpassword, exit, whereami, inventory, contacts, visited, leaderboard, goto, take, inspect, engage, use, admin
 }
 const count = Object.keys(commands).length
 for (fn in commands) {

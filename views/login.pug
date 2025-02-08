@@ -9,6 +9,7 @@ block content
                 pre.out Welcome! If you've already started a game, please type in your handle and password, for example: 
                     span.initial-creds {{user}} {{pass}}
                 pre.out If you haven't registered in the game yet, you might need to ask someone how you can start.
+                pre.out If you have forgotten your password, find a game admin (maybe ask an organizer).
         form.login(method='post', action='/login')
             label > 
             input.prompt(name='input', autofocus='true')
