@@ -3,7 +3,7 @@
         "id": "0193feed-2940-71ba-9fc5-64122b4b79ff",
         "type": "main",
         "name": "Yours Truly Hotel Lobby",
-        "alt": ["yours truly", "yours truly hotel", "conference hotel", "hotel", "hotel lobby"],
+        "alt": ["yours truly", "yours truly hotel", "conference hotel", "hotel", "hotel lobby", "registration area", "registration desk", "conference registration"],
         "arrival": "You arrive at the Yours Truly hotel, site of the first ever DistrictCon!",
         "description": "You look around the lobby. The decor is pretty cool, and there's a DistrictCon sign and registration table to your right with some conference *stickers* on it. A *volunteer* stands behind the table. Beyond the registration desk are the stairs to the *conference center* and to your left is the Mercy Me bar and restaurant. Behind you is the door out onto New Hampshire Ave NW and all of Washington, DC! The metro can take you anywhere you want to go, just head to the *metro station*.",
         "points": 10,
@@ -228,13 +228,13 @@
         "people": [],
         "items": []
     },
-    "vendor1": {
-        "id": "vendor1",
+    "01747d3d-4cbb-73db-b2d6-da2f0988cc63": {
+        "id": "01747d3d-4cbb-73db-b2d6-da2f0988cc63",
         "type": "room",
         "parent": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
-        "name": "Vendor 1",
+        "name": "Sponsor Number 1",
         "alt": [],
-        "arrival": "You walk over to the vendor table..... TODO: MESSAGE",
+        "arrival": "You walk over to a sponsor table..... TODO: MESSAGE",
         "description": "TODO",
         "points": 5,
         "people": [],
@@ -271,19 +271,6 @@
         "description": "There are racks and racks of old vinyl, all disco. There's a low thumping disco vibe playing and only a couple other people there. You rifle through the stacks, but only thing stands out: a record labelled 'DistrictCon Soundtrack'. Surely that can't be for this event, right?",
         "points": 10,
         "items": ["01945c61-c10c-7788-b7e7-da82b5270751"],
-        "people": []
-    },
-
-
-
-    "019456c6-8e0b-7672-9fcc-02aa047944bd": {
-        "id": "019456c6-8e0b-7672-9fcc-02aa047944bd",
-        "type": "hidden",
-        "name": "Capitol subway",
-        "arrival": "While on a tour of the Capitol building, you see a door labelled 'Capitol Subway'. The sign didn't say you couldn't go in, so you check it out.",
-        "description": "This appears to be a private subway system just for legislators and Capitol staff. There's a call button on the wall next to the small platform, but no subway train is there currently.",
-        "points": 20,
-        "items": [],
         "people": []
     }
 }
