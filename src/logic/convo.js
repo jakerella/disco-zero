@@ -79,7 +79,6 @@ async function handleConversation(user, response) {
             for (let j=0; j<triggers.length; ++j) {
                 if (/^re\-/.test(triggers[j])) {
                     const trigger = new RegExp(triggers[j].substring(3))
-                    
                     if (trigger.test(response)) {
                         let met = true
                         if (options[i].conditions) {
@@ -99,6 +98,9 @@ async function handleConversation(user, response) {
                     }
                 }
             }
+        }
+        if (next) {
+            break
         }
     }
 
