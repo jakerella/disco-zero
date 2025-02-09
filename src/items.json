@@ -104,6 +104,7 @@
     "0171b8b7-6eb3-7688-8cc6-e9345e870135": {
         "id": "0171b8b7-6eb3-7688-8cc6-e9345e870135",
         "name": "DisCo Web Code",
+        "scanable": true,
         "alternates": ["DisCo html code", "html code", "web code"],
         "description": "You found the DisCo game code! Well, you found the easy part, anyway.",
         "use": null,
@@ -112,6 +113,7 @@
     "01743c40-5e69-7c06-ad72-a5d168075279": {
         "id": "01743c40-5e69-7c06-ad72-a5d168075279",
         "name": "Level 1 Social Network Coin",
+        "scanable": true,
         "alternates": ["level 1 coin", "level 1 social coin", "level 1 network coin", "l1 coin", "l1 social coin", "l1 network coin"],
         "description": "A small, bronze coin with a spider web-looking graphic on one side and the words 'Socially Inclined' on the other.",
         "use": null,
@@ -120,6 +122,7 @@
     "0183fd5b-1009-7086-8c35-f1495d067b3d": {
         "id": "0183fd5b-1009-7086-8c35-f1495d067b3d",
         "name": "Level 2 Social Network Coin",
+        "scanable": true,
         "alternates": ["level 2 coin", "level 2 social coin", "level 2 network coin", "l2 coin", "l2 social coin", "l2 network coin"],
         "description": "A moderately-sized, silver coin with a neural net graphic on one side and the words 'Social Butterfly' on the other.",
         "use": null,
@@ -128,6 +131,7 @@
     "018966db-fde3-70b4-9f0a-077394462fba": {
         "id": "018966db-fde3-70b4-9f0a-077394462fba",
         "name": "Level 3 Social Network Coin",
+        "scanable": true,
         "alternates": ["level 3 coin", "level 3 social coin", "level 3 network coin", "l3 coin", "l3 social coin", "l3 network coin"],
         "description": "A large, gold coin with a colorful enamel inlayed graphic on one side depicting the interconnectivity of society. On the reverse is the full color DisctrictCon logo and around the edge are the words 'DistrictCon Social Ambassador'.",
         "use": null,
@@ -195,5 +199,13 @@
         "description": "You got this coin from the DisCo Policy room moderator. It has a bunch of different policy village logos on one side and the DisCo logo on the other.",
         "use": null,
         "points": 25
+    },
+    "017a2ec9-942f-71bf-9b5c-7eebc812eb8b": {
+        "id": "017a2ec9-942f-71bf-9b5c-7eebc812eb8b",
+        "name": "Village of Villages sticker",
+        "alternates": ["vov sticker", "village sticker", "villages sticker"],
+        "description": "You picked up this sticker from one of the village tables. It has all of the logos on it!",
+        "use": null,
+        "points": 10
     }
 }

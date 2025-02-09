@@ -921,5 +921,44 @@
                 "end": true
             }
         ]
+    },
+    "0182a14a-8dc1-7350-8051-cfa44bdf9bb2": {
+        "id": "0182a14a-8dc1-7350-8051-cfa44bdf9bb2",
+        "name": "NOPResearcher",
+        "triggers": ["rtv volunteer", "rtv person", "red team village volunteer", "red team village person"],
+        "points": 10,
+        "abandon": "Adios",
+        "conversation": [
+            {
+                "phrase": "Hi! I go by NOPResearcher, thanks for stopping by. The Red Team Village is focuses on training the art of critical thinking, collaboration, and strategy in offensive security. The RTV brings together information security professionals to share new tactices and techniques in offensive security. You could spend your entire DistrictCon engaged in introductory workshops or even challenge yourself in immersive CTF competition to put those newly obtained skills to the test! Check us out at https://redteamvillage.io",
+                "end": true
+            }
+        ]
+    },
+    "0187bb4b-53b4-7ed9-8251-107d550bd6f3": {
+        "id": "0187bb4b-53b4-7ed9-8251-107d550bd6f3",
+        "name": "muteki",
+        "triggers": ["btv volunteer", "btv person", "blue team village volunteer", "blue team village person"],
+        "points": 10,
+        "abandon": "Byeee!",
+        "conversation": [
+            {
+                "phrase": "Welcome to the other side of the hacking mirror! I'm muteki, and this is the Blue Team Village. It's a community bult for and by defenders. It's also a place to gather, talk, share, and learn from each other about the latest tools, technologies, and tactics our community can use to detect attackers and prevent them from achieving their goals. Check us out online at https://blueteamvillage.org",
+                "end": true
+            }
+        ]
+    },
+    "019356d9-0876-7638-85e1-6c8a35e294b8": {
+        "id": "019356d9-0876-7638-85e1-6c8a35e294b8",
+        "name": "v3ga",
+        "triggers": ["biohacking volunteer", "biohacking person", "biohacking village volunteer", "biohacking village person"],
+        "points": 10,
+        "abandon": "See ya!",
+        "conversation": [
+            {
+                "phrase": "Got the GUTS to hack the code of life? Hi, I'm v3ga, and this is the Biohacking Village! Dive into the Biohacking Village and test your DNA - whether it's in the lab or in your curiosity. Who knows, you might just uncover some twisted truths! You can also check us out online at https://villageb.io",
+                "end": true
+            }
+        ]
     }
 }

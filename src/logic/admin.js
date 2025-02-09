@@ -98,6 +98,7 @@ module.exports = async function adminActions(tokens) {
         }
 
         resp.push('\nScanable-only NPCs:')
+        const unreachablePeople = []
         for (let id in people) {
             total += people[id].points
             if (people[id].scanable) {
@@ -111,10 +112,22 @@ module.exports = async function adminActions(tokens) {
                 if (scanOnly) {
                     resp.push(`  ${buildNPC(id)}`)
                 }
+            } else {
+                let found = false
+                for (let lid in locations) {
+                    if (locations[lid].people.includes(id)) {
+                        found = true
+                        break
+                    }
+                }
+                if (!found) {
+                    unreachablePeople.push(id)
+                }
             }
         }
 
         resp.push('\nScanable-only Items:')
+        const unreachableItems = []
         for (let id in items) {
             total += items[id].points
             if (items[id].scanable) {
@@ -128,7 +141,40 @@ module.exports = async function adminActions(tokens) {
                 if (scanOnly) {
                     resp.push(`  ${items[id].name}* (${items[id].points})`)
                 }
+            } else {
+                let found = false
+                for (let lid in locations) {
+                    if (locations[lid].items.includes(id)) {
+                        found = true
+                        break
+                    }
+                }
+                for (let pid in people) {
+                    for (let step in people[pid].conversation) {
+                        if (people[pid].conversation[step].item === id) {
+                            found = true
+                            break
+                        }
+                    }
+                    if (found) { break }
+                }
+                if (!found) {
+                    unreachableItems.push(id)
+                }
             }
+        }
+
+        if (unreachablePeople.length) {
+            resp.push(`\nUnreachable People (${unreachablePeople.length}):`)
+            unreachablePeople.forEach((id) => {
+                resp.push(`  ${people[id].name}`)
+            })
+        }
+        if (unreachableItems.length) {
+            resp.push(`\nUnreachable Items (${unreachableItems.length}):`)
+            unreachableItems.forEach((id) => {
+                resp.push(`  ${items[id].name}`)
+            })
         }
 
         total += await userModel.userCount() - 1

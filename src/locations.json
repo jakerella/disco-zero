@@ -103,20 +103,8 @@
         "name": "Village of Villages",
         "alt": ["village room", "villages", "room 7", "room seven", "room 8", "room eight"],
         "arrival": "You walk into the Village of Villages space.",
-        "description": "This space is for the Villages represented at DistrictCon to exhibit and engage. Villages are an underutilized resource for policymakers who want to understand and make change in cyber security. You notice a number of tables and see that there are people from the *Aerospace Village*, *Red Team Village*, and *ICS Village*",
+        "description": "This space is for the Villages represented at DistrictCon to exhibit and engage. Villages are an underutilized resource for policymakers who want to understand and make change in cyber security. You notice a number of tables and see that there are people from the Red Team Village, Blue Team Village, and others!",
         "points": 5,
-        "people": [],
-        "items": []
-    },
-    "0182c3c5-7c4f-70ff-9a48-dfe702f0aba3": {
-        "id": "0182c3c5-7c4f-70ff-9a48-dfe702f0aba3",
-        "type": "room",
-        "parent": "01949f41-f35b-724c-8a12-5ec3846bd3b6",
-        "name": "Aerospace Village",
-        "alt": ["aerospace table", "aerospace"],
-        "arrival": "You walk over to the Aerospace Village table..... TODO: MESSAGE",
-        "description": "TODO",
-        "points": 15,
         "people": [],
         "items": []
     },
@@ -127,10 +115,46 @@
         "name": "Red Team Village",
         "alt": ["rtv", "red team table", "redteam village", "redteam table"],
         "arrival": "You walk over to the Red Team Village table to check it out.",
-        "description": "Someone standing next to the table greets you, 'Hi! I go by NOPResearcher, thanks for stopping by. The Red Team Village is focuses on training the art of critical thinking, collaboration, and strategy in offensive security. The RTV brings together information security professionals to share new tactices and techniques in offensive security. You could spend your entire DistrictCon engaged in introductory workshops or even challenge yourself in immersive CTF competition to put those newly obtained skills to the test!'",
-        "points": 15,
+        "description": "This is the RTV table. There are some stickers on the table, a couple laptops showing some terminal output, and there's a volunteer standing behind it.",
+        "points": 10,
+        "people": ["0182a14a-8dc1-7350-8051-cfa44bdf9bb2"],
+        "items": ["017a2ec9-942f-71bf-9b5c-7eebc812eb8b"]
+    },
+    "018f02a9-7967-7473-b885-b99ed57a3555": {
+        "id": "018f02a9-7967-7473-b885-b99ed57a3555",
+        "type": "room",
+        "parent": "01949f41-f35b-724c-8a12-5ec3846bd3b6",
+        "name": "Blue Team Village",
+        "alt": ["btv", "btv table", "blue team table", "blue team village table"],
+        "arrival": "You walk over to the Blue Team Village table to check it out.",
+        "description": "This is the BTV table. There are some stickers on the table, a couple laptops showing some terminal output, and there's a volunteer standing behind it.",
+        "points": 10,
+        "people": ["0187bb4b-53b4-7ed9-8251-107d550bd6f3"],
+        "items": ["017a2ec9-942f-71bf-9b5c-7eebc812eb8b"]
+    },
+    "0190328f-8e38-7b28-b5b9-bf9169b955b0": {
+        "id": "0190328f-8e38-7b28-b5b9-bf9169b955b0",
+        "type": "room",
+        "parent": "01949f41-f35b-724c-8a12-5ec3846bd3b6",
+        "name": "Biohacking Village",
+        "alt": ["biohacking", "biohacking table"],
+        "arrival": "You walk over to the Biohacking Village table to check it out.",
+        "description": "This is the Biohacking table. There are some stickers on the table, a DNA machine, and there's a volunteer standing behind it.",
+        "points": 10,
+        "people": ["019356d9-0876-7638-85e1-6c8a35e294b8"],
+        "items": ["017a2ec9-942f-71bf-9b5c-7eebc812eb8b"]
+    },
+    "0182c3c5-7c4f-70ff-9a48-dfe702f0aba3": {
+        "id": "0182c3c5-7c4f-70ff-9a48-dfe702f0aba3",
+        "type": "room",
+        "parent": "01949f41-f35b-724c-8a12-5ec3846bd3b6",
+        "name": "Aerospace Village",
+        "alt": ["aerospace table", "aerospace"],
+        "arrival": "You walk over to the Aerospace Village table to check it out.",
+        "description": "This is the Aerospace table. There are some stickers on the table, a couple models of airplanes, and a laptop showing some terminal output.",
+        "points": 10,
         "people": [],
-        "items": []
+        "items": ["017a2ec9-942f-71bf-9b5c-7eebc812eb8b"]
     },
     "018b78f4-26bf-72ec-8bed-2a77eef32127": {
         "id": "018b78f4-26bf-72ec-8bed-2a77eef32127",
@@ -138,11 +162,47 @@
         "parent": "01949f41-f35b-724c-8a12-5ec3846bd3b6",
         "name": "ICS Village",
         "alt": ["ics table", "industrial control systems village", "industrial control systems table"],
-        "arrival": "You walk over to the ICS Village table..... TODO: MESSAGE",
-        "description": "TODO",
-        "points": 15,
+        "arrival": "You walk over to the Industrial Control Systems Village table to check it out.",
+        "description": "This is the ICS Village table. There are some stickers on the table, a couple models of industrial systems, and a laptop showing some terminal output.",
+        "points": 10,
         "people": [],
-        "items": []
+        "items": ["017a2ec9-942f-71bf-9b5c-7eebc812eb8b"]
+    },
+    "017ecbc4-9cdb-7f9f-b45e-9a4fa3228856": {
+        "id": "017ecbc4-9cdb-7f9f-b45e-9a4fa3228856",
+        "type": "room",
+        "parent": "01949f41-f35b-724c-8a12-5ec3846bd3b6",
+        "name": "Carhacking Village",
+        "alt": ["carhacking table", "carhacking"],
+        "arrival": "You walk over to the Carhacking Village table to check it out.",
+        "description": "This is the Carhacking Village table. There are some stickers on the table, a couple models of vehicles, and a laptop showing some terminal output.",
+        "points": 10,
+        "people": [],
+        "items": ["017a2ec9-942f-71bf-9b5c-7eebc812eb8b"]
+    },
+    "01819137-457b-7288-925d-88c720c3e478": {
+        "id": "01819137-457b-7288-925d-88c720c3e478",
+        "type": "room",
+        "parent": "01949f41-f35b-724c-8a12-5ec3846bd3b6",
+        "name": "Maritime Hacking Village",
+        "alt": ["maritime hacking table", "maritime hacking", "maritime table", "maritime village"],
+        "arrival": "You walk over to the Maritime Hacking Village table to check it out.",
+        "description": "This is the Maritime Hacking Village table. There are some stickers on the table, a couple models of boats, and a laptop showing some terminal output.",
+        "points": 10,
+        "people": [],
+        "items": ["017a2ec9-942f-71bf-9b5c-7eebc812eb8b"]
+    },
+    "017b1fd5-2476-7b01-9e31-a20f3e8532b8": {
+        "id": "017b1fd5-2476-7b01-9e31-a20f3e8532b8",
+        "type": "room",
+        "parent": "01949f41-f35b-724c-8a12-5ec3846bd3b6",
+        "name": "Voting Village",
+        "alt": ["voting table", "voting"],
+        "arrival": "You walk over to the Voting Village table to check it out.",
+        "description": "This is the Voting Village table. There are some stickers on the table, a model of a digital ballot box, and a laptop showing some terminal output.",
+        "points": 10,
+        "people": [],
+        "items": ["017a2ec9-942f-71bf-9b5c-7eebc812eb8b"]
     },
     "018fa71f-321f-7273-bebb-29265d2b4ea1": {
         "id": "018fa71f-321f-7273-bebb-29265d2b4ea1",
@@ -155,6 +215,18 @@
         "points": 10,
         "people": [],
         "items": ["019456e1-5ff7-7425-8ebc-062a462fe6db"]
+    },
+    "01700b1e-0108-7aa9-9ddd-fcda86d129c2": {
+        "id": "01700b1e-0108-7aa9-9ddd-fcda86d129c2",
+        "type": "room",
+        "parent": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
+        "name": "Junkyard",
+        "alt": ["junkyard room"],
+        "arrival": "The pop into the Junkyard room to see what's going on there.",
+        "description": "The room is filled with people hacking away at ancient relics of tech. This place is a platform to showcase novel security research and support hobby and career development for security researchers. Attendees are bringing their most impactful, creative, or most meme-worthy bugs in end-of-life (EOL) products, and demonstrating them live on stage!",
+        "points": 10,
+        "people": [],
+        "items": []
     },
     "vendor1": {
         "id": "vendor1",
@@ -178,16 +250,6 @@
         "items": ["019456e1-5ff7-7425-8ebc-062a462fe6db"],
         "people": ["0172bafc-9469-7383-b920-6f9f4540b795", "01876657-476a-7e44-9006-a4ea7dcd7f5b"]
     },
-    "019456c6-8e0b-7672-9fcc-02aa047944bd": {
-        "id": "019456c6-8e0b-7672-9fcc-02aa047944bd",
-        "type": "hidden",
-        "name": "Capitol subway",
-        "arrival": "While on a tour of the Capitol building, you see a door labelled 'Capitol Subway'. The sign didn't say you couldn't go in, so you check it out.",
-        "description": "This appears to be a private subway system just for legislators and Capitol staff. There's a call button on the wall next to the small platform, but no subway train is there currently.",
-        "points": 20,
-        "items": [],
-        "people": []
-    },
     "01945c61-418d-765a-82a2-b06d872dac99": {
         "id": "01945c61-418d-765a-82a2-b06d872dac99",
         "type": "main",
@@ -209,6 +271,19 @@
         "description": "There are racks and racks of old vinyl, all disco. There's a low thumping disco vibe playing and only a couple other people there. You rifle through the stacks, but only thing stands out: a record labelled 'DistrictCon Soundtrack'. Surely that can't be for this event, right?",
         "points": 10,
         "items": ["01945c61-c10c-7788-b7e7-da82b5270751"],
+        "people": []
+    },
+
+
+
+    "019456c6-8e0b-7672-9fcc-02aa047944bd": {
+        "id": "019456c6-8e0b-7672-9fcc-02aa047944bd",
+        "type": "hidden",
+        "name": "Capitol subway",
+        "arrival": "While on a tour of the Capitol building, you see a door labelled 'Capitol Subway'. The sign didn't say you couldn't go in, so you check it out.",
+        "description": "This appears to be a private subway system just for legislators and Capitol staff. There's a call button on the wall next to the small platform, but no subway train is there currently.",
+        "points": 20,
+        "items": [],
         "people": []
     }
 }
