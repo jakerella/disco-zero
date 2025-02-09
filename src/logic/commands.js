@@ -65,7 +65,7 @@ function exit(user) {
 
     return 'You could leave, but where would you go? Maybe you should decide that first.'
 }
-exit.alt = ['get out', 'leave', 'walk out']
+exit.alt = ['get out', 'leave', 'walk out', 'walk back', 'go back']
 
 function whoami(user) {
     if (user.handle) {
@@ -110,15 +110,15 @@ whereami.alt = ['where am i', 'current location', 'what is my location']
 function inventory(user) {
     const userItems = user.items
         .filter((id) => items[id])
-        .map((id) => `${items[id].name} (${items[id].points})`)
+        .map((id) => `  ${items[id].name} (${items[id].points} pts)`)
 
     if (userItems.length) {
-        return `You have ${userItems.length} item${userItems.length === 1 ? '' : 's'} (of ${Object.keys(items).length} possible): ${userItems.join(', ')}`
+        return `You have ${userItems.length} item${userItems.length === 1 ? '' : 's'} (of ${Object.keys(items).length} possible):\n${userItems.join('\n')}`
     } else {
         return 'You only have the clothes on your back. Maybe you should get your badge from the *volunteer* at the registration desk in the *Yours Truly Hotel*?'
     }
 }
-inventory.alt = ['what is in my inventory', 'what do i have', 'what am i carrying', 'what have i got', 'what do i got?']
+inventory.alt = ['what is in my inventory', 'what is in my bag', 'look in my bag', 'check my inventory', 'check inventory', 'look in bag', 'check bag', 'what do i have', 'what am i carrying', 'what have i got', 'what do i got?']
 
 function inspect(user, ...tokens) {
     const target = tokens.join(' ').trim().toLowerCase().replace(/^(the|my|this|my) /, '')
@@ -138,13 +138,14 @@ function inspect(user, ...tokens) {
 inspect.alt = ['look around', 'look at', 'what can i see', 'what is around me', 'what is here']
 
 async function contacts(user) {
-    const resp = []
+    const players = []
+    const npcs = []
     for (let i=0; i<user.contacts.length; ++i) {
         if (user.contacts[i].type === 'player') {
             try {
                 const person = await userModel.get(user.contacts[i].id)
                 if (person) {
-                    resp.push(`${person.handle} (currently ${(locations[person.location]) ? `at the ${locations[person.location].name}` : 'lost'})`)
+                    players.push({n:person.handle, t:'p', m:`  ${person.handle} (1 pt, currently ${(locations[person.location]) ? `at ${locations[person.location].name}` : 'lost'})`})
                 }
             } catch (err) {
                 logger.debug(`Error while trying to get people for contact list: ${err.message || err}`)
@@ -155,16 +156,20 @@ async function contacts(user) {
             if (!people[user.contacts[i].id].scanable) {
                 for (let id in locations) {
                     if (locations[id].people.includes(user.contacts[i].id)) {
-                        loc = `, at the ${locations[id].name}`
+                        loc = `, at ${locations[id].name}`
                         break
                     }
                 }
             }
-            resp.push(`${people[user.contacts[i].id].name} (NPC, ${people[user.contacts[i].id].points}${loc})`)
+            npcs.push({n:people[user.contacts[i].id].name, t:'n', m:`  ${people[user.contacts[i].id].name} (${people[user.contacts[i].id].points} pts${loc})`})
         }
     }
-    if (resp.length) {
-        return `You have found ${resp.length} ${(resp.length === 1) ? 'person' : 'people'} (there are ${Object.keys(people).length} NPCs):\n${resp.join('\n')}`
+    if (contacts.length) {
+        function sortContacts(a, b) { return (a.n.toLowerCase() < b.n.toLowerCase()) ? -1 : 1 }
+        return`You have found ${npcs.length} NPC${(npcs.length === 1) ? '':'s'} (out of ${Object.keys(people).length}) ` +
+            `and connected with ${players.length} player${(players.length === 1) ? '':'s'}.` +
+            `\nNPCs:\n${npcs.sort(sortContacts).map(c => c.m).join('\n')}` +
+            `\nOther Players:\n${players.sort(sortContacts).map(c => c.m).join('\n')}`
     } else {
         return 'Your contact list is empty... you should *look around* and try to *talk to* people!'
     }
@@ -175,17 +180,49 @@ function visited(user) {
     if (!user.visited.length) {
         return 'You don\'t seem to exist in spacetime. Maybe head back to the *Yours Truly Hotel*?'
     } else {
-        const sites = user.visited
-            .filter((id) => locations[id])
-            .map((id) => `${locations[id].name} (${locations[id].points})`)
-        if (sites.length === 1) {
+        const locTree = {}
+        user.visited.forEach((id) => {
+            const loc = {
+                id,
+                parent: locations[id].parent,
+                name: locations[id].name,
+                points: locations[id].points,
+                rooms: {}
+            }
+            if (loc.parent) {
+                addRoomToLocation(locTree, loc)
+            } else {
+                locTree[id] = loc
+            }
+        })
+        const resp = []
+        for (let id in locTree) {
+            resp.push(...getLocationMapText(locTree[id], 0))
+        }
+        if (resp.length === 1) {
             return 'You haven\'t really gone anywhere yet, maybe ask someone for a map or just *look around*?'
         } else {
-            return `You have been to ${sites.length} locations (of ${Object.keys(locations).length} possible):\n${sites.join(', ')}`
+            return `You have been to ${user.visited.length} locations (of ${Object.keys(locations).length} possible):\n${resp.join('\n')}`
         }
     }
 }
 visited.alt = ['locations', 'location history', 'venue history', 'where have i been', 'what locations have i seen', 'known locations']
+function addRoomToLocation(group, loc) {
+    if (group[loc.parent]) {
+        group[loc.parent].rooms[loc.id] = loc
+    } else {
+        Object.keys(group).forEach((id) => { addRoomToLocation(group[id].rooms, loc) })
+    }
+}
+function getLocationMapText(loc, level) {
+    const pad = Array(level * 2).fill(' ').join('')
+    const lines = []
+    lines.push(`${pad}${loc.name} (${loc.points} pts)`)
+    Object.keys(loc.rooms).forEach((id) => {
+        lines.push(...getLocationMapText(loc.rooms[id], level + 1))
+    })
+    return lines
+}
 
 async function goto(user, ...tokens) {
     let password = null
@@ -220,8 +257,8 @@ async function goto(user, ...tokens) {
         }
     } else if (loc.type === 'main' && curr.parent && loc.id !== curr.parent) {
         return `Looks like you\'re in the ${curr.name}. You probably need to find your way out first.`
-    } else if (loc.type !== 'main' && curr.id !== loc.parent) {
-        return 'You can\'t get there from here.'
+    } else if (loc.type !== 'main' && curr.type !== 'main' && !(loc.parent === curr.parent || loc.parent === curr.id || loc.id === curr.parent)) {
+        return 'You can\'t get there from here, you might need to *go back* first.'
     }
 
     let met = true

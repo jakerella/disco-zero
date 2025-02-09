@@ -1,8 +1,8 @@
 {
     "019408f7-772f-70ee-9a69-2d8289644a12": {
         "id": "019408f7-772f-70ee-9a69-2d8289644a12",
-        "name": "badge",
-        "alternates": ["con badge"],
+        "name": "conference badge",
+        "alternates": ["badge", "con badge", "disco badge", "districtcon badge"],
         "description": "This is your DistrictCon badge. It gets you access to all the great content, villages, interactions, and social activities at DistrictCon Zero! On the back, you see your handle and attendee code: {{handle}}:{{code}}",
         "use": {
             "type": "text",
@@ -14,7 +14,7 @@
         "id": "01942807-cdf2-74d7-8ad2-aa3c271ddee5",
         "name": "venue map",
         "alternates": ["map", "conference map"],
-        "description": "A map of the DistrictCon venue within the *Yours Truly Hotel*. On the ground level is the lobby and registration desk, as well as the *Mercy Me* bar and restaurant. Downstairs is the *conference center* where the *main stage*, *policy room*, and *village of villages* is located. There are also restrooms down there and the staff room.",
+        "description": "A map of the DistrictCon venue within the *Yours Truly Hotel*. On the ground level is the lobby and registration desk, as well as the *Mercy Me* bar and restaurant, site of the after party! Downstairs is the *conference center* where the *main stage*, *policy room*, and *village of villages* is located along with the sponsors. There are also restrooms down there and the staff room.",
         "use": null,
         "points": 5
     },
