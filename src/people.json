@@ -738,7 +738,7 @@
         "starts": [
             {
                 "conditions": [{ "check": "has", "type": "item", "value": "01795eff-b2c3-749d-84bc-a639917c7b90" }],
-                "met": 5
+                "met": 9
             }
         ],
         "conversation": [
@@ -815,6 +815,10 @@
             {
                 "phrase": "Really? I woulda thought it'd be tough. Maybe I should try some day. Here's your bagel, enjoy!",
                 "item": "01795eff-b2c3-749d-84bc-a639917c7b90",
+                "end": true
+            },
+            {
+                "phrase": "Looks like you already have a bagel, enjoy!",
                 "end": true
             }
         ]
