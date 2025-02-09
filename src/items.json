@@ -187,5 +187,13 @@
             "value": "You take a small bite of the fresh bagel and savor it. Maybe you'll save the rest for later."
         },
         "points": 10
+    },
+    "01711f07-f5ed-760c-a8db-205c49827a94": {
+        "id": "017477a4-e776-7c13-a066-166e870d627c",
+        "name": "Village of Villages coin",
+        "alternates": ["village coin", "villages coin", "vov coin", "policy village coin"],
+        "description": "You got this coin from the DisCo Policy room moderator. It has a bunch of different policy village logos on one side and the DisCo logo on the other.",
+        "use": null,
+        "points": 25
     }
 }

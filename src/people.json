@@ -818,5 +818,108 @@
                 "end": true
             }
         ]
+    },
+    "016faa0c-2a2f-7543-a539-9a76117c757a": {
+        "id": "016faa0c-2a2f-7543-a539-9a76117c757a",
+        "name": "p0lly-C",
+        "triggers": ["disco policy moderator", "moderator", "policy moderator", "policy room moderator", "policy volunteer", "policy room volunteer", "disco policy volunteer"],
+        "points": 5,
+        "abandon": "Stay cool.",
+        "conversation": [
+            {
+                "phrase": "Welcome to the policy room! We're in between sessions right now, but I was actually just researching some stuff for a later session. Any chance you could help me run down some facts?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "I understand, feel free to stay for one of our open sessions!",
+                "end": true
+            },
+            {
+                "phrase": "Whew, thanks a ton. Okay, there's been a lot of talk about post-quantum crypto lately, but I'm trying to find out which federal agency was on the hook for researching products that support it. I think there was something very recently on that. Can you tell me which agency it was?",
+                "responses": [
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["dhs", "re-homeland security"],
+                        "met": ["Hmm, I think that was the top level agency, but which organization in DHS was it?", 2]
+                    },
+                    {
+                        "triggers": ["cisa", "cybersecurity and infrastructure security agency", "cyber security and infrastructure security agency", "cyber security infrastructure security agency", "cybersecurity infrastructure security agency", "cybersecurity and infrastructure security", "cybersecurity infra security agency", "cybersecurity and infra security"],
+                        "met": 3
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I don't think that was it.", 2]
+                    }
+                ]
+            },
+            {
+                "phrase": "Of course! Thanks. Okay, what was the number of that Executive Order?",
+                "responses": [
+                    {
+                        "triggers": ["no", "re-do not know", "re-dunno", "re-not sure"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["14144"],
+                        "met": 4
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I don't think that was it.", 3]
+                    }
+                ]
+            },
+            {
+                "phrase": "Got it, thanks. Someone else was asking which law it was that basically makes unauthorized hacking illegal. Basically, accessing a system 'without authorization'. I know we wanted to look at how we can still responsibly disclose things we find, so I wanted to start a conversation about that law. Can you tell me which law that was?",
+                "responses": [
+                    {
+                        "triggers": ["no", "re-do not know", "re-dunno", "re-not sure"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["computer fraud and abuse act", "cfaa", "computer fraud and abuse act of 1986", "computer fraud and abuse"],
+                        "met": 5
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I don't think that was it.", 4]
+                    }
+                ]
+            },
+            {
+                "phrase": "Oh wow, thank you so much! You're being so helpful. Okay, last one, I promise. I'm trying to figure out which part of the US Code allows people in the intel and military orgs to hack other countries. Can you tell me which US Code title that is?",
+                "responses": [
+                    {
+                        "triggers": ["no", "re-do not know", "re-dunno", "re-not sure"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["50"],
+                        "met": 6
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I don't think that was it.", 5]
+                    }
+                ]
+            },
+            {
+                "phrase": "I feel so much better about this next session now! Thanks again for your help. I know it's not much, but here, take this!",
+                "item": "01711f07-f5ed-760c-a8db-205c49827a94",
+                "end": true
+            }
+        ]
     }
 }

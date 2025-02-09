@@ -257,6 +257,8 @@ async function goto(user, ...tokens) {
         }
     } else if (loc.type === 'main' && curr.parent && loc.id !== curr.parent) {
         return `Looks like you\'re in the ${curr.name}. You probably need to find your way out first.`
+    } else if (loc.type !== 'main' && curr.type === 'main' && loc.parent !== curr.id) {
+        return `There's no ${loc.name} here.`
     } else if (loc.type !== 'main' && curr.type !== 'main' && !(loc.parent === curr.parent || loc.parent === curr.id || loc.id === curr.parent)) {
         return 'You can\'t get there from here, you might need to *go back* first.'
     }

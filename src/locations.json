@@ -93,7 +93,7 @@
         "arrival": "You walk into the medium-sized conference space labelled 'DisCo Policy'",
         "description": "The DisCo Policy room is where thought leaders will shape the future of digital policy. You arrive between sessions and find a few different people hanging around, chatting about the state of cybersecurity policy and regulations in the U.S. To your right is a small table for the moderator of the roundtables to sit.",
         "points": 15,
-        "people": ["moderator"],
+        "people": ["016faa0c-2a2f-7543-a539-9a76117c757a"],
         "items": []
     },
     "01949f41-f35b-724c-8a12-5ec3846bd3b6": {
