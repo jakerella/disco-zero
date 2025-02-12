@@ -245,7 +245,7 @@
         "type": "main",
         "name": "Metro station",
         "arrival": "You are at a metro station, you can get just about anywhere in DC this way!",
-        "description": "This is a typical Washington, DC metro station. It has high ceilings and low lighting. There is a station manager's booth straight ahead with some maps. There's lots of people hustling around, but you spot a clearly lost man wandering among the crowd.",
+        "description": "This is a typical Washington, DC metro station. It has high ceilings and low lighting. There is a station manager in their booth straight ahead with some maps. There's lots of people hustling around, but you spot a clearly lost man wandering among the crowd.",
         "points": 5,
         "items": ["019456e1-5ff7-7425-8ebc-062a462fe6db"],
         "people": ["0172bafc-9469-7383-b920-6f9f4540b795", "01876657-476a-7e44-9006-a4ea7dcd7f5b"]

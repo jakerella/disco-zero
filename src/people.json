@@ -373,14 +373,70 @@
     },
     "0185a6ed-e177-74d8-856e-e5f22dbfb66d": {
         "id": "0185a6ed-e177-74d8-856e-e5f22dbfb66d",
-        "name": "nakasone-aid",
+        "name": "nakasone student 1",
         "triggers": [],
-        "points": 30,
+        "points": 10,
         "scanable": true,
         "abandon": "Goodbye!",
         "conversation": [
             {
-                "phrase": "TODO: message",
+                "phrase": "Hi! I'm one of General Nakasone's students, nice to meet you! I'm doing some research for an article and need to check some biographic data. Can you tell me where he got his Bachelor's degree?",
+                "responses": [
+                    {
+                        "triggers": ["saint johns", "saint john", "st john", "st johns", "st johns university", "saint johns university", "saint john university"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no", "re-do not know", "re-dunno", "re-not sure"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I don't think that's it.", 0]
+                    }
+                ]
+            },
+            {
+                "phrase": "No worries, thanks anyway!",
+                "end": true
+            },
+            {
+                "phrase": "That was it! Thanks.",
+                "end": true
+            }
+        ]
+    },
+    "0172e754-757e-79ba-9059-6cb1228c0752": {
+        "id": "0172e754-757e-79ba-9059-6cb1228c0752",
+        "name": "nakasone student 2",
+        "triggers": [],
+        "points": 10,
+        "scanable": true,
+        "abandon": "Goodbye!",
+        "conversation": [
+            {
+                "phrase": "Hey there, I'm one of General Nakasone's students. I'm doing some research for an article and need to check something. Before he became the Director of Vanderbilt's Institute for National Security I think he spoke at some Summit here. Can you tell me what that was?",
+                "responses": [
+                    {
+                        "triggers": ["summit on modern conflict and emerging threats", "modern conflict and emerging threats", "modern conflict & emerging threats"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no", "re-do not know", "re-dunno", "re-not sure"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I don't think that's it.", 0]
+                    }
+                ]
+            },
+            {
+                "phrase": "No problem, enjoy the con!",
+                "end": true
+            },
+            {
+                "phrase": "Ah, yes! Thank you.",
                 "end": true
             }
         ]
@@ -400,7 +456,7 @@
                         "triggers": ["yes"],
                         "conditions": [{ "check": "has", "type": "item", "value": "019456e1-5ff7-7425-8ebc-062a462fe6db" }],
                         "met": 3,
-                        "notmet": 2
+                        "not": 2
                     },
                     {
                         "triggers": ["no"],
@@ -413,7 +469,7 @@
                 "end": true
             },
             {
-                "phrase": "Hey wait, that's not a metro map! I need to find someone with a map of the metro stations.",
+                "phrase": "Hey wait, that's not a metro map! I need to find someone with a map of the metro stations. You might be able to ask the station manager for one.",
                 "end": true
             },
             {
@@ -464,7 +520,7 @@
                         "triggers": ["re-maps?"],
                         "conditions": [{ "check": "has", "type": "item", "value": "019456e1-5ff7-7425-8ebc-062a462fe6db" }],
                         "met": 4,
-                        "notmet": 5
+                        "not": 5
                     },
                     {
                         "triggers": ["re-where is", "re-how do i"],
@@ -512,7 +568,7 @@
                         "triggers": ["re-maps?"],
                         "conditions": [{ "check": "has", "type": "item", "value": "019456e1-5ff7-7425-8ebc-062a462fe6db" }],
                         "met": 4,
-                        "notmet": 5
+                        "not": 5
                     },
                     {
                         "triggers": ["no"],
@@ -569,7 +625,7 @@
                         "triggers": ["yes"],
                         "conditions": [{ "check": "has", "type": "item", "value": "019456e1-5ff7-7425-8ebc-062a462fe6db" }],
                         "met": 4,
-                        "notmet": 5
+                        "not": 5
                     },
                     {
                         "triggers": ["no"],
