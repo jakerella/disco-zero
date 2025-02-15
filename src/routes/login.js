@@ -8,6 +8,8 @@ router.get('/', async (req, res) => {
     if (req.session.user) {
         return res.redirect('/')
     }
+    
+    res.setHeader('X-Part', '018aa024')
     return res.render('login', {
         page: 'login',
         title: `${process.env.APP_NAME} Login`

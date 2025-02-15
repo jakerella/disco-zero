@@ -92,6 +92,7 @@ app.use((err, req, res, next) => {
     if (req.headers.accept === 'text/plain') {
         res.end((status > 499) ? 'Sorry, there was a problem. Try again later.' : err.message)
     } else {
+        res.setHeader('X-Part', '51cc6fd297e4')
         res.render('error', {
             page: 'error',
             title: `${process.env.APP_NAME} Error`,

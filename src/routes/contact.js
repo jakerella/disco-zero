@@ -24,6 +24,7 @@ router.get('/:code', async (req, res, next) => {
                     message = 'You look closely at the code you found, but can\'t make sense of it. Oh well.'
                 }
 
+                res.setHeader('X-Part', '91ee')
                 return res.render('game', {
                     page: 'game',
                     title: process.env.APP_NAME || 'Game',

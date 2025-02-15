@@ -37,6 +37,8 @@ router.get('/', async (req, res) => {
             }
         }
         
+        res.setHeader('X-author', 'jakerella')
+        res.setHeader('X-Part', 'b107')
         res.render('game', {
             page: 'game',
             title: process.env.APP_NAME || 'Game',
@@ -105,6 +107,7 @@ router.get('/cmd', async (req, res, next) => {
         }
 
         if (out) {
+            res.setHeader('X-Part', '7da3')
             if (/^DOWNLOAD\|/.test(out)) {
                 processDownload(out, res)
             } else if (/^PASSWORD\|/.test(out)) {

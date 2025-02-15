@@ -320,7 +320,7 @@
         "id": "01001010-6666-7777-8888-1337c0d38055",
         "name": "jakerella",
         "triggers": [],
-        "points": 20,
+        "points": 30,
         "scanable": true,
         "abandon": "Aloha",
         "conversation": [
@@ -444,9 +444,8 @@
     "01876657-476a-7e44-9006-a4ea7dcd7f5b": {
         "id": "01876657-476a-7e44-9006-a4ea7dcd7f5b",
         "name": "Halvar",
-        "triggers": ["lost guy", "lost man", "lost traveler"],
+        "triggers": ["lost guy", "lost man", "lost traveler", "lost person"],
         "points": 30,
-        "scanable": true,
         "abandon": "Okay, bye!",
         "conversation": [
             {

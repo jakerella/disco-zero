@@ -1,14 +1,9 @@
 ;(() => {
-    let ck = 'ct'
     const out = document.querySelector('.output')
-    const wh = 'which'
     const history = JSON.parse(localStorage.getItem('cmd_history') || '[]')
-    const ey = 'ey'
     const form = document.querySelector('.terminal form')
-    let kc = 'k'
     let historyEntry = 0
     const prompt = document.querySelector('.prompt')
-    ck += 'rlK'
     const label = form.querySelector('label')
     let currentOutput = null
     let typingHandler = null
@@ -97,20 +92,12 @@
             window.scrollTo(0, document.body.scrollHeight)
         }
     })
-    kc += ey
-    const cc = 2.8*24<<63%3
-    ck += ey
     document.addEventListener('keyup', (e) => {
         if (e.keyCode === 38 || e.which === 38 || e.code === 'ArrowUp') {
             if (historyEntry < history.length) {
                 historyEntry++
                 prompt.value = history[history.length - historyEntry]
             }
-        // } else if (e[ck] && (e[wh] === cc || e[kc+'Code'] === cc)) {
-        //     out.innerHTML += `<pre class='cmd'>${p} </p>`
-        //     p = '$'
-        //     form.querySelector('label').innerText = `${p} `
-        //     prompt.value = ''
         } else if (e.keyCode === 40 || e.which === 40 || e.code === 'ArrowDown') {
             historyEntry--
             if (historyEntry > 0) {

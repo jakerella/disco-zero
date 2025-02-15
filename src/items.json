@@ -207,5 +207,14 @@
         "description": "You picked up this sticker from one of the village tables. It has all of the logos on it!",
         "use": null,
         "points": 10
+    },
+    "018aa024-b107-7da3-91ee-51cc6fd297e4": {
+        "id": "018aa024-b107-7da3-91ee-51cc6fd297e4",
+        "name": "Server Key",
+        "alternates": ["key", "server room key"],
+        "scanable": true,
+        "description": "You combined some things you found laying around to get this server key. It's an odd shape, you aren't sure what sort of room that might fit.",
+        "use": null,
+        "points": 20
     }
 }
