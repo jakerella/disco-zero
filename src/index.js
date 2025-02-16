@@ -16,6 +16,7 @@ const AppError = require('./util/AppError')
 
 
 const PORT = process.env.PORT || 80
+const SERVER_SECRET = '01815efb-16d4-7e6a-871b-1f03d7dd007c'
 
 /* ********** basic express app creation ********** */
 const app = express()

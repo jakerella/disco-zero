@@ -35,6 +35,16 @@ main {
 .terminal .out {
     color: #ccc;
 }
+.terminal .out a:link, .terminal .out a:visited {
+    color: #cde;
+    text-decoration: none;
+    border-bottom: 1px dashed #666;
+}
+.terminal .out a:hover {
+    color: #ccf;
+    text-decoration: none;
+    border-bottom: 1px solid #666;
+}
 .terminal .error {
     color: #ecc;
 }

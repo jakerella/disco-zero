@@ -251,11 +251,13 @@ async function goto(user, ...tokens) {
 
     const curr = locations[user.location]
 
-    if (loc.type === 'hidden') {
+    if (loc.hidden) {
         if (!user.visited.includes(loc.id)) {
-            return 'Is that even a real place? You decide to stay put.'
+            return 'You\'re pretty sure that\'s a real place, but maybe you need to get *physically* closer.'
         }
-    } else if (loc.type === 'main' && curr.parent && loc.id !== curr.parent) {
+    }
+
+    if (loc.type === 'main' && curr.parent && loc.id !== curr.parent) {
         return `Looks like you\'re in the ${curr.name}. You probably need to find your way out first.`
     } else if (loc.type !== 'main' && curr.type === 'main' && loc.parent !== curr.id) {
         return `There's no ${loc.name} here.`

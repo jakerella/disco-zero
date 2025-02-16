@@ -33,7 +33,7 @@ module.exports = async function handleContact(req, code) {
                 if (user.visited.includes(code)) {
                     message = `You already knew about the ${locations[code].name}, but you head over anyway!`
                 } else {
-                    message = `You have discovered the ${locations[code].name}! ${locations[code].arrival}`
+                    message = `You have found the ${locations[code].name}! ${locations[code].arrival}`
                     user.visited.push(code)
                     user.score += locations[code].points || 1
                     await userModel.incrementStat('loc', code, user.visited.length)

@@ -108,7 +108,16 @@
         "alternates": ["DisCo html code", "html code", "web code"],
         "description": "You found the DisCo game code! Well, you found the easy part, anyway.",
         "use": null,
-        "points": 15
+        "points": 25
+    },
+    "01815efb-16d4-7e6a-871b-1f03d7dd007c": {
+        "id": "01815efb-16d4-7e6a-871b-1f03d7dd007c",
+        "name": "DisCo Server Code",
+        "scanable": true,
+        "alternates": ["DisCo server", "disco code", "server code"],
+        "description": "You found the DisCo game server code! Well done... but now what will you do with it?",
+        "use": null,
+        "points": 50
     },
     "01743c40-5e69-7c06-ad72-a5d168075279": {
         "id": "01743c40-5e69-7c06-ad72-a5d168075279",

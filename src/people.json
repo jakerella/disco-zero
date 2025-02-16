@@ -338,7 +338,7 @@
                 ]
             },
             {
-                "phrase": "Glad to hear it! Have you found all of the hidden locations?",
+                "phrase": "Glad to hear it! Have you found all of the game locations?",
                 "responses": [
                     {
                         "triggers": ["yes", "i think so", "probably", "definitely"],

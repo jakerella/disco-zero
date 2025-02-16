@@ -21,6 +21,7 @@
             outNode.innerText = currentOutput
             currentOutput = null
             typingHandler = null
+            makeLinks(outNode)
         }
 
         const input = prompt.value.trim()
@@ -115,6 +116,8 @@
             typingHandler = setTimeout(() => {
                 typeOutput(node, (char === ' ') ? text.substring(2) : text.substring(1))
             }, Math.floor(Math.random() * 40) + 15)
+        } else {
+            makeLinks(node)
         }
     }
 
@@ -129,4 +132,8 @@
         e.preventDefault()
         return false
     })
+
+    function makeLinks(node) {
+        node.innerHTML = node.innerText.replaceAll(/(https?:\/\/[^\s\'\"]+)/g, '<a href="$1" target="_blank">$1</a>')
+    }
 })()
