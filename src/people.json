@@ -58,7 +58,7 @@
                 ]
             },
             {
-                "phrase": "Oh, it looks like you already have a map. Have you inspected it?",
+                "phrase": "Oh, it looks like you already have a map. Have you looked at it?",
                 "end": true
             },
             {
@@ -100,7 +100,7 @@
         "abandon": "Farewell",
         "conversation": [
             {
-                "phrase": "You like the logo?",
+                "phrase": "Looks like you checked out the logo, do you like it?",
                 "responses": [
                     {
                         "triggers": ["yes"],
@@ -223,6 +223,12 @@
         "triggers": [],
         "points": 10,
         "abandon": "Enjoy the music!",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "01945c7c-e588-76de-8fb5-65e57f5b30ee" }],
+                "met": 5
+            }
+        ],
         "conversation": [
             {
                 "phrase": "Hey new friend, have you made it over to Som records yet? They have the ultimate disco vinyl collection, biggest you've ever seen, some of it basically brand new! Always so much fun.",
@@ -271,6 +277,10 @@
             {
                 "phrase": "That's cool, very cool. My pals here aren't into DisCo so much, but I can dig it. Enjoy the con!",
                 "end": true
+            },
+            {
+                "phrase": "Didn't we already talk? I think I gave you a hint to something. Look at it closely.",
+                "end": true
             }
         ]
     },
@@ -281,6 +291,12 @@
         "points": 20,
         "scanable": true,
         "abandon": "Adios",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "019484b6-9be4-705e-bc49-a67260a268f4" }],
+                "met": 3
+            }
+        ],
         "conversation": [
             {
                 "phrase": "So you found my calling card... nice skillz. Just one question for you: what's my handle?",
@@ -306,12 +322,16 @@
                 ]
             },
             {
-                "phrase": "Doesn't look like you actually did the leg work here, friend. Find my calling card.",
+                "phrase": "Doesn't look like you actually did the leg work here, friend. You need to find where I hid my calling card.",
                 "end": true
             },
             {
                 "phrase": "Killer. Here's my number in case you need it in the future.",
                 "item": "019484b6-9be4-705e-bc49-a67260a268f4",
+                "end": true
+            },
+            {
+                "phrase": "You already got my number, that's all I have for you.",
                 "end": true
             }
         ]
@@ -323,6 +343,12 @@
         "points": 30,
         "scanable": true,
         "abandon": "Aloha",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "01948551-c92b-7324-b951-14b6d5d1fced" }],
+                "met": 6
+            }
+        ],
         "conversation": [
             {
                 "phrase": "Are you liking the game so far?",
@@ -366,77 +392,35 @@
                 "end": true
             },
             {
-                "phrase": "No problem, the game is hard for a reason! Come find me if you want a hint.",
+                "phrase": "No problem, the game is hard on purpose! Come find me IRL if you want a hint.",
                 "end": true
-            }
-        ]
-    },
-    "0185a6ed-e177-74d8-856e-e5f22dbfb66d": {
-        "id": "0185a6ed-e177-74d8-856e-e5f22dbfb66d",
-        "name": "nakasone student 1",
-        "triggers": [],
-        "points": 10,
-        "scanable": true,
-        "abandon": "Goodbye!",
-        "conversation": [
+            },
             {
-                "phrase": "Hi! I'm one of General Nakasone's students, nice to meet you! I'm doing some research for an article and need to check some biographic data. Can you tell me where he got his Bachelor's degree?",
+                "phrase": "Looks like you already got my challenge coin. I wonder, have you seen my code?",
                 "responses": [
                     {
-                        "triggers": ["saint johns", "saint john", "st john", "st johns", "st johns university", "saint johns university", "saint john university"],
-                        "met": 2
+                        "triggers": ["yes"],
+                        "conditions": [{ "check": "has", "type": "item", "value": "01815efb-16d4-7e6a-871b-1f03d7dd007c" }],
+                        "met": 7,
+                        "not": 8
                     },
                     {
-                        "triggers": ["no", "re-do not know", "re-dunno", "re-not sure"],
-                        "met": 1
-                    },
-                    {
-                        "triggers": ["*"],
-                        "met": ["Hmm, I don't think that's it.", 0]
+                        "triggers": ["no"],
+                        "met": 9
                     }
                 ]
             },
             {
-                "phrase": "No worries, thanks anyway!",
+                "phrase": "Wow, nicely done. Here's a cool Node.js sticker for you!",
+                "item": "018b47aa-5937-7a58-ab5d-a766171f8038",
                 "end": true
             },
             {
-                "phrase": "That was it! Thanks.",
-                "end": true
-            }
-        ]
-    },
-    "0172e754-757e-79ba-9059-6cb1228c0752": {
-        "id": "0172e754-757e-79ba-9059-6cb1228c0752",
-        "name": "nakasone student 2",
-        "triggers": [],
-        "points": 10,
-        "scanable": true,
-        "abandon": "Goodbye!",
-        "conversation": [
-            {
-                "phrase": "Hey there, I'm one of General Nakasone's students. I'm doing some research for an article and need to check something. Before he became the Director of Vanderbilt's Institute for National Security I think he spoke at some Summit here. Can you tell me what that was?",
-                "responses": [
-                    {
-                        "triggers": ["summit on modern conflict and emerging threats", "modern conflict and emerging threats", "modern conflict & emerging threats"],
-                        "met": 2
-                    },
-                    {
-                        "triggers": ["no", "re-do not know", "re-dunno", "re-not sure"],
-                        "met": 1
-                    },
-                    {
-                        "triggers": ["*"],
-                        "met": ["Hmm, I don't think that's it.", 0]
-                    }
-                ]
-            },
-            {
-                "phrase": "No problem, enjoy the con!",
+                "phrase": "Hmm, you haven't found the _server_ code yet. I think it's posted online somewhere...",
                 "end": true
             },
             {
-                "phrase": "Ah, yes! Thank you.",
+                "phrase": "Don't worry, you can keep searching even after the con!",
                 "end": true
             }
         ]
@@ -447,6 +431,12 @@
         "triggers": ["lost guy", "lost man", "lost traveler", "lost person"],
         "points": 30,
         "abandon": "Okay, bye!",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "0185e0d6-c1eb-737e-8546-4eeb34ae2e93" }],
+                "met": 5
+            }
+        ],
         "conversation": [
             {
                 "phrase": "Oh thank goodness, I found someone with a map! I'm trying to get to an event, maybe you can help me?",
@@ -493,6 +483,10 @@
             {
                 "phrase": "Oh, thank you! I know it's not much, but here's a custom sticker for helping me. I'd better hurry, but see you at the con!",
                 "item": "0185e0d6-c1eb-737e-8546-4eeb34ae2e93",
+                "end": true
+            },
+            {
+                "phrase": "Thank you again for helping me. I hope you enjoy the sticker!",
                 "end": true
             }
         ]
@@ -884,6 +878,12 @@
         "triggers": ["disco policy moderator", "moderator", "policy moderator", "policy room moderator", "policy volunteer", "policy room volunteer", "disco policy volunteer"],
         "points": 5,
         "abandon": "Stay cool.",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "01711f07-f5ed-760c-a8db-205c49827a94" }],
+                "met": 7
+            }
+        ],
         "conversation": [
             {
                 "phrase": "Welcome to the policy room! We're in between sessions right now, but I was actually just researching some stuff for a later session. Any chance you could help me run down some facts?",
@@ -965,7 +965,7 @@
                         "met": 1
                     },
                     {
-                        "triggers": ["50"],
+                        "triggers": ["50", "fifty", "title 50", "title fifty"],
                         "met": 6
                     },
                     {
@@ -977,6 +977,10 @@
             {
                 "phrase": "I feel so much better about this next session now! Thanks again for your help. I know it's not much, but here, take this!",
                 "item": "01711f07-f5ed-760c-a8db-205c49827a94",
+                "end": true
+            },
+            {
+                "phrase": "Thanks again for your help earlier! I think the Policy room activities are going really well.",
                 "end": true
             }
         ]
@@ -1016,6 +1020,195 @@
         "conversation": [
             {
                 "phrase": "Got the GUTS to hack the code of life? Hi, I'm v3ga, and this is the Biohacking Village! Dive into the Biohacking Village and test your DNA - whether it's in the lab or in your curiosity. Who knows, you might just uncover some twisted truths! You can also check us out online at https://villageb.io",
+                "end": true
+            }
+        ]
+    },
+    "017e87fc-23ae-7fb1-8ecc-43f851b6dd01": {
+        "id": "017e87fc-23ae-7fb1-8ecc-43f851b6dd01",
+        "name": "Retired General Paul Nakasone",
+        "triggers": ["nakasone", "general nakasone", "paul nakasone"],
+        "scanable": true,
+        "points": 40,
+        "abandon": "Goodbye.",
+        "conversation": [
+            {
+                "phrase": "Hello, thank you for stopping by. I always enjoy meeting people dedicated to making our country safer, and increasingly that means ensuring our safety and security in cyberspace.",
+                "end": true
+            }
+        ]
+    },
+    "0185a6ed-e177-74d8-856e-e5f22dbfb66d": {
+        "id": "0185a6ed-e177-74d8-856e-e5f22dbfb66d",
+        "name": "nakasone student 1",
+        "triggers": [],
+        "points": 10,
+        "scanable": true,
+        "abandon": "Bye now!",
+        "conversation": [
+            {
+                "phrase": "Hi! I'm one of General Nakasone's students, nice to meet you! I'm doing some research for an article and need to check some biographic data. Can you tell me where he got his Bachelor's degree?",
+                "responses": [
+                    {
+                        "triggers": ["saint johns", "saint john", "st john", "st johns", "st johns university", "saint johns university", "saint john university"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no", "re-do not know", "re-dunno", "re-not sure"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I don't think that's it.", 0]
+                    }
+                ]
+            },
+            {
+                "phrase": "No worries, thanks anyway!",
+                "end": true
+            },
+            {
+                "phrase": "That was it! Thanks. Hey, maybe this will help you during the con: 1:017e87fc",
+                "end": true
+            }
+        ]
+    },
+    "0172e754-757e-79ba-9059-6cb1228c0752": {
+        "id": "0172e754-757e-79ba-9059-6cb1228c0752",
+        "name": "nakasone student 2",
+        "triggers": [],
+        "points": 10,
+        "scanable": true,
+        "abandon": "See ya!",
+        "conversation": [
+            {
+                "phrase": "Hey there, I'm one of General Nakasone's students. I'm doing some research for an article and need to check something. Before he became the Director of Vanderbilt's Institute for National Security I think he spoke at some Summit here. Can you tell me what that was?",
+                "responses": [
+                    {
+                        "triggers": ["summit on modern conflict and emerging threats", "modern conflict and emerging threats", "modern conflict & emerging threats"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no", "re-do not know", "re-dunno", "re-not sure"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I don't think that's it.", 0]
+                    }
+                ]
+            },
+            {
+                "phrase": "No problem, enjoy the con!",
+                "end": true
+            },
+            {
+                "phrase": "Ah, yes! Thank you. You might need this later: 2-23ae",
+                "end": true
+            }
+        ]
+    },
+    "017be1d9-712b-7f2a-8677-ceb4b88b9832": {
+        "id": "017be1d9-712b-7f2a-8677-ceb4b88b9832",
+        "name": "nakasone student 3",
+        "triggers": [],
+        "points": 10,
+        "scanable": true,
+        "abandon": "Later!",
+        "conversation": [
+            {
+                "phrase": "Hey there, I'm one of General Nakasone's students. I'm doing some research for an article and need to check something. What year did Nakasone take over as the Commander for USCYBERCOM and the NSA?",
+                "responses": [
+                    {
+                        "triggers": ["2018", "twenty eighteen", "two thousand eighteen", "two thousand and eighteen"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no", "re-do not know", "re-dunno", "re-not sure"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I don't think that's it.", 0]
+                    }
+                ]
+            },
+            {
+                "phrase": "No problem, enjoy the con!",
+                "end": true
+            },
+            {
+                "phrase": "Of course, of course, thanks! Hey, you might need this for something: 3-7fb1",
+                "end": true
+            }
+        ]
+    },
+    "018c3630-bf28-7d19-81fb-8c86d97b11c5": {
+        "id": "018c3630-bf28-7d19-81fb-8c86d97b11c5",
+        "name": "nakasone student 4",
+        "triggers": [],
+        "points": 10,
+        "scanable": true,
+        "abandon": "Bye!",
+        "conversation": [
+            {
+                "phrase": "Hey there, I'm one of General Nakasone's students. I'm doing some research for an article and need to check something. Can you tell me what rank Paul Nakasone's father held?",
+                "responses": [
+                    {
+                        "triggers": ["colonel", "O-6", "O6", "full bird", "full bird colonel", "full colonel"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no", "re-do not know", "re-dunno", "re-not sure"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I don't think that's it.", 0]
+                    }
+                ]
+            },
+            {
+                "phrase": "No problem, enjoy the con!",
+                "end": true
+            },
+            {
+                "phrase": "Right! I think I knew that... In any case, I think you might need this later: 4-8ecc",
+                "end": true
+            }
+        ]
+    },
+    "018eff8c-ad42-7cb4-b2ee-dd976a1f6570": {
+        "id": "018eff8c-ad42-7cb4-b2ee-dd976a1f6570",
+        "name": "nakasone student 5",
+        "triggers": [],
+        "points": 10,
+        "scanable": true,
+        "abandon": "Bye!",
+        "conversation": [
+            {
+                "phrase": "Hey there, I'm one of General Nakasone's students. I'm doing some research for an article and need to check something. When did General Nakasone receive hist first star?",
+                "responses": [
+                    {
+                        "triggers": ["2011", "twenty eleven", "two thousand eleven", "two thousand and eleven"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no", "re-do not know", "re-dunno", "re-not sure"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I don't think that's it.", 0]
+                    }
+                ]
+            },
+            {
+                "phrase": "No problem, enjoy the con!",
+                "end": true
+            },
+            {
+                "phrase": "Yes, that's it. Thank you! Here, maybe you can use this: 5-43f851b6dd01",
                 "end": true
             }
         ]

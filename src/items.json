@@ -225,5 +225,13 @@
         "description": "You combined some things you found laying around to get this server key. It's an odd shape, you aren't sure what sort of room that might fit.",
         "use": null,
         "points": 20
+    },
+    "018b47aa-5937-7a58-ab5d-a766171f8038": {
+        "id": "018b47aa-5937-7a58-ab5d-a766171f8038",
+        "name": "Node.js Sticker",
+        "alternates": ["nodejs sticker", "node sticker", "javascript sticker"],
+        "description": "Jakerella gave you this sticker for finding the code to this game!",
+        "use": null,
+        "points": 20
     }
 }
