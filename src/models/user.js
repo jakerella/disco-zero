@@ -94,14 +94,14 @@ async function getStats(stat) {
         if (stat !== 'player') {
             byIdKeys = await cache.keys(`${process.env.APP_NAME}_statbyid_${stat}_*`)
             byIdValues = []
-            if (byIdKeys) {
+            if (byIdKeys && byIdKeys.length) {
                 byIdValues = await cache.mGet(byIdKeys)
             }
         }
 
         const byCountKeys = await cache.keys(`${process.env.APP_NAME}_statbycount_${stat}_*`)
         let byCountValues = []
-        if (byCountKeys) {
+        if (byCountKeys && byCountKeys.length) {
             byCountValues = await cache.mGet(byCountKeys)
         }
 
