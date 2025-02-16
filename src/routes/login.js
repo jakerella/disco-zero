@@ -22,6 +22,7 @@ router.post('/', async (req, res, next) => {
     const pass = parts.slice(1).join(' ')
     
     if (!handle || !pass) {
+        res.setHeader('X-Part', '018aa024')
         return res.render('login', {
             page: 'login',
             title: `${process.env.APP_NAME} Login`,
@@ -31,6 +32,7 @@ router.post('/', async (req, res, next) => {
 
     const user = await userModel.login(handle, pass)
     if (!user) {
+        res.setHeader('X-Part', '018aa024')
         return res.render('login', {
             page: 'login',
             title: `${process.env.APP_NAME} Login`,
