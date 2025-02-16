@@ -107,63 +107,67 @@ async function handleConversation(user, response) {
     if (next === null) {
         return `${person.name}: "Sorry, I don't understand."`
     } else {
-        let nextMessage = null
-        if (Array.isArray(next)) {
-            // Used primarily as a loopback with a different message for the player
-            nextMessage = next[0]
-            next = next[1]
-        } else if (Number.isInteger(next)) {
-            nextMessage = person.conversation[next].phrase
-        } else if (next?.actions) {
-            for (let i=0; i<next.actions.length; ++i) {
-                if (next.actions[i][0] === 'store') {
-                    if (next.actions[i][1] === '{{user-codes-key}}') {
-                        try {
-                            const connection = await userModel.get(null, response || '')
-                            if (!connection) { throw new Error('no user found') }
-                            if (connection.handle < user.handle) {
-                                user.convo[2] = `${connection.code}+${user.code}`
-                            } else {
-                                user.convo[2] = `${user.code}+${connection.code}`
-                            }
-                            logger.debug(`Stored data in convo: ${user.convo[2]}`)
-                        } catch (err) {
-                            logger.warn(`Unable to store user-codes-key value in convo (resp was "${response}")`)
-                            user.convo[2] = null
+        return processStep(user, person, response, next)
+    }
+}
+
+async function processStep(user, person, response, step) {
+    let nextMessage = null
+    if (Array.isArray(step)) {
+        // Used primarily as a loopback with a different message for the player
+        nextMessage = step[0]
+        step = step[1]
+    } else if (Number.isInteger(step)) {
+        nextMessage = person.conversation[step].phrase
+    } else if (step?.actions) {
+        for (let i=0; i<step.actions.length; ++i) {
+            if (step.actions[i][0] === 'store') {
+                if (step.actions[i][1] === '{{user-codes-key}}') {
+                    try {
+                        const connection = await userModel.get(null, response || '')
+                        if (!connection) { throw new Error('no user found') }
+                        if (connection.handle < user.handle) {
+                            user.convo[2] = `${connection.code}+${user.code}`
+                        } else {
+                            user.convo[2] = `${user.code}+${connection.code}`
                         }
-                    } else if (next.actions[i][1] === '{{response}}') {
-                        user.convo[2] = response
-                    } else {
-                        user.convo[2] = next.actions[i][1]
+                        logger.debug(`Stored data in convo: ${user.convo[2]}`)
+                    } catch (err) {
+                        logger.warn(`Unable to store user-codes-key value in convo (resp was "${response}")`)
+                        user.convo[2] = null
                     }
+                } else if (step.actions[i][1] === '{{response}}') {
+                    user.convo[2] = response
+                } else {
+                    user.convo[2] = step.actions[i][1]
                 }
             }
-            next = next.goto
-            nextMessage = person.conversation[next].phrase
-        } else {
-            logger.debug(`Bad 'next' in conversation: ${user.convo[0]}, step ${user.convo[1]} with response: ${response}`)
-            return `${person.name}: "Sorry, I don't understand."`
         }
-
-        let itemName = null
-        if (person.conversation[next].item && !user.items.includes(person.conversation[next].item)) {
-            itemName = items[person.conversation[next].item].name
-            user.items.push(person.conversation[next].item)
-            await userModel.incrementStat('item', person.conversation[next].item, user.items.length)
-        }
-
-        let runMsg = null
-        if (person.conversation[next].run) {
-            runMsg = await runCommand(user, person.conversation[next].run)
-        }
-
-        if (person.conversation[next].end) {
-            user.convo = null
-        } else {
-            user.convo[1] = next
-        }
-        return `${person.name}: "${nextMessage}"${(runMsg) ? `\n${runMsg}` : ''}${(itemName) ? `\nYou received the ${itemName}!` : ''}`
+        step = step.goto
+        nextMessage = person.conversation[step].phrase
+    } else {
+        logger.debug(`Bad 'step' in conversation: ${user.convo[0]}, step ${user.convo[1]} with response: ${response}`)
+        return `${person.name}: "Sorry, I don't understand."`
     }
+
+    let itemName = null
+    if (person.conversation[step].item && !user.items.includes(person.conversation[step].item)) {
+        itemName = items[person.conversation[step].item].name
+        user.items.push(person.conversation[step].item)
+        await userModel.incrementStat('item', person.conversation[step].item, user.items.length)
+    }
+
+    let runMsg = null
+    if (person.conversation[step].run) {
+        runMsg = await runCommand(user, person.conversation[step].run)
+    }
+
+    if (person.conversation[step].end) {
+        user.convo = null
+    } else {
+        user.convo[1] = step
+    }
+    return `${person.name}: "${nextMessage}"${(runMsg) ? `\n${runMsg}` : ''}${(itemName) ? `\nYou received the ${itemName}!` : ''}`
 }
 
 async function checkCondition(user, condition, input) {
@@ -247,5 +251,6 @@ async function runCommand(user, cmd) {
 
 module.exports = {
     handleConversation,
-    runCommand
+    runCommand,
+    processStep
 }

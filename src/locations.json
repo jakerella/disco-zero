@@ -81,9 +81,9 @@
         "name": "Main Stage",
         "alt": ["mainstage", "auditorium", "room 9", "room nine", "room 10", "room ten"],
         "arrival": "You stroll into the largest session space in the conference center.",
-        "description": "The main stage is where many of the conference talks will take place. There are screens at the front, a stage in the center, and rows and rows of chairs.",
+        "description": "The main stage is where many of the conference talks will take place. There are screens at the front, a stage in the center, and rows and rows of chairs. There's an AV tech at the back checking some of the sound boards and a speaker chatting with some people with questions. A volunteer stands at the door looking around a bit frantically.",
         "points": 5,
-        "people": [],
+        "people": ["018eb817-7bd6-7fb5-af42-3dae6fbe4eb3", "0172cb68-c192-7f66-93bd-b949c51b77cb", "0182a4bd-9997-787a-b1c8-7f8621231e0d"],
         "items": []
     },
     "01949f41-8f5f-7558-8038-0820979b2de2": {
@@ -236,11 +236,11 @@
         "parent": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
         "name": "Junkyard",
         "alt": ["junkyard room"],
-        "arrival": "The pop into the Junkyard room to see what's going on there.",
+        "arrival": "You pop into the Junkyard room to see what's going on there.",
         "description": "The room is filled with people hacking away at ancient relics of tech. This place is a platform to showcase novel security research and support hobby and career development for security researchers. Attendees are bringing their most impactful, creative, or most meme-worthy bugs in end-of-life (EOL) products, and demonstrating them live on stage!",
         "points": 10,
         "people": [],
-        "items": []
+        "items": ["01947476-3cce-7d99-808b-8cb62f505575"]
     },
     "017e461d-dbfd-702b-9ea5-bf321b42b6bc": {
         "id": "017e461d-dbfd-702b-9ea5-bf321b42b6bc",

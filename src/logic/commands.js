@@ -6,6 +6,7 @@ const locations = require('../locations.json')
 const people = require('../people.json')
 const items = require('../items.json')
 const adminActions = require('./admin')
+const { processStep } = require('./convo')
 
 
 // TODO: Also store users by location ID so people can see who's around them?
@@ -348,8 +349,8 @@ async function engage(user, ...tokens) {
     if (!person.conversation[start].end) {
         user.convo = [person.id, start]
     }
-
-    return `${person.name}: "${person.conversation[start].phrase}"`
+    
+    return processStep(user, person, null, start)
 }
 engage.alt = ['talk to', 'talk with', 'speak to', 'speak with', 'chat with', 'interact with', 'approach']
 

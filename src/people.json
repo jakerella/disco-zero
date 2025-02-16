@@ -1212,5 +1212,122 @@
                 "end": true
             }
         ]
+    },
+    "0172cb68-c192-7f66-93bd-b949c51b77cb": {
+        "id": "0172cb68-c192-7f66-93bd-b949c51b77cb",
+        "name": "Thor",
+        "triggers": ["av tech", "technician", "av technician", "sound tech", "tech", "audio visual tech", "audio visual technician"],
+        "points": 10,
+        "abandon": "Goodbye.",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "01947476-3cce-7d99-808b-8cb62f505575" }],
+                "met": 3
+            }
+        ],
+        "conversation": [
+            {
+                "phrase": "Oh hey. Uh, could you do me a favor? I need a another *hand mic* in here for Q&A, but I don't really have time to run over and get one. There should be an extra one in the Junkyard room. Can you get it for me?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "Uh, okay. I guess I'll send someone else.",
+                "end": true
+            },
+            {
+                "phrase": "Thanks a ton, just bring it back here. I'll owe you one!",
+                "end": true
+            },
+            {
+                "phrase": "You found the mic! But I actually found one under the table here, too. You just hang onto that one for while, cool? But hey, I still owe you one. Thanks again!",
+                "item": "0192f6eb-5ffa-7cf5-9a2e-a40f8b5d5c1f",
+                "end": true
+            }
+        ]
+    },
+    "018eb817-7bd6-7fb5-af42-3dae6fbe4eb3": {
+        "id": "018eb817-7bd6-7fb5-af42-3dae6fbe4eb3",
+        "name": "Christine",
+        "triggers": ["speaker", "conference speaker", "main stage speaker", "mainstage speaker"],
+        "points": 15,
+        "abandon": "See ya.",
+        "conversation": [
+            {
+                "phrase": "Hi! I hope you enjoyed the opening session of DistrictCon! Zero-click exploits are pretty crazy. You know, I think someone left a usb drive laying around here somewhere with some new malware on it. Have you seen the usb drive?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "conditions": [{ "check": "has", "type": "contact", "value": "017fbc25-29c3-7f02-ab02-cfb829f5c55c" }],
+                        "met": 2,
+                        "not": 3
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "Hmm, okay. I think I saw one of the staff with it last. Maybe they took it to the staff room.",
+                "end": true
+            },
+            {
+                "phrase": "Oh wow! Did you already reverse engineer it? Well done!",
+                "end": true
+            },
+            {
+                "phrase": "Oh good, well, I think it might be fun to try and reverse engineer that. Just have to get into the rhythm. Good luck!",
+                "end": true
+            }
+        ]
+    },
+    "0182a4bd-9997-787a-b1c8-7f8621231e0d": {
+        "id": "0182a4bd-9997-787a-b1c8-7f8621231e0d",
+        "name": "Gail Wrangler",
+        "triggers": ["volunteer", "speaker wrangler", "main stage volunteer", "room volunteer", "door watcher", "door volunteer"],
+        "points": 10,
+        "abandon": "Goodbye.",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "0185e0d6-c1eb-737e-8546-4eeb34ae2e93" }],
+                "met": 3
+            }
+        ],
+        "conversation": [
+            {
+                "phrase": "Gotta find halvar, seen him?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "Darn, I'm going to stay here in case he shows up. I know he was going to try to take the metro here, I hope he didn't get lost.",
+                "end": true
+            },
+            {
+                "phrase": "Oh really?! That's great! Hopefully he'll show up soon, I know the metro system can be confusing.",
+                "end": true
+            },
+            {
+                "phrase": "Thank you so much for helping to get Halvar here in time for his session!",
+                "end": true
+            }
+        ]
     }
 }

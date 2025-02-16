@@ -199,7 +199,7 @@
             "type": "text",
             "value": "You take a small bite of the fresh bagel and savor it. Maybe you'll save the rest for later."
         },
-        "points": 10
+        "points": 20
     },
     "01711f07-f5ed-760c-a8db-205c49827a94": {
         "id": "017477a4-e776-7c13-a066-166e870d627c",
@@ -212,7 +212,7 @@
     "017a2ec9-942f-71bf-9b5c-7eebc812eb8b": {
         "id": "017a2ec9-942f-71bf-9b5c-7eebc812eb8b",
         "name": "Village of Villages sticker",
-        "alternates": ["vov sticker", "village sticker", "villages sticker"],
+        "alternates": ["vov sticker", "village sticker", "villages sticker", "stickers", "sticker"],
         "description": "You picked up this sticker from one of the village tables. It has all of the logos on it!",
         "use": null,
         "points": 10
@@ -232,6 +232,25 @@
         "alternates": ["nodejs sticker", "node sticker", "javascript sticker"],
         "description": "Jakerella gave you this sticker for finding the code to this game!",
         "use": null,
+        "points": 20
+    },
+    "01947476-3cce-7d99-808b-8cb62f505575": {
+        "id": "01947476-3cce-7d99-808b-8cb62f505575",
+        "name": "Hand mic",
+        "alternates": ["mic", "microphone", "hand microphone"],
+        "description": "You picked this up in the Junkyard room. You probably should take it somewhere.",
+        "use": null,
+        "points": 5
+    },
+    "0192f6eb-5ffa-7cf5-9a2e-a40f8b5d5c1f": {
+        "id": "0192f6eb-5ffa-7cf5-9a2e-a40f8b5d5c1f",
+        "name": "Thor's favor",
+        "alternates": ["favor", "thor favor", "thors favor"],
+        "description": "Thor owe's you one for running around to find that extra mic.",
+        "use": {
+            "type": "text",
+            "value": "You think about how Thor might be able to pay you back, but come up empty for now."
+        },
         "points": 20
     }
 }
