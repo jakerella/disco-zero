@@ -715,7 +715,7 @@
         ],
         "conversation": [
             {
-                "phrase": "Hello! This is pretty freakin' cool, huh? People working together, code-ing side by side, 1+1, making shit happen! I love watchin' these folks. One of the teams had to try like 32 different iterations of some script just get paest one firewall rule. You know, I think they found something that they haven't been able to crack yet. You wanna help out?",
+                "phrase": "Hello! This is pretty freakin' cool, huh? People working together, users code-ing side by side, 1+1, making shit happen! I love watchin' these folks. One of the teams had to try like 32 different iterations of some script just get paest one firewall rule. You know, I think they found something that they haven't been able to crack yet. You wanna help out?",
                 "responses": [
                     {
                         "triggers": ["yes"],
@@ -732,7 +732,7 @@
                 "end": true
             },
             {
-                "phrase": "This one is a bit tricky. You should find a friend to work with. Therae's lots of people here to choose from, way more than two hundred, but probably not over five hundred, I think. Do you have someone? If so, tell me their handle.",
+                "phrase": "This one is a bit tricky. You should find a friend to work with. Theraes lots of people here to choose from, more than two hundred, but definitely less than five hundred, I think. Do you have someone? If so, tell me their handle.",
                 "responses": [
                     {
                         "triggers": ["no"],
@@ -749,12 +749,12 @@
                             ],
                             "goto": 3
                         },
-                        "not": ["Sorry, but I'll need to be talking to both of you at the same time. Invite your friend to join us here and chat me up. Make sure you're connected to them in thiw world!", 2]
+                        "not": ["Sorry, but I'll need to be talking to both of you at the same time. Invite your friend to join us here and chat me up. Make sure you're connected to them in this world!", 2]
                     }
                 ]
             },
             {
-                "phrase": "Okay, so here's the deal: the team found this data on a foreign server simply labelled 'secret'. I know, obvious, but  thae saying goes, 'hackers gotta hack'. The team that found it has already moved on, they figure they can decrypt the data any time, but maybe you two can help? Here's the data, did you copy it down?",
+                "phrase": "Okay, so here's the deal: the team found this data on a foreign server simply labelled 'secret'. I know, obvious, but aes the saying goes, 'hackers gotta hack'. The team that found it has already moved on, they figure they can decrypt the data any time, but maybe you two can help? Here's the data, did you copy it down?",
                 "run": ["encrypt", 2, "018b86aa-07e1-7b73-8416-0825a12d2fd3", "aes256", 32, "jtwfile"],
                 "item": "01722dfb-8da9-745d-85bf-be3b4e3c8bbf",
                 "responses": [

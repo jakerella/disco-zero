@@ -127,7 +127,7 @@ function inspect(user, ...tokens) {
         return locations[user.location].description
     } else {
         const item = user.items.filter((id) => {
-            return items[id]?.name.toLowerCase() === target || items[id]?.alternates.includes(target)
+            return items[id]?.name.toLowerCase() === target || items[id]?.alternates?.includes(target)
         }).map((id) => items[id])[0]
         if (item) {
             return item.description
@@ -360,7 +360,7 @@ async function take(user, ...tokens) {
         return 'What do you want to pick up?'
     } else {
         const itemId = locations[user.location]?.items.filter((id) => {
-            return items[id]?.name.toLowerCase() === itemName.toLowerCase() || items[id]?.alternates.includes(itemName.toLowerCase())
+            return items[id]?.name.toLowerCase() === itemName.toLowerCase() || items[id]?.alternates?.includes(itemName.toLowerCase())
         })[0] || null
 
         if (!itemId) {
