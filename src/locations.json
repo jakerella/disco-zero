@@ -225,7 +225,7 @@
         "name": "Restroom",
         "alt": ["bathroom", "toilet", "mens room", "womens room"],
         "arrival": "You stop into the restoom between talks and are happy to see how clean they are!",
-        "description": "The restroom is clean and well maintained. You notice that someone has left a DC metro map on the counter. 'Okay, enough standing here looking around,' you think to yourself.",
+        "description": "The restroom is clean and well maintained. You notice that someone has left a DC metro map on the counter. There's a few signs on a board next to the door, one of them is advertising a retro video gamer meetup at a popular game shop in DC called Labyrinth. 'Okay, enough standing here looking around,' you think to yourself.",
         "points": 10,
         "people": [],
         "items": ["019456e1-5ff7-7425-8ebc-062a462fe6db"]
@@ -237,9 +237,9 @@
         "name": "Junkyard",
         "alt": ["junkyard room"],
         "arrival": "You pop into the Junkyard room to see what's going on there.",
-        "description": "The room is filled with people hacking away at ancient relics of tech. This place is a platform to showcase novel security research and support hobby and career development for security researchers. Attendees are bringing their most impactful, creative, or most meme-worthy bugs in end-of-life (EOL) products, and demonstrating them live on stage!",
+        "description": "The room is filled with people hacking away at ancient relics of tech. There's lots of weird old tech here, one hacker is even tinkering with an old Nintendo system. It is a platform to showcase novel security research and support hobby and career development for security researchers. It looks like people are bringing their most impactful, creative, or most meme-worthy bugs in end-of-life (EOL) products, and demonstrating them live on stage!",
         "points": 10,
-        "people": [],
+        "people": ["0173be71-50fc-7ee2-b1ab-b02e461f6715"],
         "items": ["01947476-3cce-7d99-808b-8cb62f505575"]
     },
     "017e461d-dbfd-702b-9ea5-bf321b42b6bc": {
@@ -422,7 +422,8 @@
         "id": "0193feee-0b82-704a-aeba-ce40029e7b7e",
         "type": "main",
         "name": "Metro station",
-        "arrival": "You are at a metro station, you can get just about anywhere in DC this way!",
+        "alt": ["metro", "station", "foggy bottom metro", "foggy bottom metro station"],
+        "arrival": "You are at the metro station, you can get just about anywhere in DC on the metro!",
         "description": "This is a typical Washington, DC metro station. It has high ceilings and low lighting. There is a station manager in their booth straight ahead with some maps. There's lots of people hustling around, but you spot a clearly lost man wandering among the crowd.",
         "points": 5,
         "items": ["019456e1-5ff7-7425-8ebc-062a462fe6db"],
@@ -432,6 +433,7 @@
         "id": "01945c61-418d-765a-82a2-b06d872dac99",
         "type": "main",
         "name": "Som Records",
+        "alt": ["som records store", "som record store", "record store", "records store", "som record", "som record shop", "som records shop"],
         "arrival": "The shop is in a half-basement space of a red-brick building. You step in and enter another world.",
         "description": "Inside you find plenty of sweet vinyl, both in boxes and adorning the walls and ceiling. It's tight inside, but not too crowded thankfully. There's a player to one side for listening before you buy. You start fliping through albums and right away see some amazing options. Toward the back you see a door simply labeled 'Som back room'.",
         "points": 5,
@@ -442,7 +444,7 @@
         "id": "01945c61-8a20-71eb-b7df-a6b72e27d5a8",
         "type": "room",
         "name": "Som back room",
-        "alt": ["back room"],
+        "alt": ["back room", "som records back room", "som record back room", "record store back room"],
         "parent": "01945c61-418d-765a-82a2-b06d872dac99",
         "conditions": [{ "check": "password", "type": "text", "value": "donnasummer" }],
         "arrival": "You say the password and they let you into the back room.",
@@ -450,5 +452,16 @@
         "points": 10,
         "items": ["01945c61-c10c-7788-b7e7-da82b5270751"],
         "people": []
+    },
+    "018fd473-f1dd-78a4-9624-2139066c61e3": {
+        "id": "018fd473-f1dd-78a4-9624-2139066c61e3",
+        "type": "main",
+        "name": "Labyrinth Games",
+        "alt": ["labyrinth", "labyrinth game store", "labyrinth store", "labyrinth shop", "labyrinth game shop"],
+        "arrival": "The unassuming front is decorated with a simple green awning and a sign that says 'Weekly Labyrinth Puzzle' and then two equations:\nabc + 123 = bdf\ndad + b0b = ?",
+        "description": "Inside you see there are a few different rooms, all filled with games of all sorts. There are dice games, card games, board games, puzzles, and even retro video games. There's a sign that says there's a retro gamer meetup next week. You see a few different employees helping customers, chatting about games. They seem very knowledgeable. An employee behind the counter is waving at you and says 'Welcome!'",
+        "points": 15,
+        "items": [],
+        "people": ["01936eaf-069f-7a83-ae7a-460c38bf627b"]
     }
 }

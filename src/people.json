@@ -1329,5 +1329,130 @@
                 "end": true
             }
         ]
+    },
+    "0173be71-50fc-7ee2-b1ab-b02e461f6715": {
+        "id": "0173be71-50fc-7ee2-b1ab-b02e461f6715",
+        "name": "junk3r",
+        "triggers": ["hacker", "junkyard hacker", "nintendo hacker"],
+        "points": 20,
+        "abandon": "Later.",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "017a5a26-2a5e-7384-b3de-4d7774fb4838" }],
+                "met": 4
+            },
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "0186680b-87ac-7961-b4a3-8a014f7e737b" }],
+                "met": 1
+            }
+        ],
+        "conversation": [
+            {
+                "phrase": "Yo, what's up? Just tryin' ta get this Nintendo DS to crack for me. The wifi's only WEP, so that part ain't hard, but then I gotta move from there to the processing core. Honestly, having a second one of these would really help. Later.",
+                "end": true
+            },
+            {
+                "phrase": "Oh snap! You found another DS unit? What're the odds?! Hey, I don't spose you could lemme have it? I could trade you for it!",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 3
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 2
+                    }
+                ]
+            },
+            {
+                "phrase": "Yeah, ok... that makes sense. I guess I'll just keep hackin at this thing.",
+                "end": true
+            },
+            {
+                "phrase": "Dang, that is so awesome, thank you! Of course, it's still yours, I'll get it back to you soon. Here, take this, I have two anyway.",
+                "item": "017a5a26-2a5e-7384-b3de-4d7774fb4838",
+                "end": true
+            },
+            {
+                "phrase": "Sup? I'm still workin here, just trying to get... this... to... work...",
+                "end": true
+            }
+        ]
+    },
+    "01936eaf-069f-7a83-ae7a-460c38bf627b": {
+        "id": "01936eaf-069f-7a83-ae7a-460c38bf627b",
+        "name": "Katherine",
+        "triggers": ["labyrinth employee", "employee", "counter employee", "game store employee"],
+        "points": 10,
+        "abandon": "See you next time!",
+        "starts": [
+            {
+                "conditions": [{ "check": "has", "type": "item", "value": "018e82ce-932c-74ad-b09c-433b7ea1749b" }],
+                "met": 2
+            }
+        ],
+        "conversation": [
+            {
+                "phrase": "Welcome to Labyrinth Games! How can I help you? Maybe you want to *solve* our puzzle? Or if you need a specific item, just ask for it by name!",
+                "responses": [
+                    {
+                        "triggers": ["yes", "solve", "solve puzzle", "solve the puzzle", "solve weekly puzzle", "solve the weekly puzzle", "answer puzzle", "i want to solve the puzzle"],
+                        "met": 3
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    },
+                    {
+                        "triggers": ["re-nintendo"],
+                        "met": 4
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I'm not sure about that item, but you're free to roam our shelves!", 0]
+                    }
+                ]
+            },
+            {
+                "phrase": "Okay, well feel free to look around! Just come talk to me if you need something specific.",
+                "end": true
+            },
+            {
+                "phrase": "Welcome to Labyrinth Games! It looks like you already solved our puzzle, well done! If you need a specific item, just ask for it by name!",
+                "responses": [
+                    {
+                        "triggers": ["re-nintendo"],
+                        "met": 4
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Hmm, I'm not sure about that, but you're free to roam our shelves!", 2]
+                    }
+                ]
+            },
+            {
+                "phrase": "Oh great! Okay, what do you think the answer is?",
+                "responses": [
+                    {
+                        "triggers": ["18B8", "18b8"],
+                        "met": 5
+                    },
+                    {
+                        "triggers": ["*"],
+                        "met": ["Sorry, that's not it. What do you think the puzzle solution is?", 3]
+                    }
+                ]
+            },
+            {
+                "phrase": "Oh, the original Nintendo DS? Yeah, it's pretty cool. We actually just got a small box of those from another gaming store that shut down and found them in a back closet! You're welcome to buy one!",
+                "item": "0186680b-87ac-7961-b4a3-8a014f7e737b",
+                "end": true
+            },
+            {
+                "phrase": "That's right! Good job, here's your reward!",
+                "item": "018e82ce-932c-74ad-b09c-433b7ea1749b",
+                "end": true
+            }
+        ]
     }
 }

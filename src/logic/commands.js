@@ -385,7 +385,7 @@ function use(user, ...tokens) {
         return 'Which item do you want to use?'
     } else {
         const itemId = user.items.filter((id) => {
-            return items[id]?.name.toLowerCase() === itemName.toLowerCase() || items[id]?.alternates.includes(itemName.toLowerCase())
+            return items[id]?.name.toLowerCase() === itemName.toLowerCase() || items[id]?.alternates?.includes(itemName.toLowerCase())
         })[0] || null
 
         if (!itemId) {

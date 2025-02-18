@@ -14,8 +14,11 @@
         "id": "01942807-cdf2-74d7-8ad2-aa3c271ddee5",
         "name": "venue map",
         "alternates": ["map", "conference map"],
-        "description": "A map of the DistrictCon venue within the *Yours Truly Hotel*. On the ground level is the lobby and registration desk, as well as the *Mercy Me* bar and restaurant, site of the after party! Downstairs is the *conference center* where the *main stage*, *policy room*, and *village of villages* is located along with the sponsors. There are also restrooms down there and the staff room.",
-        "use": null,
+        "description": "A map of the DistrictCon venue within the *Yours Truly Hotel*. On the ground level is the lobby and registration desk, as well as the *Mercy Me* bar and restaurant, site of the after party! Downstairs is the *conference center* where the *main stage*, *policy room*, and *village of villages* is located along with the sponsors and some other rooms. There are also restrooms down there and the staff room.",
+        "use": {
+            "type": "text",
+            "value": "You pull out your map and take a look. This is a map of the DistrictCon venue within the *Yours Truly Hotel*. On the ground level is the lobby and registration desk, as well as the *Mercy Me* bar and restaurant, site of the after party! Downstairs is the *conference center* where the *main stage*, *policy room*, and *village of villages* is located along with the sponsors and some other rooms. There are also restrooms down there and the staff room."
+        },
         "points": 5
     },
     "01944d5d-2035-708c-b913-f7be18c0cb7a": {
@@ -56,7 +59,10 @@
         "name": "DisCo soundtrack",
         "alternates": ["districtcon soundtrack", "vinyl record", "record", "soundtrack"],
         "description": "A vinyl record of the DistrictCon soundtrack.",
-        "use": null,
+        "use": {
+            "type": "text",
+            "value": "You look around, but don't see a record player. You'll have to listen to this later"
+        },
         "points": 20
     },
     "019484b4-6223-75e1-8c19-91ce155f4514": {
@@ -176,7 +182,10 @@
         "scanable": true,
         "alternates": ["sticker", "stickers", "conference sticker", "disco sticker", "districtcon sticker"],
         "description": "This is the official DistrictCon sticker. It has a blue background and pink cherry blossom accents. It's in the shape of the number zero and has the name of the conference in the center of the zero.",
-        "use": null,
+        "use": {
+            "type": "text",
+            "value": "You peel off the backing of the sticker and slap it on your laptop. 'That looks reeeeaaal niiiice,' you say loudly to yourself. Other people look at you strangely, but you don't care."
+        },
         "points": 5
     },
     "01794855-f57f-7920-9fac-ac24d0a12cbf": {
@@ -214,7 +223,10 @@
         "name": "Village of Villages sticker",
         "alternates": ["vov sticker", "village sticker", "villages sticker", "stickers", "sticker"],
         "description": "You picked up this sticker from one of the village tables. It has all of the logos on it!",
-        "use": null,
+        "use": {
+            "type": "text",
+            "value": "You peel off the backing of the sticker and slap it on your laptop. 'That looks reeeeaaal niiiice,' you say loudly to yourself. Other people look at you strangely, but you don't care."
+        },
         "points": 10
     },
     "018aa024-b107-7da3-91ee-51cc6fd297e4": {
@@ -223,7 +235,10 @@
         "alternates": ["key", "server room key"],
         "scanable": true,
         "description": "You combined some things you found laying around to get this server key. It's an odd shape, you aren't sure what sort of room that might fit.",
-        "use": null,
+        "use": {
+            "type": "text",
+            "value": "You look around, surely there's a room with a lock this key fits..."
+        },
         "points": 20
     },
     "018b47aa-5937-7a58-ab5d-a766171f8038": {
@@ -231,7 +246,10 @@
         "name": "Node.js Sticker",
         "alternates": ["nodejs sticker", "node sticker", "javascript sticker"],
         "description": "Jakerella gave you this sticker for finding the code to this game!",
-        "use": null,
+        "use": {
+            "type": "text",
+            "value": "You peel off the backing of the sticker and slap it on your laptop. 'That looks reeeeaaal niiiice,' you say loudly to yourself. Other people look at you strangely, but you don't care."
+        },
         "points": 20
     },
     "01947476-3cce-7d99-808b-8cb62f505575": {
@@ -239,7 +257,10 @@
         "name": "Hand mic",
         "alternates": ["mic", "microphone", "hand microphone"],
         "description": "You picked this up in the Junkyard room. You probably should take it somewhere.",
-        "use": null,
+        "use": {
+            "type": "text",
+            "value": "You tap on the mic and say 'hello, hello' in a deep voice. No one seems to pay attention."
+        },
         "points": 5
     },
     "0192f6eb-5ffa-7cf5-9a2e-a40f8b5d5c1f": {
@@ -252,5 +273,37 @@
             "value": "You think about how Thor might be able to pay you back, but come up empty for now."
         },
         "points": 20
+    },
+    "0186680b-87ac-7961-b4a3-8a014f7e737b": {
+        "id": "0186680b-87ac-7961-b4a3-8a014f7e737b",
+        "name": "Nintendo DS",
+        "alternates": ["nintendo", "ds", "nintendo game", "gaming system", "gaming handheld"],
+        "description": "This is a mint condition Nintendo DS system from 2004. You got it from Lanyrinth Games.",
+        "use": {
+            "type": "text",
+            "value": "Hmm, doesn't look like it has any batteries. I'm sure someone could still make use of it though."
+        },
+        "points": 10
+    },
+    "018e82ce-932c-74ad-b09c-433b7ea1749b": {
+        "id": "018e82ce-932c-74ad-b09c-433b7ea1749b",
+        "name": "Candy",
+        "description": "You got this candy by solving the puzzle in front of Labyrinthm Games.",
+        "use": {
+            "type": "text",
+            "value": "You eat a piece of the candy. Tasty!"
+        },
+        "points": 20
+    },
+    "017a5a26-2a5e-7384-b3de-4d7774fb4838": {
+        "id": "017a5a26-2a5e-7384-b3de-4d7774fb4838",
+        "name": "Flipper Zero",
+        "alternates": ["flipper", "flipper 0", "flipper device"],
+        "description": "junk0r traded you this device in exchange for using your new Nintendo DS. The device is pretty cool, but also somewhat controvertial, at least in the U.S.",
+        "use": {
+            "type": "text",
+            "value": "You turn on the device and check it out, but you get distracted by all the stuff going on at the conference and decide to play with it when you get home."
+        },
+        "points": 30
     }
 }
