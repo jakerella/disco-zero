@@ -102,12 +102,24 @@
         "id": "01805090-e6f6-7582-bf41-2527c143e62d",
         "type": "room",
         "parent": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
-        "name": "Policy room",
-        "alt": ["disco policy room", "policy", "policy village"],
+        "name": "Hacker Policy Room",
+        "alt": ["hacker policy", "policy room", "disco policy room", "policy", "policy village"],
         "arrival": "You walk into the medium-sized conference space labelled 'DisCo Policy'",
         "description": "The DisCo Policy room is where thought leaders will shape the future of digital policy. You arrive between sessions and find a few different people hanging around, chatting about the state of cybersecurity policy and regulations in the U.S. To your right is a small table for the moderator of the roundtables to sit.",
         "points": 15,
         "people": ["016faa0c-2a2f-7543-a539-9a76117c757a"],
+        "items": []
+    },
+    "01803dd9-9388-72db-8f0e-dd84bf43c56f": {
+        "id": "01803dd9-9388-72db-8f0e-dd84bf43c56f",
+        "type": "room",
+        "parent": "019447f9-b219-73d6-8d7e-bcec12d2af9c",
+        "name": "Chill Out Room",
+        "alt": ["chill out", "chill room", "chill out space", "chill space"],
+        "arrival": "You walk into the darkened Chill Out room and immediately feel your anxiety lowering.",
+        "description": "This quiet, dark space is where you can go to hang out, decompress, and generally chill. You don't have to wrroy about anything when you're in here.",
+        "points": 15,
+        "people": [],
         "items": []
     },
     "01949f41-f35b-724c-8a12-5ec3846bd3b6": {

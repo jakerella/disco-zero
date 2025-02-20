@@ -14,10 +14,11 @@
         "id": "01942807-cdf2-74d7-8ad2-aa3c271ddee5",
         "name": "venue map",
         "alternates": ["map", "conference map"],
-        "description": "A map of the DistrictCon venue within the *Yours Truly Hotel*. On the ground level is the lobby and registration desk, as well as the *Mercy Me* bar and restaurant, site of the after party! Downstairs is the *conference center* where the *main stage*, *policy room*, and *village of villages* is located along with the sponsors and some other rooms. There are also restrooms down there and the staff room.",
+        "description": "A map of the DistrictCon venue within the *Yours Truly Hotel*. You can *use* this map to see more detail!",
         "use": {
-            "type": "text",
-            "value": "You pull out your map and take a look. This is a map of the DistrictCon venue within the *Yours Truly Hotel*. On the ground level is the lobby and registration desk, as well as the *Mercy Me* bar and restaurant, site of the after party! Downstairs is the *conference center* where the *main stage*, *policy room*, and *village of villages* is located along with the sponsors and some other rooms. There are also restrooms down there and the staff room."
+            "type": "download",
+            "value": "static/01942807-cdf2-74d7-8ad2-aa3c271ddee5.ascii",
+            "filename": "venue-map.ascii"
         },
         "points": 5
     },
@@ -27,9 +28,8 @@
         "alternates": ["usb drive", "thumb drive", "usb device"],
         "description": "There's a small label that just says 'exploits, not tragedies', but you never know, there could be something interesting on it. You could try to *use* it.",
         "use": {
-            "type": "download",
-            "value": "static/01944d5d-2035-708c-b913-f7be18c0cb7a.txt",
-            "filename": "secret.txt"
+            "type": "text",
+            "value": "You plug the usb drive into your burner laptop and see there's just a single text file with a URL in it: iwriteexploitsnottragedies.com/malware"
         },
         "points": 10
     },
@@ -305,5 +305,13 @@
             "value": "You turn on the device and check it out, but you get distracted by all the stuff going on at the conference and decide to play with it when you get home."
         },
         "points": 30
+    },
+    "018bc36f-26be-74be-b6bd-ebb17c13426c": {
+        "id": "018bc36f-26be-74be-b6bd-ebb17c13426c",
+        "name": "Manager Map",
+        "alternates": [],
+        "description": "You found this hidden map within the conference venue map! But... it actually looks the exact same as the venue map. Oh well.",
+        "use": null,
+        "points": 20
     }
 }
