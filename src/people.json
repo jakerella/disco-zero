@@ -691,12 +691,13 @@
         "id": "017fbc25-29c3-7f02-ab02-cfb829f5c55c",
         "name": "aaron",
         "triggers": [],
-        "points": 100,
+        "points": 50,
         "scanable": true,
         "abandon": "See ya.",
         "conversation": [
             {
-                "phrase": "You did it! TODO: maybe give them a challenge coin?",
+                "phrase": "Oh wow, you solved it! I didn't know if anyone would... well done!",
+                "item": "01865413-a29c-70ac-a946-16c7dba4b1fc",
                 "end": true
             }
         ]
@@ -1451,6 +1452,36 @@
             {
                 "phrase": "That's right! Good job, here's your reward!",
                 "item": "018e82ce-932c-74ad-b09c-433b7ea1749b",
+                "end": true
+            }
+        ]
+    },
+    "017d3175-7651-7b75-aae1-aa8b8a3360d5": {
+        "id": "017d3175-7651-7b75-aae1-aa8b8a3360d5",
+        "name": "ch1ll3r",
+        "triggers": ["attendee", "chill attendee", "chill out person", "person", "chill person"],
+        "points": 10,
+        "abandon": "See ya.",
+        "conversation": [
+            {
+                "phrase": "Hey friend, enjoying the con?",
+                "responses": [
+                    {
+                        "triggers": ["yes"],
+                        "met": 2
+                    },
+                    {
+                        "triggers": ["no"],
+                        "met": 1
+                    }
+                ]
+            },
+            {
+                "phrase": "That's too bad, I really am. You know, if you want to get more out of it, I hear there's a bunch of challenges going on. The staff room is right next door... you could ask them about some of those. One of them was some reverse engineering thing, pretty gnarly, actually.",
+                "end": true
+            },
+            {
+                "phrase": "Righteous. Me too. I've been enjoying all the little challenges. Have you tried them? The staff room is right next door... you could ask them about some of those. One of them was some reverse engineering thing, pretty gnarly, actually.",
                 "end": true
             }
         ]

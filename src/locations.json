@@ -117,9 +117,9 @@
         "name": "Chill Out Room",
         "alt": ["chill out", "chill room", "chill out space", "chill space"],
         "arrival": "You walk into the darkened Chill Out room and immediately feel your anxiety lowering.",
-        "description": "This quiet, dark space is where you can go to hang out, decompress, and generally chill. You don't have to wrroy about anything when you're in here.",
+        "description": "This quiet, dark space is where you can go to hang out, decompress, and generally chill. You don't have to worry about anything when you're in here. There's only one other attendee here right now, they see you come in and give a small head nod.",
         "points": 15,
-        "people": [],
+        "people": ["017d3175-7651-7b75-aae1-aa8b8a3360d5"],
         "items": []
     },
     "01949f41-f35b-724c-8a12-5ec3846bd3b6": {
