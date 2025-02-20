@@ -41,11 +41,11 @@
         "name": "Conference Center",
         "alt": ["conference venue", "conference rooms"],
         "arrival": "You walk into the main conference center space.",
-        "description": "There are lots of people in the conference center, some just walking through, some standing around talking. You can see the main stage ahead of you, and various other rooms as well. 'It sure would be nice to have a map of the venue,' you think to yoruself. You also notice a small staff room around the corner to the right. The elevator that leads to the Yours Truly Hotel lobby is behind you.",
+        "description": "There are lots of people in the conference center, some just walking through, some standing around talking. You see people with all sorts of different swag on their badges an Lanyards. One person has a Vanderbilt University pin on, you figure they must be a student there. You can see the main stage ahead of you, and various other rooms as well. 'It sure would be nice to have a map of the venue,' you think to yoruself. You also notice a small staff room around the corner to the right. The elevator that leads to the Yours Truly Hotel lobby is behind you.",
         "conditions": [{ "check": "has", "type": "item", "value": "019408f7-772f-70ee-9a69-2d8289644a12" }],
         "notmet": "A volunteer stops you at the elevator. \"Sorry, but you'll need a conference badge to go up. Have checked in at the registration desk with Jenny?\"",
         "points": 5,
-        "people": [],
+        "people": ["0186ffa8-98be-771d-8be1-f5fe5bcb0c1b"],
         "items": []
     },
     "01944d58-f34c-775f-b6f4-dc0d40461ac0": {
@@ -117,9 +117,9 @@
         "name": "Village of Villages",
         "alt": ["village room", "villages", "room 7", "room seven", "room 8", "room eight"],
         "arrival": "You walk into the Village of Villages space.",
-        "description": "This space is for the Villages represented at DistrictCon to exhibit and engage. Villages are an underutilized resource for policymakers who want to understand and make change in cyber security. You notice a number of tables and see that there are people from the Red Team Village, Blue Team Village, and others!",
+        "description": "This space is for the Villages represented at DistrictCon to exhibit and engage. Villages are an underutilized resource for policymakers who want to understand and make change in cyber security. Looking around you see a number of tables for the various villages and all sorts of cool gear laying around to play with. There's a person standing next to you in the doorway with one of those Vanderbilt pins on their badge, you guess it's a student. They appear to be in shock from all the cool stuff. At the tables spread out in the room are representatives from Red Teams, Blue Teams, and everything in between!",
         "points": 5,
-        "people": [],
+        "people": ["0177c601-e009-7176-b7db-6d330d63a3f3"],
         "items": []
     },
     "01939d34-ce4d-793f-bf65-ec1bfdd6521c": {

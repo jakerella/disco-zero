@@ -2,7 +2,7 @@ const fs = require('fs')
 const uuid = require('uuid')
 const redis = require('redis')
 
-const COUNT = 7
+const COUNT = 10
 const FILENAME = 'codes.txt'
 const BASE_URL = 'https://game.districtcon.org/contact/'
 const REDIS_URL = null  // process.env.REDIS_URL
@@ -24,7 +24,7 @@ const REDIS_URL = null  // process.env.REDIS_URL
     console.log(`Wrote all URLs to ${FILENAME}`)
 
     // For reading a big file of codes in order to write them to redis
-    // const codes = fs.readFileSync('disco_user_codes.txt').toString().split('\n').map((u) => {
+    // const codes = fs.readFileSync('disco_lobbycon_codes.txt').toString().split('\n').map((u) => {
     //     return u.split('/contact/')[1]
     // })
 
@@ -44,17 +44,18 @@ const REDIS_URL = null  // process.env.REDIS_URL
             })
             .connect()
     
-        const keys = await client.keys('*')
-        if (keys.length) {
-            for (let i=0; i<keys.length; ++i) {
-                const result = await client.del(keys[i])
-                if (result !== 1) {
-                    console.warn(`did not delete code ${i} from redis (${keys[i]}): ${result}`)
-                }
-            }
-        }
+        // const keys = await client.keys('*')
+        // if (keys.length) {
+        //     for (let i=0; i<keys.length; ++i) {
+        //         const result = await client.del(keys[i])
+        //         if (result !== 1) {
+        //             console.warn(`did not delete code ${i} from redis (${keys[i]}): ${result}`)
+        //         }
+        //     }
+        // }
     
         let count = 0
+        console.log(`Attempting to write ${codes.length} codes to redis...`)
         for (let i=0; i<codes.length; ++i) {
             const result = await client.set(`disco_code_${codes[i]}`, "")
             if (result !== 'OK') {

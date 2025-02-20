@@ -696,7 +696,7 @@
         "abandon": "See ya.",
         "conversation": [
             {
-                "phrase": "You did it!",
+                "phrase": "You did it! TODO: maybe give them a challenge coin?",
                 "end": true
             }
         ]
@@ -1040,14 +1040,14 @@
     },
     "0185a6ed-e177-74d8-856e-e5f22dbfb66d": {
         "id": "0185a6ed-e177-74d8-856e-e5f22dbfb66d",
-        "name": "nakasone student 1",
+        "name": "zerodaytea",
         "triggers": [],
-        "points": 10,
+        "points": 20,
         "scanable": true,
-        "abandon": "Bye now!",
+        "abandon": "Bye!",
         "conversation": [
             {
-                "phrase": "Hi! I'm one of General Nakasone's students, nice to meet you! I'm doing some research for an article and need to check some biographic data. Can you tell me where he got his Bachelor's degree?",
+                "phrase": "Hi! I am a junior Ingram Scholar majoring in Computer Science, Mathematics, and Physics at Vanderbilt and working on my masters in Computer Science with research in the realm of Systems Security. I am president of the CTF team and lead frequent competition participation in hacking competitions as well as cybersecurity discussions and workshops on campus. I'm also doing some research for an article on General Nakasone, the keynote speaker at DistrictCon, and need to check some biographic data. Can you tell me where he got his Bachelor's degree?",
                 "responses": [
                     {
                         "triggers": ["saint johns", "saint john", "st john", "st johns", "st johns university", "saint johns university", "saint john university"],
@@ -1075,17 +1075,17 @@
     },
     "0172e754-757e-79ba-9059-6cb1228c0752": {
         "id": "0172e754-757e-79ba-9059-6cb1228c0752",
-        "name": "nakasone student 2",
+        "name": "holden",
         "triggers": [],
-        "points": 10,
+        "points": 20,
         "scanable": true,
         "abandon": "See ya!",
         "conversation": [
             {
-                "phrase": "Hey there, I'm one of General Nakasone's students. I'm doing some research for an article and need to check something. Before he became the Director of Vanderbilt's Institute for National Security I think he spoke at some Summit here. Can you tell me what that was?",
+                "phrase": "Hey there, I'm a Mechanical Engineering and Computer Science student at Vanderbilt University, specializing in robotics software and autonomous systems. I'm also involved in competitive cybersecurity challenges through the university's CTF team. As a side project, I'm doing some research for an article on Paul Nakasone, one of the keynote speakers here, and need to check something. Before he became the Director of Vanderbilt's Institute for National Security I think he spoke at a summit here. Can you tell me the name of that event?",
                 "responses": [
                     {
-                        "triggers": ["summit on modern conflict and emerging threats", "modern conflict and emerging threats", "modern conflict & emerging threats"],
+                        "triggers": ["summit on modern conflict and emerging threats", "modern conflict and emerging threats", "modern conflict and emerging threats summit", "modern conflict & emerging threats", "summit on modern conflict & emerging threats", "modern conflict & emerging threats summit"],
                         "met": 2
                     },
                     {
@@ -1108,16 +1108,16 @@
             }
         ]
     },
-    "017be1d9-712b-7f2a-8677-ceb4b88b9832": {
-        "id": "017be1d9-712b-7f2a-8677-ceb4b88b9832",
-        "name": "nakasone student 3",
-        "triggers": [],
-        "points": 10,
+    "0186ffa8-98be-771d-8be1-f5fe5bcb0c1b": {
+        "id": "0186ffa8-98be-771d-8be1-f5fe5bcb0c1b",
+        "name": "vandy-s3c",
+        "triggers": ["vanderbilt student", "vanderbilt university student", "vandy student", "student"],
+        "points": 5,
         "scanable": true,
         "abandon": "Later!",
         "conversation": [
             {
-                "phrase": "Hey there, I'm one of General Nakasone's students. I'm doing some research for an article and need to check something. What year did Nakasone take over as the Commander for USCYBERCOM and the NSA?",
+                "phrase": "Hey there, I'm a student at Vanderbilt studying cybersecurity! There's an article we're writing on Gen Nakasone, and I'm doing some fo the research. Maybe you can help me out, what year did Nakasone take over as the Commander for USCYBERCOM and the NSA?",
                 "responses": [
                     {
                         "triggers": ["2018", "twenty eighteen", "two thousand eighteen", "two thousand and eighteen"],
@@ -1143,16 +1143,16 @@
             }
         ]
     },
-    "018c3630-bf28-7d19-81fb-8c86d97b11c5": {
-        "id": "018c3630-bf28-7d19-81fb-8c86d97b11c5",
-        "name": "nakasone student 4",
-        "triggers": [],
-        "points": 10,
+    "0177c601-e009-7176-b7db-6d330d63a3f3": {
+        "id": "0177c601-e009-7176-b7db-6d330d63a3f3",
+        "name": "cybercommodore",
+        "triggers": ["vanderbilt student", "vanderbilt university student", "vandy student", "student"],
+        "points": 5,
         "scanable": true,
         "abandon": "Bye!",
         "conversation": [
             {
-                "phrase": "Hey there, I'm one of General Nakasone's students. I'm doing some research for an article and need to check something. Can you tell me what rank Paul Nakasone's father held?",
+                "phrase": "This is so cool, isn't it?! Oh sorry, hi, I go by cybercommodore, studying security things at Vanderbilt. I'm doing some research for an article, I don't suppose you could help me out? Can you tell me what rank General Paul Nakasone's father held?",
                 "responses": [
                     {
                         "triggers": ["colonel", "O-6", "O6", "full bird", "full bird colonel", "full colonel"],
@@ -1180,14 +1180,14 @@
     },
     "018eff8c-ad42-7cb4-b2ee-dd976a1f6570": {
         "id": "018eff8c-ad42-7cb4-b2ee-dd976a1f6570",
-        "name": "nakasone student 5",
+        "name": "akothapalli",
         "triggers": [],
-        "points": 10,
+        "points": 20,
         "scanable": true,
         "abandon": "Bye!",
         "conversation": [
             {
-                "phrase": "Hey there, I'm one of General Nakasone's students. I'm doing some research for an article and need to check something. When did General Nakasone receive hist first star?",
+                "phrase": "I am a senior undergraduate at Vanderbilt University double majoring in computer science and mathematics with minors in physics and scientific computing. I am also concurrently pursuing my Master's degree in computer science at Vanderbilt. I am an active member of Vanderbilt's CTF team and am fortunate to be attending DistrictCon through the support of Vanderbilt's Institute of National Security. I am researching for an article on Retired General Nakasone and need to check something. When did General Nakasone receive hist first star?",
                 "responses": [
                     {
                         "triggers": ["2011", "twenty eleven", "two thousand eleven", "two thousand and eleven"],
