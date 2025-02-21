@@ -310,6 +310,7 @@
         "id": "018bc36f-26be-74be-b6bd-ebb17c13426c",
         "name": "Manager Map",
         "alternates": [],
+        "scanable": true,
         "description": "You found this hidden map within the conference venue map! But... it actually looks the exact same as the venue map. Oh well.",
         "use": null,
         "points": 30
