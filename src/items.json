@@ -25,11 +25,11 @@
     "01944d5d-2035-708c-b913-f7be18c0cb7a": {
         "id": "01944d5d-2035-708c-b913-f7be18c0cb7a",
         "name": "staff usb drive",
-        "alternates": ["usb drive", "thumb drive", "usb device"],
+        "alternates": ["usb drive", "usb", "thumb drive", "usb device"],
         "description": "There's a small label that just says 'exploits, not tragedies', but you never know, there could be something interesting on it. You could try to *use* it.",
         "use": {
             "type": "text",
-            "value": "You plug the usb drive into your burner laptop and see there's just a single text file with a URL in it: iwriteexploitsnottragedies.com/malware"
+            "value": "You plug the usb drive into your burner laptop and see there's just a single text file with a URL in it: https://files.iwriteexploitsnottragedies.com/2025/02/malware.gz"
         },
         "points": 10
     },
