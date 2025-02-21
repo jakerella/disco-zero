@@ -41,7 +41,7 @@
         "name": "Conference Center",
         "alt": ["conference venue", "conference rooms"],
         "arrival": "You walk into the main conference center space.",
-        "description": "There are lots of people in the conference center, some just walking through, some standing around talking. You see people with all sorts of different swag on their badges an Lanyards. One person has a Vanderbilt University pin on, you figure they must be a student there. You can see the main stage ahead of you, and various other rooms as well. 'It sure would be nice to have a map of the venue,' you think to yoruself. You also notice a small staff room around the corner to the right. The elevator that leads to the Yours Truly Hotel lobby is behind you.",
+        "description": "There are lots of people in the conference center, some just walking through, some standing around talking. You see people with all sorts of different swag on their badges an Lanyards. One person has a Vanderbilt University pin on, you figure they must be a student there. You can see the main stage ahead of you, and various other rooms as well. 'It sure would be nice to have a map of the venue,' you think to yourself. You also notice a small staff room around the corner to the right. The elevator that leads to the Yours Truly Hotel lobby is behind you.",
         "conditions": [{ "check": "has", "type": "item", "value": "019408f7-772f-70ee-9a69-2d8289644a12" }],
         "notmet": "A volunteer stops you at the elevator. \"Sorry, but you'll need a conference badge to go up. Have checked in at the registration desk with Jenny?\"",
         "points": 5,

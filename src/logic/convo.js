@@ -6,14 +6,14 @@ const people = require('../people.json')
 const items = require('../items.json')
 const logger = require('../util/logger')(process.env.LOG_LEVEL)
 
-async function handleConversation(user, response) {
+async function handleConversation(user, response, raw) {
     const person = people[user.convo[0]]
     if (!person) {
         user.convo = null
         return 'It looks like they just vanished! You decide to move on.'
     }
 
-    if (['hi', 'hello', 'howdy', 'hiya', 'good morning', 'good afternoon', 'good evening'].includes(response)) {
+    if (['hi', 'howdy', 'hiya', 'good morning', 'good afternoon', 'good evening'].includes(response)) {
         const greetings = ['Hi', 'Hello', 'Howdy', 'Hiya']
         return `${person.name}: "${greetings[Math.floor(Math.random()*greetings.length)]}!"`
     }
@@ -37,7 +37,7 @@ async function handleConversation(user, response) {
             let met = true
             if (options[i].conditions) {
                 for (let j=0; j<options[i].conditions.length; ++j) {
-                    if (!(await checkCondition(user, options[i].conditions[j], response))) {
+                    if (!(await checkCondition(user, options[i].conditions[j], response, raw))) {
                         met = false
                     }
                 }
@@ -61,7 +61,7 @@ async function handleConversation(user, response) {
             let met = true
             if (options[i].conditions) {
                 for (let j=0; j<options[i].conditions.length; ++j) {
-                    if (!(await checkCondition(user, options[i].conditions[j], response))) {
+                    if (!(await checkCondition(user, options[i].conditions[j], response, raw))) {
                         met = false
                     }
                 }
@@ -83,7 +83,7 @@ async function handleConversation(user, response) {
                         let met = true
                         if (options[i].conditions) {
                             for (let j=0; j<options[i].conditions.length; ++j) {
-                                if (!(await checkCondition(user, options[i].conditions[j], response))) {
+                                if (!(await checkCondition(user, options[i].conditions[j], response, raw))) {
                                     met = false
                                 }
                             }
@@ -107,11 +107,11 @@ async function handleConversation(user, response) {
     if (next === null) {
         return `${person.name}: "Sorry, I don't understand."`
     } else {
-        return processStep(user, person, response, next)
+        return processStep(user, person, response, next, raw)
     }
 }
 
-async function processStep(user, person, response, step) {
+async function processStep(user, person, response, step, raw) {
     let nextMessage = null
     if (Array.isArray(step)) {
         // Used primarily as a loopback with a different message for the player
@@ -170,7 +170,7 @@ async function processStep(user, person, response, step) {
     return `${person.name}: "${nextMessage}"${(runMsg) ? `\n${runMsg}` : ''}${(itemName) ? `\nYou received the ${itemName}!` : ''}`
 }
 
-async function checkCondition(user, condition, input) {
+async function checkCondition(user, condition, input, raw) {
     if (condition.check === 'has' && condition.type === 'item') {
         return user.items.includes(condition.value)
 
@@ -199,7 +199,7 @@ async function checkCondition(user, condition, input) {
 
     } else if (condition.check === 'is' && condition.type === 'indualconvo') {
         try {
-            const connection = await userModel.get(null, input)
+            const connection = await userModel.get(null, raw)
             return !!user.contacts.filter((c) => {
                 return c.type === 'player' && c.id === connection.code && connection.convo && connection.convo[0] === user.convo[0]
             })[0]
