@@ -92,7 +92,6 @@ input.prompt, input.prompt:focus {
 }
 .dashboard section {
     width: 48%;
-    max-height: 48vh;
     border: 1px solid #ddd;
     border-radius: 0.5rem;
     margin: 0.5rem;
