@@ -132,8 +132,12 @@ router.get('/cmd', async (req, res, next) => {
     }
 })
 
-function cleanCommand(input) {
-    return (input || '').trim().toLowerCase().replaceAll(/[^a-z0-9\s\-\|]/g, '')
+function cleanCommand(input, lowerCase = true) {
+    if (lowerCase) {
+        return (input || '').trim().toLowerCase().replaceAll(/[^a-z0-9\s\-\|]/g, '')
+    } else {
+        return (input || '').trim().replaceAll(/[^a-zA-Z0-9\s\-\|]/g, '')
+    }
 }
 
 async function handleCommand(req, input) {
@@ -147,6 +151,10 @@ async function handleCommand(req, input) {
     const user = req.session.user
     let out = null
     let tokens = cleanCommand(input).split(' ')
+
+    if (tokens[0] === 'admin') {
+        tokens = cleanCommand(input, false).split(' ')
+    }
 
     if (['logout', 'quit', 'q'].includes(tokens[0])) {
         throw new AppError('Please log in', 401)
