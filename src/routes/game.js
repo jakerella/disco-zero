@@ -182,7 +182,11 @@ async function handleCommand(req, input) {
         }
         cmd.push(tokens[i])
         if (commands[cmd.join(' ')]) {
+            if (commands[cmd.join(' ')].name === 'resetpassword') {
+                tokens = cleanCommand(input, false).split(' ')
+            }
             out = await commands[cmd.join(' ')](user || null, ...tokens.slice(i+1))
+            
             if (Array.isArray(out)) {
                 out = out.join('\n')
             }

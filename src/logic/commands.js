@@ -33,7 +33,7 @@ async function resetpassword(user, ...tokens) {
     let password = null
     if (tokens.length) {
         const [action, tempPass, _] = tokens[0].split('|')
-        if (action === 'password' && tempPass) {
+        if (action.toLowerCase() === 'password' && tempPass) {
             password = tempPass
         }
     }
