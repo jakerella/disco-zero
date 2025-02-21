@@ -2,6 +2,8 @@ extends partials/layout.pug
 
 block content
     article.terminal
+        a.dashboard-trigger(href='/dashboard').
+            Dashboard
         section.output
             if message
                 pre.out #{message}

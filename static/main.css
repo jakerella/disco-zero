@@ -65,6 +65,25 @@ input.prompt, input.prompt:focus {
     width: 95%;
 }
 
+.dashboard-trigger {
+    position: fixed;
+    top: 0.2rem;
+    right: 0.2rem;
+    width: 2rem;
+    height: 2rem;
+    font-size: 0;
+}
+.dashboard-trigger::after {
+    display: block;
+    content: " ";
+    width: 100%;
+    height: 100%;
+    background-image: url('/icon-bar-chart.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .dashboard {
     display: flex;
     justify-content: space-around;
@@ -108,7 +127,7 @@ input.prompt, input.prompt:focus {
     padding-left: 1rem;
 }
 .dashboard .chart .bar {
-    background-color: green;
+    background-color: #090;
     grid-column-start: 1;
     text-align: right;
     position: relative;
