@@ -124,7 +124,7 @@ input.prompt, input.prompt:focus {
     grid-template-columns: repeat(100, 1fr);
     grid-row-gap: 2px;
     width: 100%;
-    padding-left: 1rem;
+    padding-left: 2rem;
 }
 .dashboard .chart .bar {
     background-color: #090;
@@ -137,5 +137,5 @@ input.prompt, input.prompt:focus {
 }
 .dashboard .chart .label {
     position: absolute;
-    left: -1rem;
+    left: -2rem;
 }
