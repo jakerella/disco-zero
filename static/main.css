@@ -91,15 +91,22 @@ input.prompt, input.prompt:focus {
     font-family: 'Consolas', fixed-width;
 }
 .dashboard section {
-    width: 48%;
+    width: 100%;
     border: 1px solid #ddd;
     border-radius: 0.5rem;
     margin: 0.5rem;
     padding: 1rem;
     overflow: hidden;
 }
-.dashboard section.stats {
-    width: 31%;
+@media (min-width: 800px) {
+    .dashboard section {
+        width: 48%;
+    }
+}
+@media (min-width: 800px) {
+    .dashboard section.stats {
+        width: 31%;
+    }
 }
 .dashboard ul, .dashboard ol {
     padding-left: 2rem;
