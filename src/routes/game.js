@@ -166,7 +166,7 @@ async function handleCommand(req, input) {
 
     if (user.convo) {
         out = await convo.handleConversation(user, tokens.join(' ').replace(/\s?please\s?/, ''), input)
-        user.score = Math.max(user.score, 0)
+        user.score = user.score
         await userModel.save(user)
         return out
     }
@@ -194,7 +194,7 @@ async function handleCommand(req, input) {
         }
     }
     if (out) {
-        user.score = Math.max(user.score, 0)
+        user.score = user.score
         await userModel.save(user)
     }
     return out
