@@ -1030,7 +1030,7 @@
         "name": "Retired General Paul Nakasone",
         "triggers": ["nakasone", "general nakasone", "paul nakasone"],
         "scanable": true,
-        "points": 40,
+        "points": 50,
         "abandon": "Goodbye.",
         "conversation": [
             {

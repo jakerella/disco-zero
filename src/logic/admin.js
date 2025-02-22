@@ -6,6 +6,28 @@ const people = require('../people.json')
 const items = require('../items.json')
 const { uuidValid } = require('../util/helpers')
 
+const progressTracker = {
+    items: {
+        '01945c61-c10c-7788-b7e7-da82b5270751': 'Found DisCo Soundtrack',
+        '019484b6-9be4-705e-bc49-a67260a268f4': 'Performed Log Analysis & got leetBeats number',
+        '01948551-c92b-7324-b951-14b6d5d1fced': 'Found jakerella\'s coin (all locations)',
+        '0185e0d6-c1eb-737e-8546-4eeb34ae2e93': 'Helped Halvar',
+        '01815efb-16d4-7e6a-871b-1f03d7dd007c': 'Found DisCo game server code',
+        '018b86aa-07e1-7b73-8416-0825a12d2fd3': 'Decrypted JTW file',
+        '0192f6eb-5ffa-7cf5-9a2e-a40f8b5d5c1f': 'Helped Thor',
+        '018e82ce-932c-74ad-b09c-433b7ea1749b': 'Solved Labyrinth puzzle',
+        '017a5a26-2a5e-7384-b3de-4d7774fb4838': 'Traded DS for Flipper Zero',
+        '018bc36f-26be-74be-b6bd-ebb17c13426c': 'Got manager venue map',
+        '01865413-a29c-70ac-a946-16c7dba4b1fc': 'Solved reverse engineering challenge',
+        '01711f07-f5ed-760c-a8db-205c49827a94': 'Helped Policy Room moderator'
+    },
+    people: {
+        '01947a4a-8bc7-75df-8e1f-3f86dc276e19': 'Found exif data in logo',
+        '01001010-6666-7777-8888-1337c0d38055': 'Found jakerella',
+        '017e87fc-23ae-7fb1-8ecc-43f851b6dd01': 'Found Gen Nakasone'
+    }
+}
+
 
 module.exports = async function adminActions(tokens) {
     if (tokens[0] === 'help') {
@@ -75,6 +97,26 @@ module.exports = async function adminActions(tokens) {
     if (tokens.join(' ') === 'add user code') {
         const code = await userModel.addUserCode()
         return `Added new user code: ${code}`
+    }
+
+    if (tokens.join(' ') === 'progress') {
+
+        const itemsFound = await userModel.getStats('item')
+        const npcFound = await userModel.getStats('npc')
+
+        const resp = []
+        itemsFound.byId.forEach((stat) => {
+            if (progressTracker.items[stat.id]) {
+                resp.push(`${stat.value} player(s) ${progressTracker.items[stat.id]}`)
+            }
+        })
+        npcFound.byId.forEach((stat) => {
+            if (progressTracker.people[stat.id]) {
+                resp.push(`${stat.value} player(s) ${progressTracker.people[stat.id]}`)
+            }
+        })
+
+        return resp
     }
 
     if (tokens.join(' ') === 'map') {
