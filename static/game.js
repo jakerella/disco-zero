@@ -110,12 +110,17 @@
     })
 
     function typeOutput(node, text) {
-        const char = text[0]
-        node.innerText += (char === ' ') ? ` ${text[1]}` : char
-        if (text.length > 1) {
-            typingHandler = setTimeout(() => {
-                typeOutput(node, (char === ' ') ? text.substring(2) : text.substring(1))
-            }, Math.floor(Math.random() * 40) + 15)
+        console.log(`typing output: ${text}`)
+        if (text?.trim()) {
+            const char = text[0]
+            node.innerText += (char === ' ' && text[1]) ? ` ${text[1]}` : char
+            if (text.length > 1) {
+                typingHandler = setTimeout(() => {
+                    typeOutput(node, (char === ' ') ? text.substring(2) : text.substring(1))
+                }, Math.floor(Math.random() * 40) + 15)
+            } else {
+                makeLinks(node)
+            }
         } else {
             makeLinks(node)
         }
