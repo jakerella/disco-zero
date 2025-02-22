@@ -19,7 +19,9 @@ const progressTracker = {
         '017a5a26-2a5e-7384-b3de-4d7774fb4838': 'Traded DS for Flipper Zero',
         '018bc36f-26be-74be-b6bd-ebb17c13426c': 'Got manager venue map',
         '01865413-a29c-70ac-a946-16c7dba4b1fc': 'Solved reverse engineering challenge',
-        '01711f07-f5ed-760c-a8db-205c49827a94': 'Helped Policy Room moderator'
+        '01711f07-f5ed-760c-a8db-205c49827a94': 'Helped Policy Room moderator',
+        '01876657-476a-7e44-9006-a4ea7dcd7f5b': 'Decoded the metro map',
+        '00000000-6666-7777-8888-999999999999': 'Helped jakerella find a bug'
     },
     people: {
         '01947a4a-8bc7-75df-8e1f-3f86dc276e19': 'Found exif data in logo',

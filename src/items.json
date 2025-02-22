@@ -322,5 +322,23 @@
         "description": "A over-sized challenge coin with a picture of a disco ball on one side and a set of musical notes on the other. You got this for solving the beat challenge! Well done.",
         "use": null,
         "points": 150
+    },
+    "01876657-476a-7e44-9006-a4ea7dcd7f5b": {
+        "id": "01876657-476a-7e44-9006-a4ea7dcd7f5b",
+        "name": "DC Metro Card",
+        "scanable": true,
+        "alternates": ["metro card"],
+        "description": "A metro card used to get around DC!",
+        "use": null,
+        "points": 30
+    },
+    "00000000-6666-7777-8888-999999999999": {
+        "id": "00000000-6666-7777-8888-999999999999",
+        "name": "Bug Bounty",
+        "scanable": true,
+        "alternates": ["bounty", "bug"],
+        "description": "Jakerella thanks you for helping him find a bug!",
+        "use": null,
+        "points": 30
     }
 }
