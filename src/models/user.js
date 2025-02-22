@@ -232,7 +232,9 @@ async function leaderboard(count = 10) {
     const cache = await getCacheClient()
     if (!cache) { throw new AppError('No redis client available to delete data.', 500) }
 
-    return await cache.zRangeWithScores('leaderboard', 0, count-1, { REV: true })
+    const lowest = await cache.zRangeWithScores('leaderboard', 0, 1)
+
+    return [...await cache.zRangeWithScores('leaderboard', 0, count-2, { REV: true }), lowest]
 }
 
 async function getCacheClient() {

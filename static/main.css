@@ -108,6 +108,17 @@ input.prompt, input.prompt:focus {
     margin-top: 1rem;
     columns: 2;
 }
+.dashboard .leaderboard li:last-child {
+    margin-top: 1rem;
+    position: relative;
+}
+.dashboard .leaderboard li:last-child::before {
+    display: block;
+    position: absolute;
+    top: -1rem;
+    content: "...";
+    width: 3rem;
+}
 .dashboard h3 {
     font-size: 1.2rem;
     font-weight: bold;
