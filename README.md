@@ -2,6 +2,8 @@
 
 Would you like to play a game?
 
+This game was created as a badge challenge alongside the DistrictCon hacker conference in Washington, DC in February 2025.
+
 
 ## Running Locally
 
